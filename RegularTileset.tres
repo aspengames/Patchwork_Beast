@@ -1,0 +1,85 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://boxgtk1pebwh2"]
+
+[ext_resource type="Texture2D" uid="uid://bjhp3po54pmh6" path="res://art/environment/tileset_vectorized.png" id="1_6vwi6"]
+[ext_resource type="Texture2D" uid="uid://0qqol07or6yq" path="res://art/environment/shadow.png" id="1_pisck"]
+[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_6cqvd"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqsse"]
+texture = ExtResource("1_pisck")
+texture_region_size = Vector2i(135, 139)
+0:0/size_in_atlas = Vector2i(11, 6)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0lmjr"]
+texture = ExtResource("1_6vwi6")
+texture_region_size = Vector2i(128, 128)
+11:0/0 = 0
+11:0/0/terrain_set = 0
+11:0/0/terrain = 0
+12:0/0 = 0
+12:0/0/terrain_set = 0
+12:0/0/terrain = 0
+13:0/0 = 0
+13:0/0/terrain_set = 0
+13:0/0/terrain = 0
+11:1/0 = 0
+11:1/0/terrain_set = 0
+11:1/0/terrain = 0
+12:1/0 = 0
+12:1/0/terrain_set = 0
+12:1/0/terrain = 0
+13:1/0 = 0
+13:1/0/terrain_set = 0
+13:1/0/terrain = 0
+11:2/0 = 0
+11:2/0/terrain_set = 0
+11:2/0/terrain = 0
+12:2/0 = 0
+12:2/0/terrain_set = 0
+12:2/0/terrain = 0
+13:2/0 = 0
+13:2/0/terrain_set = 0
+13:2/0/terrain = 0
+14:6/0 = 0
+14:6/0/terrain_set = 0
+14:6/0/terrain = 0
+14:7/0 = 0
+14:7/0/terrain_set = 0
+14:7/0/terrain = 0
+15:7/0 = 0
+15:7/0/terrain_set = 0
+15:7/0/terrain = 0
+15:6/0 = 0
+15:6/0/terrain_set = 0
+15:6/0/terrain = 0
+14:4/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+15:4/0 = 0
+4:12/size_in_atlas = Vector2i(3, 4)
+4:12/0 = 0
+4:12/0/terrain_set = 0
+4:12/0/terrain = 1
+7:13/size_in_atlas = Vector2i(2, 3)
+7:13/0 = 0
+9:12/size_in_atlas = Vector2i(2, 4)
+9:12/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjcjr"]
+texture = ExtResource("3_6cqvd")
+texture_region_size = Vector2i(135, 139)
+0:0/size_in_atlas = Vector2i(11, 6)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(128, 128)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Tree 1"
+terrain_set_0/terrain_0/color = Color(0.556863, 1, 0.278431, 1)
+terrain_set_0/terrain_1/name = "Path"
+terrain_set_0/terrain_1/color = Color(0.894118, 0.478431, 0, 1)
+terrain_set_0/terrain_2/name = "Shadow"
+terrain_set_0/terrain_2/color = Color(0.501961, 0.0745098, 0.054902, 1)
+sources/1 = SubResource("TileSetAtlasSource_0lmjr")
+sources/0 = SubResource("TileSetAtlasSource_uqsse")
+sources/2 = SubResource("TileSetAtlasSource_pjcjr")

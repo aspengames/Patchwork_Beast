@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsr0h3tafj6uj"]
+
+[ext_resource type="PackedScene" uid="uid://c16edq2qyasmh" path="res://scenes/ui/healthbar.tscn" id="1"]
+
+[node name="ui" type="CanvasLayer"]
+
+[node name="health" parent="." instance=ExtResource("1")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
