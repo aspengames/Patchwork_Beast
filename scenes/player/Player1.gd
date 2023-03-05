@@ -74,6 +74,7 @@ func _physics_process(_delta):
 #			if globals.tutorial:
 #				$explosion.emitting = true
 #				return			
+			attacking = true
 			var nift_direction = self.global_position.direction_to(get_global_mouse_position())
 			throw_nift(nift_direction)
 	if enemyin and hurtTimer.is_stopped():
@@ -114,10 +115,26 @@ func throw_nift(nift_direction: Vector2):
 		nift.global_position = self.global_position#self.global_positions
 		#nift.z_index = -1
 		var nift_rotation = nift_direction.angle()
+		if -PI/4 < nift_rotation:
+			if nift_rotation < PI/4:
+				nift.global_position = $Staff1.global_position
+		if PI/4 < nift_rotation:
+			if nift_rotation < 3*PI/4:
+				nift.global_position = $Staff1.global_position
+		if -PI < nift_rotation:
+			if nift_rotation < -3*PI/4:
+				nift.global_position = $Staff2.global_position
+		if 3*PI/4 < nift_rotation:
+			if nift_rotation < PI:
+				nift.global_position = $Staff2.global_position
+		if -3*PI/4 < nift_rotation:
+			if nift_rotation < -PI/4:
+				nift.global_position = $Staff2.global_position
 		nift.rotation = nift_rotation
 		#$"../laserbgm".play()
 		atkTimer.start()
 		nift.get_node("pars").emitting = true
+		$AnimationTree.set("parameters/Idle/blend_position", nift_direction)
 		#print(nift_direction)
 		#var mouse_direction = Vector3(nift_direction.x, nift_direction.y, 0)
 		#nift.get_node("pars").process_material.set("direction", mouse_direction)
