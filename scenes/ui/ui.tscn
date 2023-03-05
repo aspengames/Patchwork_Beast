@@ -3,8 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://c16edq2qyasmh" path="res://scenes/ui/healthbar.tscn" id="1"]
 
 [node name="ui" type="CanvasLayer"]
+visible = false
 
 [node name="health" parent="." instance=ExtResource("1")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_top = -145.0
+offset_right = 2240.0
+offset_bottom = 487.0
+grow_vertical = 0
+scale = Vector2(0.225, 0.225)

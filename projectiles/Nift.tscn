@@ -8,8 +8,8 @@
 [sub_resource type="CircleShape2D" id="1"]
 
 [node name="Nift" type="Area2D" groups=["projectile"]]
-collision_layer = 8
-collision_mask = 4
+collision_layer = 12
+collision_mask = 12
 script = ExtResource("2")
 
 [node name="pars" parent="." instance=ExtResource("4")]

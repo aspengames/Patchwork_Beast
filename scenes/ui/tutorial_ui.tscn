@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://do88xhavnwrk8"]
+
+[ext_resource type="FontFile" uid="uid://dc431603em5h8" path="res://fonts/Lucida Sans Unicode.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://c7hxnjauis644" path="res://art/ui/button_w.png" id="2_75ifr"]
+[ext_resource type="Texture2D" uid="uid://bmer20si2sj2p" path="res://art/ui/button_a.png" id="3_p77k8"]
+[ext_resource type="Texture2D" uid="uid://bsd3admp6qi3h" path="res://art/ui/button_s.png" id="4_bwpcv"]
+[ext_resource type="Texture2D" uid="uid://fpkj1bvyrmdd" path="res://art/ui/button_d.png" id="5_mdg2h"]
+[ext_resource type="Script" path="res://scenes/ui/tutorial_ui.gd" id="6"]
+
+[sub_resource type="CanvasItemMaterial" id="2"]
+
+[node name="tutorial_ui" type="CanvasLayer"]
+script = ExtResource("6")
+
+[node name="disappear" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="UseWASD" type="Node2D" parent="."]
+position = Vector2(-40, 0)
+
+[node name="ButtonGroup" type="Node2D" parent="UseWASD"]
+position = Vector2(1225, 1016)
+scale = Vector2(0.25, 0.25)
+
+[node name="ButtonW" type="Sprite2D" parent="UseWASD/ButtonGroup"]
+position = Vector2(-1024, -368)
+texture = ExtResource("2_75ifr")
+
+[node name="ButtonA" type="Sprite2D" parent="UseWASD/ButtonGroup"]
+position = Vector2(-1296, -80)
+texture = ExtResource("3_p77k8")
+
+[node name="ButtonS" type="Sprite2D" parent="UseWASD/ButtonGroup"]
+position = Vector2(-1024, -80)
+texture = ExtResource("4_bwpcv")
+
+[node name="ButtonD" type="Sprite2D" parent="UseWASD/ButtonGroup"]
+position = Vector2(-752, -80)
+texture = ExtResource("5_mdg2h")
+
+[node name="Label" type="Label" parent="UseWASD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 744.0
+offset_top = 950.0
+offset_right = 1298.0
+offset_bottom = 1028.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
+text = "use                   to move"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(1, 1, 1, 0)
+
+[connection signal="timeout" from="disappear" to="." method="_on_disappear_timeout"]

@@ -30,7 +30,8 @@ func _ready():
 	#queue_text("Hey dude")
 	#pass
 	
-	tween1 = create_tween()
+	#tween1 = get_tree().create_tween()
+	#tween1.bind_node(self)
 	
 	all_finished = true
 	hide_textbox() 
@@ -44,7 +45,8 @@ func _process(_delta):
 		State.READING:
 			if Input.is_action_just_pressed("interact"):
 				label1.visible_ratio = 1.0
-				tween1.stop()
+				if tween1.is_running():
+					tween1.stop()
 				end_symbol.text = "v"
 				change_state(State.FINISHED)
 		State.FINISHED:
@@ -54,11 +56,15 @@ func _process(_delta):
 					all_finished = true
 					#print("ALL FINISHED")
 				hide_textbox()
-				globals.player_stop = false
-
+				if text_queue.is_empty():
+					globals.textbox_finished = true
+					globals.player_stop = false
+				
+				
 func queue_text(next_text):
 	text_queue.push_back(next_text)
 	globals.player_stop = true
+	
 	
 func set_new_name(_txtname):
 	pass
@@ -70,7 +76,8 @@ func hide_textbox():
 	if all_finished == true:
 		textbox_container.hide()
 		$Detail/Textbox.hide()
-		$Detail/TalkNPC.hide()
+		#$Detail/TalkNPC.hide()
+		$Detail/Player.hide()
 		$Overlay.hide()
 		speed = 160
 	
@@ -79,7 +86,8 @@ func show_textbox():
 	start_symbol.text = "*"
 	textbox_container.show()
 	$Detail/Textbox.show()
-	$Detail/TalkNPC.show()
+	#$Detail/TalkNPC.show()
+	$Detail/Player.show()
 	$Overlay.show()
 	
 func display_text():
@@ -90,7 +98,8 @@ func display_text():
 	change_state(State.READING)
 	show_textbox()
 	#tween1.tween_property(label1, "visible_ratio", 0.0, 1.0, len(next_text) * CHAR_READ_RATE, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween1.tween_property(label1, "visible_ratio", Vector2(0.0, 1.0), 1) 
+	tween1 = create_tween()
+	tween1.tween_property(label1, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT) 
 	#tween1.start()
 
 func _on_Tween_tween_all_completed():

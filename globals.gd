@@ -6,8 +6,9 @@ extends Node
 # var b = "text"
 var debug = false
 var mobsight = false
+var textbox_finished = false
 var player_stop = false
-
+var tutorial = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

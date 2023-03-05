@@ -16,6 +16,7 @@ func _on_Nift_area_entered(_area):
 	
 func _on_Nift_body_entered(body):
 	destroy()
+	print("Entered body!")
 	if body.is_in_group("charge_mob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
