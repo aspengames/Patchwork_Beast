@@ -30,7 +30,6 @@ func _on_hitbox_body_entered(body):
 		
 func _check_interaction():
 	if Input.is_action_just_pressed("interact") and can_interact and not globals.mobsight:
-		print("interact successful")
 		textbox.queue_text("I am the merchant, how may I help you")
 		can_interact = false
 

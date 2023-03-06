@@ -13,7 +13,7 @@ var can_interact = true
 func _ready():
 	if can_interact:
 		$Icon.visible = true
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -30,7 +30,6 @@ func _on_hitbox_body_entered(body):
 		
 func _check_interaction():
 	if Input.is_action_just_pressed("interact") and can_interact and not globals.mobsight:
-		print("interact successful")
 		textbox.queue_text("Welcome to the village")
 		can_interact = false
 

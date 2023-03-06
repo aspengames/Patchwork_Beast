@@ -1,14 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvqd5x6ihjdn6"]
+[gd_scene load_steps=11 format=3 uid="uid://dvqd5x6ihjdn6"]
 
-[ext_resource type="AudioStream" uid="uid://bm0w467s780c0" path="res://music/forest_walk.mp3" id="1"]
 [ext_resource type="TileSet" uid="uid://boxgtk1pebwh2" path="res://RegularTileset.tres" id="1_nlcto"]
 [ext_resource type="PackedScene" uid="uid://bmwew08qyosbj" path="res://scenes/player/Player.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://gr40dworx72i" path="res://art/environment/houses_vectorized.png" id="2_2cbjh"]
 [ext_resource type="PackedScene" uid="uid://cb6x1f05vmdf3" path="res://scenes/npcs/talkNPC.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://dt68nvcfsdots" path="res://scenes/ui/MainMenu.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://0ke3upru7noy" path="res://scenes/mob/mob.tscn" id="6"]
 [ext_resource type="Script" path="res://scenes/npcs/welcomeNPC.gd" id="8"]
 [ext_resource type="Script" path="res://scenes/npcs/MerchantNPC.gd" id="9"]
+[ext_resource type="PackedScene" uid="uid://cgn188hjafggy" path="res://scenes/ui/trans.tscn" id="10_xwfsi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pw5c8"]
 texture = ExtResource("2_2cbjh")
@@ -101,11 +100,6 @@ position = Vector2(-2473, -7351)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("9")
 
-[node name="Main_BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1")
-volume_db = -10.866
-autoplay = true
-
 [node name="mob" parent="." instance=ExtResource("6")]
 position = Vector2(3307, -25512)
 scale = Vector2(0.3, 0.3)
@@ -115,9 +109,10 @@ scale = Vector2(0.3, 0.3)
 [node name="Player" type="Node2D" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource("2")]
-position = Vector2(-7852, -516)
+position = Vector2(291, -4329)
 
 [node name="projectiles" type="Node2D" parent="Player"]
 
-[node name="MainMenu" parent="." instance=ExtResource("5")]
-visible = false
+[node name="trans" parent="." instance=ExtResource("10_xwfsi")]
+
+[editable path="trans"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgvpb3f32c5nh"]
+[gd_scene load_steps=21 format=3 uid="uid://dgvpb3f32c5nh"]
 
 [ext_resource type="TileSet" uid="uid://boxgtk1pebwh2" path="res://RegularTileset.tres" id="1_4cw7q"]
 [ext_resource type="PackedScene" uid="uid://bmwew08qyosbj" path="res://scenes/player/Player.tscn" id="2_dppys"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://0ke3upru7noy" path="res://scenes/mob/mob.tscn" id="4_3mjv1"]
 [ext_resource type="Script" path="res://scenes/tutorial/tutorial.gd" id="5_ltemg"]
 [ext_resource type="PackedScene" uid="uid://do88xhavnwrk8" path="res://scenes/ui/tutorial_ui.tscn" id="6_ewgb2"]
+[ext_resource type="PackedScene" uid="uid://cgn188hjafggy" path="res://scenes/ui/trans.tscn" id="6_rldc7"]
+[ext_resource type="PackedScene" uid="uid://dt68nvcfsdots" path="res://scenes/ui/MainMenu.tscn" id="8_g314n"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ebesu"]
 blend_mode = 3
@@ -72,7 +74,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../trans/ColorRect:color")
+tracks/0/path = NodePath("../trans/scene_trans:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -163,24 +165,15 @@ libraries = {
 "": SubResource("AnimationLibrary_m2cfx")
 }
 
-[node name="trans" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="trans"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -292.0
-offset_top = 198.0
-offset_right = -292.0
-offset_bottom = 198.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
+[node name="trans" parent="." instance=ExtResource("6_rldc7")]
 
 [node name="tutorial_ui" parent="." instance=ExtResource("6_ewgb2")]
+
+[node name="MainMenu" parent="." instance=ExtResource("8_g314n")]
 
 [connection signal="body_entered" from="TutorialStart/Area2D" to="TutorialStart" method="_on_PLAYER_entered"]
 [connection signal="animation_finished" from="TutorialStart/anim" to="TutorialStart" method="_on_ANIM_finished"]
 
 [editable path="Player/Player"]
+[editable path="Player/Player/transition"]
 [editable path="Player/Player/tips"]

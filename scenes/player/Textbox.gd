@@ -76,8 +76,10 @@ func hide_textbox():
 	if all_finished == true:
 		textbox_container.hide()
 		$Detail/Textbox.hide()
-		#$Detail/TalkNPC.hide()
-		$Detail/Player.hide()
+		if not globals.player_talking:
+			$Detail/TalkNPC.hide()
+		else:
+			$Detail/Player.hide()
 		$Overlay.hide()
 		speed = 160
 	
@@ -86,8 +88,10 @@ func show_textbox():
 	start_symbol.text = "*"
 	textbox_container.show()
 	$Detail/Textbox.show()
-	#$Detail/TalkNPC.show()
-	$Detail/Player.show()
+	if not globals.player_talking:
+		$Detail/TalkNPC.show()
+	else:
+		$Detail/Player.show()
 	$Overlay.show()
 	
 func display_text():

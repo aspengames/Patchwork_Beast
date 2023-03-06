@@ -362,7 +362,6 @@ parameters/Walk/blend_position = Vector2(0.02112, -0.206838)
 position_smoothing_enabled = true
 
 [node name="Textbox" parent="Camera2D" instance=ExtResource("3")]
-visible = false
 
 [node name="color" parent="Camera2D" instance=ExtResource("4")]
 
@@ -409,4 +408,5 @@ position = Vector2(-26.5, -15)
 [connection signal="body_exited" from="hitbox" to="." method="_on_HITBOX_body_exited"]
 [connection signal="timeout" from="tips/tiptimer" to="." method="_on_tiptimer_timeout"]
 
+[editable path="transition"]
 [editable path="tips"]

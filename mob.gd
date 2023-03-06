@@ -60,18 +60,13 @@ func _process(_delta):
 			buck = true
 			attack_player_dir = self.global_position.direction_to(player.global_position)
 			$atkTimer.start()
-			if PI/4 < mob_rot:
-				if mob_rot < 3*PI/4:
+			if -PI/2 < mob_rot:
+				if mob_rot < PI/2:
 					$anim.play("mob_attack_right")
-			if -PI < mob_rot:
-				if mob_rot < -3*PI/4:
-					$anim.play("mob_attack_left")
-			if 3*PI/4 < mob_rot:
-				if mob_rot < PI:
-					$anim.play("mob_attack_left")
-			if -3*PI/4 < mob_rot:
-				if mob_rot < -PI/4:
-					$anim.play("mob_attack_left")
+			if -PI/2 > mob_rot:
+				$anim.play("mob_attack_left")
+			if PI/2 < mob_rot: 
+				$anim.play("mob_attack_left")
 			
 		self.velocity = player_dir * speed
 		if attacking:

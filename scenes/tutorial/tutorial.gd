@@ -4,11 +4,13 @@ extends Node2D
 @onready var player = $"../Player/Player"
 @onready var mob = $"../mob"
 
+var one_shot = true
 var one = false
 var two = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AudioController.play_music()
 	player.get_node("atkTimer").set_wait_time(99999999)
 	player.get_node("atkTimer").start()
 	pass # Replace with function body.
@@ -21,8 +23,8 @@ func _process(delta):
 		globals.player_stop = true
 		two = true
 		$anim.play_backwards("camera_shift")
-	if mob.alive == false and globals.tutorial:
-		globals.tutorial = false
+		player.get_node("transition").visible = false
+	if mob.alive == false and one_shot:
 		$anim.play("whiteout")
 		player.get_node("explosion").emitting = true
 
@@ -38,11 +40,14 @@ func _on_ANIM_finished(anim_name):
 		textbox.queue_text("A deer spirit! What are you doing so far from home? I should be closer to the __village than the ___ forest...")
 		textbox.queue_text("Wait…what’s that on the deer’s leg? Rust? So strange…it seems to be spreading…")
 	if anim_name == "camera_shift" and two:
-		player.get_node("atkTimer").set_wait_time(3)
+		player.get_node("atkTimer").set_wait_time(1)
 		player.get_node("atkTimer").start()
 		player.get_node("ui").visible = true
-		player.show_tip("Ah! Someone, anyone, help!")
 		two = false
 		globals.player_stop = false
+		await get_tree().create_timer(2).timeout # delay tip to give player time to actually interact w enemy
+		player.show_tip("Ah! Someone, anyone, help!")
+	if anim_name == "whiteout":
+		get_tree().change_scene_to_file("res://scenes/world/Level.tscn")
 		
 	
