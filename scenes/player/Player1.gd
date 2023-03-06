@@ -21,6 +21,7 @@ var hurtTimer
 #init the nift
 var NIFT: PackedScene = preload("res://projectiles/Nift.tscn")
 
+
 """ -------- FUNCTIONS -------- """
 #initialize variables
 func _ready():
@@ -29,6 +30,9 @@ func _ready():
 	
 	atkTimer = $atkTimer
 	hurtTimer = $hurtTimer
+	
+	$Camera2D/Textbox.set_new_name("Ramis")
+	#temporary name setter
 	pass
 
 #executed each frame

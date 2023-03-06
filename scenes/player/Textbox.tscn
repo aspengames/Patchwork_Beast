@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://7em1q548jd3t"]
+[gd_scene load_steps=9 format=3 uid="uid://7em1q548jd3t"]
 
 [ext_resource type="Script" path="res://scenes/player/Textbox.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bb8pxkkl4ku40" path="res://art/npc/dialogue_npc.png" id="3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cb16w4is2w1ju" path="res://art/npc/textbox1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://frgw3tfb4eyr" path="res://art/player/mcfocus.png" id="5_k1aa0"]
 [ext_resource type="FontFile" uid="uid://dc431603em5h8" path="res://fonts/Lucida Sans Unicode.ttf" id="5_rhgba"]
+[ext_resource type="Texture2D" uid="uid://cnb52vauym4cg" path="res://art/ui/button_e.png" id="7_piat8"]
 
 [sub_resource type="CanvasItemMaterial" id="3"]
 blend_mode = 3
@@ -40,7 +41,7 @@ offset_bottom = -474.441
 theme_override_colors/font_color = Color(0.121569, 0.0705882, 0.0705882, 1)
 theme_override_fonts/font = ExtResource("3_m2xfy")
 theme_override_font_sizes/font_size = 128
-text = "Nemesis"
+text = "Ramis"
 
 [node name="TalkNPC" type="Sprite2D" parent="Detail"]
 visible = false
@@ -104,3 +105,8 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = ">"
+
+[node name="Button" type="Sprite2D" parent="TextboxContainer"]
+position = Vector2(694, 219)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_piat8")

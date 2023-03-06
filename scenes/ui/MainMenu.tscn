@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt68nvcfsdots"]
+[gd_scene load_steps=6 format=3 uid="uid://dt68nvcfsdots"]
 
 [ext_resource type="Texture2D" uid="uid://m3u2efyhwbto" path="res://art/ui/a.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://pg4gs08jsbdh" path="res://art/ui/pointer.png" id="3"]
 [ext_resource type="Script" path="res://scenes/ui/MainMenu.gd" id="4"]
 [ext_resource type="FontFile" uid="uid://ceacdqc72473j" path="res://fonts/DraconisBold.ttf" id="4_lnqcr"]
+[ext_resource type="Texture2D" uid="uid://frgw3tfb4eyr" path="res://art/player/mcfocus.png" id="5_4xh27"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("4")
@@ -78,6 +79,11 @@ theme_override_font_sizes/font_size = 50
 shortcut_in_tooltip = false
 text = "Quit"
 flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1439, 538)
+scale = Vector2(0.512, 0.512)
+texture = ExtResource("5_4xh27")
 
 [connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer/PLAY" to="." method="_on_PLAY_focus_entered"]
 [connection signal="mouse_entered" from="Menu/HBoxContainer/VBoxContainer/PLAY" to="." method="_on_PLAY_mouse_entered"]

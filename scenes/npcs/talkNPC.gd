@@ -8,11 +8,14 @@ var can_interact = true
 # var a = 2
 # var b = "text"
 
+#ORIGINAL NPC
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#textbox.set_new_name("Liria")  #set name to NPC's name
 	if can_interact:
 		$Icon.visible = true
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

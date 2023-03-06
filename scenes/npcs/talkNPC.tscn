@@ -1,8 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb6x1f05vmdf3"]
+[gd_scene load_steps=11 format=3 uid="uid://cb6x1f05vmdf3"]
 
 [ext_resource type="Texture2D" uid="uid://bhyjqpixnlnpd" path="res://art/npc/ingame_npc.png" id="1"]
 [ext_resource type="Script" path="res://scenes/npcs/talkNPC.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_x8cvm"]
 [ext_resource type="Texture2D" uid="uid://d4cgnaljdrpih" path="res://art/npc/exclaim.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dg7ywmwxt7rv2" path="res://art/npc/liri_idle1.png" id="4_sr653"]
+[ext_resource type="Texture2D" uid="uid://ctqjrdanbiv4j" path="res://art/npc/liri_idle2.png" id="5_ne1yb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kf2ql"]
+blend_mode = 3
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qh3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_sr653")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ne1yb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="1"]
 radius = 85.0
@@ -14,6 +34,14 @@ radius = 422.043
 [node name="talkNPC" type="CharacterBody2D"]
 script = ExtResource("2")
 
+[node name="shadow" type="Sprite2D" parent="."]
+show_behind_parent = true
+y_sort_enabled = true
+material = SubResource("CanvasItemMaterial_kf2ql")
+position = Vector2(7.62939e-06, 288)
+scale = Vector2(0.213552, 0.237067)
+texture = ExtResource("2_x8cvm")
+
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(79, -367)
@@ -21,7 +49,16 @@ scale = Vector2(0.145422, 0.145422)
 texture = ExtResource("3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, 24)
+scale = Vector2(0.32, 0.32)
+sprite_frames = SubResource("SpriteFrames_0qh3a")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.940572
 
 [node name="col" type="CollisionShape2D" parent="."]
 visible = false

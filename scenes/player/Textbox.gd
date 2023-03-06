@@ -8,6 +8,7 @@ var speed = 100
 @onready var start_symbol = $TextboxContainer/MarginContainer/HBoxContainer/Start
 @onready var end_symbol = $TextboxContainer/MarginContainer/HBoxContainer/End
 @onready var label1 = $TextboxContainer/MarginContainer/HBoxContainer/Label
+@onready var speaker_name = $Detail/Textbox/Name
 
 enum State {
 	READY,
@@ -35,6 +36,7 @@ func _ready():
 	
 	all_finished = true
 	hide_textbox() 
+	$TextboxContainer/Button.hide()
 	
 func _process(_delta):
 	match current_state:
@@ -42,12 +44,17 @@ func _process(_delta):
 			if !text_queue.is_empty():
 				speed = 0
 				display_text()
+				
 		State.READING:
+			
 			if Input.is_action_just_pressed("interact"):
+				
 				label1.visible_ratio = 1.0
 				if tween1.is_running():
 					tween1.stop()
 				end_symbol.text = "v"
+			
+				$TextboxContainer/Button.show()
 				change_state(State.FINISHED)
 		State.FINISHED:
 			if Input.is_action_just_pressed("interact"):
@@ -67,7 +74,7 @@ func queue_text(next_text):
 	
 	
 func set_new_name(_txtname):
-	pass
+	speaker_name.text = _txtname
 	
 func hide_textbox():
 	start_symbol.text = ""
@@ -95,6 +102,7 @@ func show_textbox():
 	$Overlay.show()
 	
 func display_text():
+	$TextboxContainer/Button.hide()
 	var next_text = text_queue.pop_front()
 	label1.text = next_text
 	label1.visible_ratio = 0.0
@@ -105,10 +113,12 @@ func display_text():
 	tween1 = create_tween()
 	tween1.tween_property(label1, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT) 
 	#tween1.start()
-
+	
 func _on_Tween_tween_all_completed():
+	
 	end_symbol.text = "v"
 	change_state(State.FINISHED)
+	
 
 func change_state(next_state):
 	current_state = next_state
