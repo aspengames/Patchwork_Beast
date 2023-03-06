@@ -104,9 +104,8 @@ clip_text = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
-text = ">"
 
 [node name="Button" type="Sprite2D" parent="TextboxContainer"]
-position = Vector2(694, 219)
+position = Vector2(703, 222)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_piat8")

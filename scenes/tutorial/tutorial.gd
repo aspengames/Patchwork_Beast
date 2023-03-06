@@ -25,7 +25,7 @@ func _process(delta):
 		$anim.play_backwards("camera_shift")
 		player.get_node("transition").visible = false
 	if mob.alive == false and one_shot:
-		$anim.play("whiteout")
+		$"../trans/anim".play("whiteout")
 		player.get_node("explosion").emitting = true
 
 func _on_PLAYER_entered(body):

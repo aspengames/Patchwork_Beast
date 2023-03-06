@@ -1,9 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgn188hjafggy"]
+[gd_scene load_steps=6 format=3 uid="uid://cgn188hjafggy"]
 
 [ext_resource type="Script" path="res://scenes/ui/trans.gd" id="1_1osut"]
 
 [sub_resource type="Animation" id="Animation_avbfq"]
 length = 0.001
+
+[sub_resource type="Animation" id="Animation_16sap"]
+resource_name = "blackout"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("scene_trans:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.2, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_dewgb"]
 resource_name = "whiteout"
@@ -24,6 +40,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qn3dw"]
 _data = {
 "RESET": SubResource("Animation_avbfq"),
+"blackout": SubResource("Animation_16sap"),
 "whiteout": SubResource("Animation_dewgb")
 }
 

@@ -91,7 +91,8 @@ func _physics_process(_delta):
 	if health <= 0 and not dead:
 		dead = true
 		$AnimationPlayer2.play("death")
-		
+		globals.player_stop = true
+		globals.global_dead = true
 	#applying the needed vector to the object, to make it move thanks to the move_and_slide function
 	if not attacking:
 		move_and_slide()
@@ -160,3 +161,13 @@ func show_tip(text):
 	
 func _on_tiptimer_timeout():
 	$tips.visible = false
+
+
+func _on_PLAYERANIM_finished(anim_name):
+	if anim_name == "death":
+		$transition.visible = true
+		$transition/anim.play_backwards("fade")
+
+func _on_PLAYERTRANSITION_finished(anim_name):
+	if anim_name == "fade" and dead:
+		get_tree().change_scene_to_file("res://scenes/world/Level.tscn")

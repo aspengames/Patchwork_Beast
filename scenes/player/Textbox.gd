@@ -20,6 +20,7 @@ var current_state = State.READY
 var text_queue = []
 var all_finished = false
 var textbox_name = ""
+var cur_text_done = false
 
 var tween1
 @onready var player = $"../.."
@@ -46,18 +47,23 @@ func _process(_delta):
 				display_text()
 				
 		State.READING:
-			
-			if Input.is_action_just_pressed("interact"):
-				
+			if label1.visible_ratio == 1.0 and not cur_text_done:
+				$TextboxContainer/Button.show()
+				cur_text_done = true
+				change_state(State.FINISHED)
+				#print("Done")
+			if Input.is_action_just_pressed("interact_advance"):
+				cur_text_done = true
 				label1.visible_ratio = 1.0
 				if tween1.is_running():
 					tween1.stop()
 				end_symbol.text = "v"
-			
+				
 				$TextboxContainer/Button.show()
 				change_state(State.FINISHED)
 		State.FINISHED:
-			if Input.is_action_just_pressed("interact"):
+			if cur_text_done and Input.is_action_just_pressed("interact_advance"):
+				cur_text_done = false
 				change_state(State.READY)
 				if text_queue.is_empty():
 					all_finished = true

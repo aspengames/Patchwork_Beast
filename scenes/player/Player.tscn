@@ -393,6 +393,7 @@ shape = SubResource("25")
 layer = 0
 
 [node name="transition" parent="." instance=ExtResource("7_etjo0")]
+visible = false
 
 [node name="tips" parent="." instance=ExtResource("9_vrsyg")]
 visible = false
@@ -403,9 +404,11 @@ position = Vector2(28.5, -13)
 [node name="Staff2" type="Node2D" parent="."]
 position = Vector2(-26.5, -15)
 
+[connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_PLAYERANIM_finished"]
 [connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_HITBOX_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_HITBOX_body_exited"]
+[connection signal="animation_finished" from="transition/anim" to="." method="_on_PLAYERTRANSITION_finished"]
 [connection signal="timeout" from="tips/tiptimer" to="." method="_on_tiptimer_timeout"]
 
 [editable path="transition"]

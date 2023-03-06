@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var p2 = $Menu/HBoxContainer/Pointer/selector2
 @onready var p3 = $Menu/HBoxContainer/Pointer/selector3
 
+@onready var player = $"../Player/Player"
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -24,6 +26,8 @@ func _ready():
 func _on_PLAY_pressed():
 	#get_tree().change_scene("res://scenes/world/Level.tscn")
 	self.visible = false
+	player.get_node("transition").visible = true
+	player.get_node("transition/anim").play("fade")
 
 
 func _on_QUIT_pressed():

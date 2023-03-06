@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dgvpb3f32c5nh"]
+[gd_scene load_steps=20 format=3 uid="uid://dgvpb3f32c5nh"]
 
 [ext_resource type="TileSet" uid="uid://boxgtk1pebwh2" path="res://RegularTileset.tres" id="1_4cw7q"]
 [ext_resource type="PackedScene" uid="uid://bmwew08qyosbj" path="res://scenes/player/Player.tscn" id="2_dppys"]
@@ -68,27 +68,10 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(120, -460)]
 }
 
-[sub_resource type="Animation" id="Animation_o1oby"]
-resource_name = "whiteout"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../trans/scene_trans:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m2cfx"]
 _data = {
 "RESET": SubResource("Animation_wob8n"),
-"camera_shift": SubResource("Animation_345qc"),
-"whiteout": SubResource("Animation_o1oby")
+"camera_shift": SubResource("Animation_345qc")
 }
 
 [node name="Tutorial" type="Node2D"]
@@ -173,7 +156,9 @@ libraries = {
 
 [connection signal="body_entered" from="TutorialStart/Area2D" to="TutorialStart" method="_on_PLAYER_entered"]
 [connection signal="animation_finished" from="TutorialStart/anim" to="TutorialStart" method="_on_ANIM_finished"]
+[connection signal="animation_finished" from="trans/anim" to="TutorialStart" method="_on_ANIM_finished"]
 
 [editable path="Player/Player"]
 [editable path="Player/Player/transition"]
 [editable path="Player/Player/tips"]
+[editable path="trans"]
