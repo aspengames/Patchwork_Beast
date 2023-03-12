@@ -1,8 +1,11 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://boxgtk1pebwh2"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://boxgtk1pebwh2"]
 
 [ext_resource type="Texture2D" uid="uid://bjhp3po54pmh6" path="res://art/environment/tileset_vectorized.png" id="1_6vwi6"]
 [ext_resource type="Texture2D" uid="uid://0qqol07or6yq" path="res://art/environment/shadow.png" id="1_pisck"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_6cqvd"]
+[ext_resource type="PackedScene" uid="uid://cqhqes4kwpk3" path="res://scenes/world/tree1.tscn" id="4_2khh1"]
+[ext_resource type="PackedScene" uid="uid://ccxmnhx0k27ly" path="res://scenes/world/tree2.tscn" id="5_kls2u"]
+[ext_resource type="PackedScene" uid="uid://mngg3840tgb3" path="res://scenes/world/tree3.tscn" id="6_l1ar3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqsse"]
 texture = ExtResource("1_pisck")
@@ -147,6 +150,13 @@ texture_region_size = Vector2i(135, 139)
 0:0/size_in_atlas = Vector2i(11, 6)
 0:0/0 = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2d1vj"]
+scenes/1/scene = ExtResource("4_2khh1")
+scenes/1/display_placeholder = ExtResource("4_2khh1")
+scenes/2/scene = ExtResource("5_kls2u")
+scenes/2/display_placeholder = ExtResource("5_kls2u")
+scenes/3/scene = ExtResource("6_l1ar3")
+
 [resource]
 tile_size = Vector2i(128, 128)
 terrain_set_0/mode = 0
@@ -159,3 +169,4 @@ terrain_set_0/terrain_2/color = Color(0.501961, 0.0745098, 0.054902, 1)
 sources/1 = SubResource("TileSetAtlasSource_0lmjr")
 sources/0 = SubResource("TileSetAtlasSource_uqsse")
 sources/2 = SubResource("TileSetAtlasSource_pjcjr")
+sources/3 = SubResource("TileSetScenesCollectionSource_2d1vj")

@@ -1,0 +1,399 @@
+[gd_scene load_steps=20 format=3 uid="uid://ckx0evukhppdl"]
+
+[ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
+[ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
+[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_whi4w"]
+[ext_resource type="Texture2D" uid="uid://swifahjqdls4" path="res://projectiles/particle2.png" id="4_nsxro"]
+
+[sub_resource type="CapsuleShape2D" id="8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
+blend_mode = 3
+
+[sub_resource type="Animation" id="3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_2ffpw"]
+resource_name = "mob_attack_left"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+
+[sub_resource type="Animation" id="Animation_ekqj3"]
+resource_name = "mob_attack_right"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+
+[sub_resource type="Animation" id="4"]
+resource_name = "mob_down"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.515)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 570)]
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "mob_left"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+
+[sub_resource type="Animation" id="6"]
+resource_name = "mob_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 570)]
+}
+
+[sub_resource type="Animation" id="7"]
+resource_name = "mob_up"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.515)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 570)]
+}
+
+[sub_resource type="Animation" id="Animation_tyj1j"]
+resource_name = "bearmob_attack"
+length = 0.8
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
+_data = {
+"RESET": SubResource("3"),
+"bearmob_attack": SubResource("Animation_tyj1j"),
+"mob_attack_left": SubResource("Animation_2ffpw"),
+"mob_attack_right": SubResource("Animation_ekqj3"),
+"mob_down": SubResource("4"),
+"mob_left": SubResource("5"),
+"mob_right": SubResource("6"),
+"mob_up": SubResource("7")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="9"]
+emission_shape = 5
+emission_point_count = 1
+gravity = Vector3(100, 0, 0)
+
+[sub_resource type="Animation" id="10"]
+length = 0.001
+
+[sub_resource type="Animation" id="11"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_csyb8"]
+_data = {
+"RESET": SubResource("10"),
+"dead": SubResource("11")
+}
+
+[node name="bear" type="CharacterBody2D" groups=["charge_mob"]]
+collision_layer = 13
+collision_mask = 13
+script = ExtResource("1_lcjnv")
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2(0, 250)
+scale = Vector2(15, 15)
+shape = SubResource("8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_xgfbe")
+hframes = 8
+vframes = 3
+frame = 10
+
+[node name="shadow" type="Sprite2D" parent="Sprite"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_fempb")
+position = Vector2(64, 570)
+scale = Vector2(0.849158, 0.515)
+texture = ExtResource("3_whi4w")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bb3kj")
+}
+
+[node name="pars" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(-100, 300)
+emitting = false
+amount = 50
+process_material = SubResource("9")
+texture = ExtResource("4_nsxro")
+lifetime = 3.0
+one_shot = true
+
+[node name="deadanim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_csyb8")
+}
+
+[node name="vis" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="deathTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="atkTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
+[connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
+[connection signal="screen_exited" from="vis" to="." method="_on_vis_screen_exited"]
+[connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
+[connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]

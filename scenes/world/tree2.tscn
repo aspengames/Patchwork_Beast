@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccxmnhx0k27ly"]
+
+[ext_resource type="Texture2D" uid="uid://p70rtxav33mk" path="res://art/environment/tree2.png" id="1_tmhi8"]
+[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_xpgm3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wsyto"]
+blend_mode = 3
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oeahd"]
+radius = 4.42857
+height = 8.85714
+
+[node name="Tree2" type="Sprite2D"]
+z_index = 1
+texture = ExtResource("1_tmhi8")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_wsyto")
+position = Vector2(4, 135)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_xpgm3")
+
+[node name="col" type="StaticBody2D" parent="."]
+
+[node name="col" type="CollisionShape2D" parent="col"]
+position = Vector2(-1, 72)
+scale = Vector2(7, 7)
+shape = SubResource("CapsuleShape2D_oeahd")

@@ -391,6 +391,7 @@ shape = SubResource("25")
 
 [node name="ui" parent="." instance=ExtResource("6")]
 layer = 0
+visible = true
 
 [node name="transition" parent="." instance=ExtResource("7_etjo0")]
 visible = false
