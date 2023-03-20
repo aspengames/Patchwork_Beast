@@ -107,6 +107,11 @@ func _on_HITBOX_body_entered(body):
 		$ui/health.value = health
 		print(health)
 		hurtTimer.start()
+	if body.is_in_group("earthatk"):
+		print("ow")
+		health -= 10
+		$ui/health.value = health
+		print(health)
 
 func _on_HITBOX_body_exited(body):
 	if body.is_in_group("charge_mob"):

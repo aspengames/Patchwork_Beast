@@ -13,6 +13,48 @@ blend_mode = 3
 [sub_resource type="Animation" id="3"]
 length = 0.001
 
+[sub_resource type="Animation" id="Animation_tyj1j"]
+resource_name = "bearmob_attack"
+length = 0.8
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
+
 [sub_resource type="Animation" id="Animation_2ffpw"]
 resource_name = "mob_attack_left"
 length = 0.6
@@ -257,48 +299,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 570)]
 }
 
-[sub_resource type="Animation" id="Animation_tyj1j"]
-resource_name = "bearmob_attack"
-length = 0.8
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [16, 17, 18, 19, 20, 21]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 570)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/shadow:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.849158, 0.515)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
 _data = {
 "RESET": SubResource("3"),
@@ -354,7 +354,7 @@ shape = SubResource("8")
 texture = ExtResource("2_nvxew")
 hframes = 8
 vframes = 3
-frame = 22
+frame = 20
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
@@ -392,8 +392,11 @@ wait_time = 3.0
 wait_time = 2.5
 one_shot = true
 
+[node name="chargeTimer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
 [connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
 [connection signal="screen_exited" from="vis" to="." method="_on_vis_screen_exited"]
 [connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
 [connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]
+[connection signal="timeout" from="chargeTimer" to="." method="_on_charge_timer_timeout"]

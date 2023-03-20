@@ -67,13 +67,12 @@ func _process(_delta):
 				$anim.play("mob_attack_left")
 			if PI/2 < mob_rot: 
 				$anim.play("mob_attack_left")
+				
+		if not buck:
+			self.velocity = player_dir * speed
 			
-		self.velocity = player_dir * speed
 		if attacking:
 			self.velocity = attack_player_dir * speed
-			if (self.global_position.distance_to(player.get_global_position()) > 500):
-				attacking = false
-				speed = 250
 		
 		self.move_and_slide()	
 		
@@ -112,6 +111,12 @@ func _on_deathTimer_timeout():
 
 
 func _on_atk_timer_timeout():
-	buck = false
 	attacking = true
+	buck = false
 	speed = 500
+	$chargeTimer.start()
+
+
+func _on_charge_timer_timeout():
+	attacking = false
+	speed = 250

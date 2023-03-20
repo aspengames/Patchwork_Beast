@@ -9,12 +9,13 @@ extends CharacterBody2D
 var dist = 999999
 var alive = true
 var trulydead = false
-var buck = false
 var attacking = false
 var attack_player_dir
-var speed = 250
+var speed = 150
+var charge_bar = false
+var atk_counter = 3
 
-@export var health = 5
+@export var health = 8
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,7 +31,7 @@ func _process(_delta):
 	#print(mob_rot)
 	#print(mob_rot)
 	#print(PI)
-	if not buck:
+	if not charge_bar:
 		if -PI/4 < mob_rot:
 			if mob_rot < PI/4:
 				$anim.play("mob_right")
@@ -49,33 +50,24 @@ func _process(_delta):
 
 	#print(globals.mobsight)
 	#print(self.global_position.distance_to(player.get_global_position()))
-	if (self.global_position.distance_to(player.get_global_position()) < 1000) and (self.global_position.distance_to(player.get_global_position()) > 100) and not trulydead:
-		if not $anim.is_playing():
-			$anim.play()
-		if buck:
-			return
+	if (self.global_position.distance_to(player.get_global_position()) < 1000) and not trulydead:
 		#self.global_position += player_dir
 		#self.move_and_slide(player_dir * 500)
-		if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
-			buck = true
-			attack_player_dir = self.global_position.direction_to(player.global_position)
-			$atkTimer.start()
-			if -PI/2 < mob_rot:
-				if mob_rot < PI/2:
-					$anim.play("mob_attack_right")
-			if -PI/2 > mob_rot:
-				$anim.play("mob_attack_left")
-			if PI/2 < mob_rot: 
-				$anim.play("mob_attack_left")
-			
-		self.velocity = player_dir * speed
-		if attacking:
-			self.velocity = attack_player_dir * speed
-			if (self.global_position.distance_to(player.get_global_position()) > 500):
-				attacking = false
-				speed = 250
 		
-		self.move_and_slide()	
+		if not $anim.is_playing():
+			$anim.play()
+		
+		if charge_bar:
+			return
+			
+		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
+			charge_bar = true
+			$anim.play("bearmob_attack")
+		
+		self.velocity = player_dir * speed
+		
+		if not charge_bar:
+			self.move_and_slide()	
 		
 		if not $anim.is_playing():
 			$anim.play()
@@ -111,7 +103,15 @@ func _on_deathTimer_timeout():
 	queue_free()
 
 
-func _on_atk_timer_timeout():
-	buck = false
-	attacking = true
-	speed = 500
+func _on_anim_animation_finished(anim_name):
+	if anim_name == "bearmob_attack":
+		$atkRadius/earth_shatter_hitbox.scale *= 1.5
+		if $atkRadius.overlaps_body(player):
+			player._on_HITBOX_body_entered($atkRadius)
+		atk_counter -= 1
+		if atk_counter <= -1:
+			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+			attacking = false
+			charge_bar = false
+			atk_counter = 3
+		

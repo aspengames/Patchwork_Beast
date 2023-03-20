@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://ckx0evukhppdl"]
+[gd_scene load_steps=22 format=3 uid="uid://ckx0evukhppdl"]
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
 [ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_whi4w"]
 [ext_resource type="Texture2D" uid="uid://swifahjqdls4" path="res://projectiles/particle2.png" id="4_nsxro"]
+[ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="5_fgr5j"]
 
 [sub_resource type="CapsuleShape2D" id="8"]
 
@@ -12,6 +13,47 @@ blend_mode = 3
 
 [sub_resource type="Animation" id="3"]
 length = 0.001
+
+[sub_resource type="Animation" id="Animation_tyj1j"]
+resource_name = "bearmob_attack"
+length = 0.8
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 570)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.849158, 0.515)]
+}
 
 [sub_resource type="Animation" id="Animation_2ffpw"]
 resource_name = "mob_attack_left"
@@ -257,48 +299,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 570)]
 }
 
-[sub_resource type="Animation" id="Animation_tyj1j"]
-resource_name = "bearmob_attack"
-length = 0.8
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [16, 17, 18, 19, 20, 21]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/shadow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 570)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite/shadow:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.849158, 0.515)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
 _data = {
 "RESET": SubResource("3"),
@@ -340,9 +340,11 @@ _data = {
 "dead": SubResource("11")
 }
 
-[node name="bear" type="CharacterBody2D" groups=["charge_mob"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5bca"]
+
+[node name="bear" type="CharacterBody2D"]
 collision_layer = 13
-collision_mask = 13
+collision_mask = 0
 script = ExtResource("1_lcjnv")
 
 [node name="col" type="CollisionShape2D" parent="."]
@@ -354,7 +356,7 @@ shape = SubResource("8")
 texture = ExtResource("2_xgfbe")
 hframes = 8
 vframes = 3
-frame = 10
+frame = 17
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
@@ -392,6 +394,23 @@ wait_time = 3.0
 wait_time = 2.5
 one_shot = true
 
+[node name="atkRadius" type="Area2D" parent="." groups=["earthatk"]]
+show_behind_parent = true
+position = Vector2(0, 495)
+collision_layer = 13
+collision_mask = 13
+
+[node name="earth_shatter_hitbox" type="CollisionShape2D" parent="atkRadius"]
+scale = Vector2(40, 40)
+shape = SubResource("CircleShape2D_o5bca")
+
+[node name="Sprite2D" type="Sprite2D" parent="atkRadius/earth_shatter_hitbox"]
+visible = false
+show_behind_parent = true
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_fgr5j")
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
 [connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
 [connection signal="screen_exited" from="vis" to="." method="_on_vis_screen_exited"]
