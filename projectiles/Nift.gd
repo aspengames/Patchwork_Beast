@@ -20,6 +20,9 @@ func _on_Nift_body_entered(body):
 	if body.is_in_group("charge_mob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
+	if body.is_in_group("bearmob"):
+		body.get_node("pars").emitting = true
+		body.health -= 1
 	#body.dead()
 	#body.queue_free()
 
