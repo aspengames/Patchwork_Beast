@@ -9,6 +9,7 @@ var speed = 100
 @onready var end_symbol = $TextboxContainer/MarginContainer/HBoxContainer/End
 @onready var label1 = $TextboxContainer/MarginContainer/HBoxContainer/Label
 @onready var speaker_name = $Detail/Textbox/Name
+@onready var speaker_sprite = $Detail/Player
 
 enum State {
 	READY,
@@ -82,6 +83,10 @@ func queue_text(next_text):
 func set_new_name(_txtname):
 	speaker_name.text = _txtname
 	
+func set_sprite(sprite):
+	speaker_sprite = $Detail.get_node(sprite)
+	#$Detail.get_node(sprite).show()
+	
 func hide_textbox():
 	start_symbol.text = ""
 	end_symbol.text = ""
@@ -90,7 +95,7 @@ func hide_textbox():
 		textbox_container.hide()
 		$Detail/Textbox.hide()
 		if not globals.player_talking:
-			$Detail/TalkNPC.hide()
+			speaker_sprite.hide()
 		else:
 			$Detail/Player.hide()
 		$Overlay.hide()
@@ -102,7 +107,7 @@ func show_textbox():
 	textbox_container.show()
 	$Detail/Textbox.show()
 	if not globals.player_talking:
-		$Detail/TalkNPC.show()
+		speaker_sprite.show()
 	else:
 		$Detail/Player.show()
 	$Overlay.show()

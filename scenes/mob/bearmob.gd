@@ -57,17 +57,20 @@ func _process(_delta):
 		if not $anim.is_playing():
 			$anim.play()
 		
-		if charge_bar:
+		if charge_bar:  
 			return
 			
 		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
 			charge_bar = true
 			$anim.play("bearmob_attack")
+			$Sprite/pars_dirt.emitting = true
+			# play attack, emit dirt particles
 		
 		self.velocity = player_dir * speed
 		
 		if not charge_bar:
 			self.move_and_slide()	
+			$Sprite/pars_dirt.emitting = false
 		
 		if not $anim.is_playing():
 			$anim.play()
@@ -79,7 +82,7 @@ func _process(_delta):
 		$deadanim.play("dead")
 		$col.disabled = true
 		
-	if trulydead and $pars.emitting == false:
+	if trulydead and $pars.emitting == false: # pars is the player's particles?
 		$deathTimer.start()
 		
 
