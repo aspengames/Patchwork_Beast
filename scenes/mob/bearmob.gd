@@ -63,8 +63,17 @@ func _process(_delta):
 		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
 			charge_bar = true
 			$anim.play("bearmob_attack")
+<<<<<<< Updated upstream
 			$Sprite/pars_dirt.emitting = true
 			# play attack, emit dirt particles
+=======
+			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+			atk_counter = 3
+			$groundshake.amount = 100
+			$groundshake.initial_velocity_min = 500
+			$groundshake.initial_velocity_max = 1000
+			$groundshake.lifetime = 0.5
+>>>>>>> Stashed changes
 		
 		self.velocity = player_dir * speed
 		
@@ -107,14 +116,53 @@ func _on_deathTimer_timeout():
 
 
 func _on_anim_animation_finished(anim_name):
-	if anim_name == "bearmob_attack":
+	if anim_name == "bearmob_attack" and $atkCooldown.is_stopped():
+		print("ENTER THE MAINFRAME")
+		$anim.play("bearmob_idle")
+		$atkCooldown.start()
+		if $groundshake.emitting:
+			$groundshake.emitting = false
+		$groundshake.restart()
+		$groundshake.emitting = true
 		$atkRadius/earth_shatter_hitbox.scale *= 1.5
 		if $atkRadius.overlaps_body(player):
 			player._on_HITBOX_body_entered($atkRadius)
 		atk_counter -= 1
+		#Screen Shake
+		if atk_counter == 2:
+			player.get_node("Camera2D").small_shake()
+		elif atk_counter == 1:
+			player.get_node("Camera2D").med_shake()
+		elif atk_counter == 0:
+			player.get_node("Camera2D").large_shake()
+		
 		if atk_counter <= -1:
 			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
 			attacking = false
 			charge_bar = false
 			atk_counter = 3
+			$groundshake.amount = 100
+			$groundshake.initial_velocity_min = 500
+			$groundshake.initial_velocity_max = 1000
+			$groundshake.lifetime = 0.5
 		
+func _on_atk_cooldown_timeout():
+	$atkCooldown.stop()
+	if atk_counter > 0:
+		$anim.play('bearmob_attack')
+	else:
+		$anim.play('bearmob_idle')
+		#Reset
+		$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+		attacking = false
+		charge_bar = false
+		atk_counter = 3
+		$groundshake.amount = 100
+		$groundshake.initial_velocity_min = 500
+		$groundshake.initial_velocity_max = 1000
+		$groundshake.lifetime = 0.5
+	#GroundShake update
+	$groundshake.amount *= 2
+	$groundshake.initial_velocity_min *= 1.5
+	$groundshake.initial_velocity_max *= 1.5
+	$groundshake.lifetime *= 2
