@@ -63,17 +63,14 @@ func _process(_delta):
 		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
 			charge_bar = true
 			$anim.play("bearmob_attack")
-<<<<<<< Updated upstream
 			$Sprite/pars_dirt.emitting = true
 			# play attack, emit dirt particles
-=======
 			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
 			atk_counter = 3
 			$groundshake.amount = 100
 			$groundshake.initial_velocity_min = 500
 			$groundshake.initial_velocity_max = 1000
 			$groundshake.lifetime = 0.5
->>>>>>> Stashed changes
 		
 		self.velocity = player_dir * speed
 		

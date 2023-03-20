@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=23 format=3 uid="uid://ckx0evukhppdl"]
-=======
 [gd_scene load_steps=24 format=3 uid="uid://ckx0evukhppdl"]
->>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
 [ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
