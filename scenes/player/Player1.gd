@@ -9,6 +9,10 @@ var direction = Vector2()
 var speed = 400
 var dead = false
 var attacking = false
+var knockback_dir = Vector2()
+var knockback_str = 1
+var knock = false
+var kb_onetime = false
 #velocity vectors
 #var velocity = Vector2()
 #var delta_velocity = Vector2()
@@ -57,6 +61,13 @@ func _physics_process(_delta):
 	
 	#multiplying valors to get velocity vectors
 	velocity = direction * speed
+	if knock:
+		direction = knockback_dir
+		velocity = direction * speed * knockback_str
+		if kb_onetime:
+			kb_onetime = false
+			$kbTimer.start()
+		
 	if globals.player_stop:
 		velocity = Vector2.ZERO
 	if velocity == Vector2.ZERO:
@@ -96,6 +107,7 @@ func _physics_process(_delta):
 	#applying the needed vector to the object, to make it move thanks to the move_and_slide function
 	if not attacking:
 		move_and_slide()
+		
 	pass
 
 var enemyin = false
@@ -105,17 +117,19 @@ func _on_HITBOX_body_entered(body):
 		enemyin = true
 		health -= 5
 		$ui/health.value = health
-		print(health)
+		#print(health)
 		hurtTimer.start()
+		knockback(3, body.attack_player_dir)
 	if body.is_in_group("earthatk"):
-		print("ow")
+		#print("ow")
 		health -= 10
 		$ui/health.value = health
 		print(health)
+		print(body.get_parent().attack_player_dir)
 
 func _on_HITBOX_body_exited(body):
 	if body.is_in_group("charge_mob"):
-		hurtTimer.stop()
+		#hurtTimer.stop()
 		enemyin = false
 
 func throw_nift(nift_direction: Vector2):
@@ -176,3 +190,15 @@ func _on_PLAYERANIM_finished(anim_name):
 func _on_PLAYERTRANSITION_finished(anim_name):
 	if anim_name == "fade" and dead:
 		get_tree().change_scene_to_file("res://scenes/world/Level.tscn")
+
+func knockback(strength, mob_dir):
+	knockback_dir = mob_dir
+	knockback_str = strength
+	knock = true
+	kb_onetime = true
+	#print(mob_dir, strength, "n")
+
+
+func _on_kb_timer_timeout():
+	knock = false
+	velocity = Vector2.ZERO

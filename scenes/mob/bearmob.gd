@@ -25,7 +25,7 @@ func _ready():
 func _process(_delta):
 	var player_dir = self.global_position.direction_to(player.global_position)
 	#print(player_dir)
-	
+	attack_player_dir = self.global_position.direction_to(player.global_position)
 	var mob_rot = player_dir.angle()
 	#print(mob_rot)
 	#print(mob_rot)
@@ -63,20 +63,20 @@ func _process(_delta):
 		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
 			charge_bar = true
 			$anim.play("bearmob_attack")
-			$Sprite/pars_dirt.emitting = true
+			#$Sprite/pars_dirt.emitting = true
 			# play attack, emit dirt particles
 			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
 			atk_counter = 3
-			$groundshake.amount = 100
-			$groundshake.initial_velocity_min = 500
-			$groundshake.initial_velocity_max = 1000
-			$groundshake.lifetime = 0.5
+			$groundshake2.amount = 100
+			$groundshake2.process_material.initial_velocity_min = 500
+			$groundshake2.process_material.initial_velocity_max = 1000
+			$groundshake2.lifetime = 0.5
 		
 		self.velocity = player_dir * speed
 		
 		if not charge_bar:
 			self.move_and_slide()	
-			$Sprite/pars_dirt.emitting = false
+			#$Sprite/pars_dirt.emitting = false
 		
 		if not $anim.is_playing():
 			$anim.play()
@@ -114,13 +114,15 @@ func _on_deathTimer_timeout():
 
 func _on_anim_animation_finished(anim_name):
 	if anim_name == "bearmob_attack" and $atkCooldown.is_stopped():
-		print("ENTER THE MAINFRAME")
 		$anim.play("bearmob_idle")
 		$atkCooldown.start()
-		if $groundshake.emitting:
-			$groundshake.emitting = false
-		$groundshake.restart()
-		$groundshake.emitting = true
+		$groundshake2.restart()
+		if $groundshake2.emitting:
+			$groundshake2.emitting = false
+		
+		
+		$groundshake2.emitting = true
+		print("emitting")
 		$atkRadius/earth_shatter_hitbox.scale *= 1.5
 		if $atkRadius.overlaps_body(player):
 			player._on_HITBOX_body_entered($atkRadius)
@@ -128,20 +130,24 @@ func _on_anim_animation_finished(anim_name):
 		#Screen Shake
 		if atk_counter == 2:
 			player.get_node("Camera2D").small_shake()
+			player.knockback(1, attack_player_dir)
 		elif atk_counter == 1:
 			player.get_node("Camera2D").med_shake()
+			player.knockback(3, attack_player_dir)
 		elif atk_counter == 0:
 			player.get_node("Camera2D").large_shake()
+			player.knockback(6, attack_player_dir)
 		
 		if atk_counter <= -1:
 			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
 			attacking = false
 			charge_bar = false
 			atk_counter = 3
-			$groundshake.amount = 100
-			$groundshake.initial_velocity_min = 500
-			$groundshake.initial_velocity_max = 1000
-			$groundshake.lifetime = 0.5
+			
+			$groundshake2.process_material.amount = 100
+			$groundshake2.process_material.initial_velocity_min = 500
+			$groundshake2.process_material.initial_velocity_max = 1000
+			$groundshake2.process_material.lifetime = 0.5
 		
 func _on_atk_cooldown_timeout():
 	$atkCooldown.stop()
@@ -154,12 +160,12 @@ func _on_atk_cooldown_timeout():
 		attacking = false
 		charge_bar = false
 		atk_counter = 3
-		$groundshake.amount = 100
-		$groundshake.initial_velocity_min = 500
-		$groundshake.initial_velocity_max = 1000
-		$groundshake.lifetime = 0.5
+		$groundshake2.amount = 100
+		$groundshake2.process_material.initial_velocity_min = 500
+		$groundshake2.process_material.initial_velocity_max = 1000
+		$groundshake2.lifetime = 0.5
 	#GroundShake update
-	$groundshake.amount *= 2
-	$groundshake.initial_velocity_min *= 1.5
-	$groundshake.initial_velocity_max *= 1.5
-	$groundshake.lifetime *= 2
+	$groundshake2.amount *= 2
+	$groundshake2.process_material.initial_velocity_min *= 1.5
+	$groundshake2.process_material.initial_velocity_max *= 1.5
+	$groundshake2.lifetime *= 2

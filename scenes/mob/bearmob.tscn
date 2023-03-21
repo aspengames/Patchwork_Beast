@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ckx0evukhppdl"]
+[gd_scene load_steps=26 format=3 uid="uid://ckx0evukhppdl"]
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
 [ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
@@ -7,6 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="5_fgr5j"]
 
 [sub_resource type="CapsuleShape2D" id="8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdq5b"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
 blend_mode = 3
@@ -101,6 +107,24 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.849158, 0.674999)]
+}
+
+[sub_resource type="Animation" id="Animation_3j46e"]
+resource_name = "bearmob_idle"
+length = 0.3
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_2ffpw"]
@@ -351,24 +375,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 480)]
 }
 
-[sub_resource type="Animation" id="Animation_3j46e"]
-resource_name = "bearmob_idle"
-length = 0.3
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [16, 17]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
 _data = {
 "RESET": SubResource("3"),
@@ -413,9 +419,9 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5bca"]
 
-[sub_resource type="Curve" id="Curve_o8qs5"]
+[sub_resource type="Curve" id="Curve_6mugd"]
 min_value = -1.0
-_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.0363637), 0.0, 0.0, 0, 0, Vector2(1, -0.0727272), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="bear" type="CharacterBody2D" groups=["bearmob"]]
@@ -427,6 +433,16 @@ script = ExtResource("1_lcjnv")
 position = Vector2(0, 250)
 scale = Vector2(15, 15)
 shape = SubResource("8")
+
+[node name="groundshake2" type="GPUParticles2D" parent="."]
+position = Vector2(4, 506)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_gdq5b")
+texture = ExtResource("4_pep6g")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_xgfbe")
@@ -442,6 +458,7 @@ scale = Vector2(0.849158, 0.674999)
 texture = ExtResource("3_whi4w")
 
 [node name="pars_dirt" type="GPUParticles2D" parent="Sprite"]
+visible = false
 show_behind_parent = true
 position = Vector2(0, 488)
 emitting = false
@@ -495,6 +512,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_fgr5j")
 
 [node name="groundshake" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2(4, 506)
 emitting = false
 amount = 100
@@ -502,14 +520,15 @@ lifetime = 0.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 0.95
+texture = ExtResource("4_pep6g")
 direction = Vector2(0, -1)
 initial_velocity_min = 500.0
 initial_velocity_max = 1000.0
-scale_amount_max = 20.0
-color = Color(0.333333, 0.184314, 0.0156863, 1)
-hue_variation_min = -0.2
-hue_variation_max = 0.1
-hue_variation_curve = SubResource("Curve_o8qs5")
+scale_amount_min = 0.1
+scale_amount_max = 0.4
+hue_variation_min = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_6mugd")
 
 [node name="atkCooldown" type="Timer" parent="."]
 

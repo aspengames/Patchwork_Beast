@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvqd5x6ihjdn6"]
+[gd_scene load_steps=13 format=3 uid="uid://dvqd5x6ihjdn6"]
 
 [ext_resource type="TileSet" uid="uid://boxgtk1pebwh2" path="res://RegularTileset.tres" id="1_nlcto"]
 [ext_resource type="PackedScene" uid="uid://bmwew08qyosbj" path="res://scenes/player/Player.tscn" id="2"]
@@ -45,6 +45,9 @@ texture_region_size = Vector2i(128, 128)
 [sub_resource type="TileSet" id="TileSet_kh1u5"]
 tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_pw5c8")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1djf1"]
+blend_mode = 3
 
 [node name="Level" type="Node2D"]
 
@@ -130,10 +133,21 @@ scale = Vector2(0.4, 0.4)
 [node name="Player" type="Node2D" parent="."]
 
 [node name="Player" parent="Player" instance=ExtResource("2")]
-position = Vector2(14, -6713)
+position = Vector2(4840, -13248)
 
 [node name="projectiles" type="Node2D" parent="Player"]
 
 [node name="trans" parent="." instance=ExtResource("10_xwfsi")]
+
+[node name="Night" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+material = SubResource("CanvasItemMaterial_1djf1")
+offset_left = -5680.0
+offset_top = -1088.0
+offset_right = -5640.0
+offset_bottom = -1048.0
+scale = Vector2(585.594, -742.596)
+color = Color(0.235294, 0.505882, 0.811765, 1)
 
 [editable path="trans"]

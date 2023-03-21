@@ -58,7 +58,7 @@ func _process(_delta):
 		#self.move_and_slide(player_dir * 500)
 		if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
 			buck = true
-			attack_player_dir = self.global_position.direction_to(player.global_position)
+			
 			$atkTimer.start()
 			if -PI/2 < mob_rot:
 				if mob_rot < PI/2:
@@ -73,6 +73,7 @@ func _process(_delta):
 			
 		if attacking:
 			self.velocity = attack_player_dir * speed
+			speed += 5
 		
 		self.move_and_slide()	
 		
@@ -112,6 +113,7 @@ func _on_deathTimer_timeout():
 
 func _on_atk_timer_timeout():
 	attacking = true
+	attack_player_dir = self.global_position.direction_to(player.global_position)
 	buck = false
 	speed = 500
 	$chargeTimer.start()
