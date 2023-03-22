@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bmwew08qyosbj"]
+[gd_scene load_steps=54 format=3 uid="uid://bmwew08qyosbj"]
 
 [ext_resource type="Script" path="res://scenes/player/Player1.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://7em1q548jd3t" path="res://scenes/player/Textbox.tscn" id="3"]
@@ -8,10 +8,11 @@
 [ext_resource type="Script" path="res://scenes/player/playercam.gd" id="5_lak5g"]
 [ext_resource type="PackedScene" uid="uid://dsr0h3tafj6uj" path="res://scenes/ui/ui.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://dd0mx32jxom6w" path="res://art/ui/overlay_global_official.png" id="6_hhr6h"]
-[ext_resource type="Texture2D" uid="uid://p0lit322h184" path="res://art/player/player_spritesheet.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dqkhvhqkc6d5a" path="res://art/player/player_spritesheet.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://dw3vjtrmtvuyd" path="res://scenes/ui/screenshake.tscn" id="7_0tur4"]
 [ext_resource type="PackedScene" uid="uid://c1ego5qvrc630" path="res://scenes/ui/transition.tscn" id="7_etjo0"]
 [ext_resource type="PackedScene" uid="uid://bodhc2cygav3o" path="res://scenes/ui/tips.tscn" id="9_vrsyg"]
+[ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="13_kax16"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8i05x"]
 blend_mode = 3
@@ -231,6 +232,74 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_u8mnm"]
+resource_name = "shoot_up"
+length = 0.6
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_sds74"]
+resource_name = "shoot_down"
+length = 0.6
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [24, 25]
+}
+
+[sub_resource type="Animation" id="Animation_r7qmu"]
+resource_name = "shoot_left"
+length = 0.6
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_bn2dn"]
+resource_name = "shoot_right"
+length = 0.6
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [30, 31]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6163o"]
 _data = {
 "RESET": SubResource("2"),
@@ -239,6 +308,10 @@ _data = {
 "idle_left": SubResource("4"),
 "idle_right": SubResource("5"),
 "idle_up": SubResource("6"),
+"shoot_down": SubResource("Animation_sds74"),
+"shoot_left": SubResource("Animation_r7qmu"),
+"shoot_right": SubResource("Animation_bn2dn"),
+"shoot_up": SubResource("Animation_u8mnm"),
 "walk_down": SubResource("7"),
 "walk_left": SubResource("8"),
 "walk_right": SubResource("9"),
@@ -265,6 +338,29 @@ blend_point_1/pos = Vector2(1, 0.1)
 blend_point_2/node = SubResource("13")
 blend_point_2/pos = Vector2(0, 1)
 blend_point_3/node = SubResource("14")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n3kft"]
+animation = &"shoot_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_he3um"]
+animation = &"shoot_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qbvmu"]
+animation = &"shoot_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_styfj"]
+animation = &"shoot_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_8ktnk"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_n3kft")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_he3um")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_qbvmu")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_styfj")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
@@ -297,13 +393,21 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="24"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iitmg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1k7mp"]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="16"]
+states/End/position = Vector2(914, 113)
 states/Idle/node = SubResource("15")
-states/Idle/position = Vector2(563, 113)
+states/Idle/position = Vector2(659, 113)
+states/Shoot/node = SubResource("AnimationNodeBlendSpace2D_8ktnk")
+states/Shoot/position = Vector2(659, 213)
 states/Start/position = Vector2(401, 113)
 states/Walk/node = SubResource("22")
-states/Walk/position = Vector2(743, 113)
-transitions = ["Idle", "Walk", SubResource("23"), "Walk", "Idle", SubResource("24")]
+states/Walk/position = Vector2(659, 18)
+transitions = ["Idle", "Walk", SubResource("23"), "Walk", "Idle", SubResource("24"), "Idle", "Shoot", SubResource("AnimationNodeStateMachineTransition_iitmg"), "Shoot", "Idle", SubResource("AnimationNodeStateMachineTransition_1k7mp")]
 graph_offset = Vector2(8.7982, -36)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="17"]
@@ -315,12 +419,15 @@ blend_mode = 3
 radius = 100.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(512, 273)
 scale = Vector2(2, 2)
 script = ExtResource("2")
 
 [node name="shadow" type="Sprite2D" parent="."]
 show_behind_parent = true
+z_as_relative = false
 y_sort_enabled = true
 material = SubResource("CanvasItemMaterial_8i05x")
 position = Vector2(0, 54.5)
@@ -328,17 +435,18 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_7ct4t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 z_index = 1
 position = Vector2(-1, 2)
 scale = Vector2(1.6, 1.6)
 shape = SubResource("1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.065, 0.065)
 texture = ExtResource("7")
 hframes = 8
-vframes = 3
-frame = 5
+vframes = 4
+frame = 25
 
 [node name="death" type="Sprite2D" parent="."]
 visible = false
@@ -358,6 +466,7 @@ anim_player = NodePath("../AnimationPlayer2")
 active = true
 parameters/playback = SubResource("17")
 parameters/Idle/blend_position = Vector2(0, 0.0176678)
+parameters/Shoot/blend_position = Vector2(-0.00319999, 0.00348425)
 parameters/Walk/blend_position = Vector2(0.02112, -0.206838)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -392,6 +501,7 @@ expand_mode = 1
 scale = Vector2(0.319668, 0.55457)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+visible = false
 shape = SubResource("25")
 
 [node name="ui" parent="." instance=ExtResource("6")]
@@ -407,8 +517,25 @@ visible = false
 [node name="Staff1" type="Node2D" parent="."]
 position = Vector2(28.5, -13)
 
+[node name="lite" type="PointLight2D" parent="Staff1"]
+position = Vector2(1.5, 6.5)
+scale = Vector2(0.3, 0.3)
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 10.0
+texture = ExtResource("13_kax16")
+
 [node name="Staff2" type="Node2D" parent="."]
 position = Vector2(-26.5, -15)
+
+[node name="lite" type="PointLight2D" parent="Staff2"]
+visible = false
+position = Vector2(-3, 4.5)
+scale = Vector2(0.09, 0.09)
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 10.0
+texture = ExtResource("13_kax16")
 
 [node name="kbTimer" type="Timer" parent="."]
 wait_time = 0.15

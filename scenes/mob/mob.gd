@@ -5,7 +5,7 @@ extends CharacterBody2D
 # var a = 2
 # var b = "text"
 
-@onready var player = $"../Player/Player"
+@onready var player = $"../Map/Map/Player"
 var dist = 999999
 var alive = true
 var trulydead = false
@@ -21,7 +21,7 @@ func _ready():
 	pass # Replace with function body.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	var player_dir = self.global_position.direction_to(player.global_position)
 	#print(player_dir)
 	

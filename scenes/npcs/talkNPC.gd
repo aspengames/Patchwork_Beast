@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var interacted = false
 var can_interact = true
-@onready var textbox = $"../../Player/Player/Camera2D/Textbox"
+@onready var textbox = $"../../Map/Map/Player/Camera2D/Textbox"
 
 # Declare member variables here. Examples:
 # var a = 2

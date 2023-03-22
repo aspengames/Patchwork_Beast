@@ -5,7 +5,7 @@ extends CharacterBody2D
 # var a = 2
 # var b = "text"
 
-@onready var player = $"../Player/Player"
+@onready var player = $"../Map/Map/Player"
 var dist = 999999
 var alive = true
 var trulydead = false

@@ -158,7 +158,9 @@ func throw_nift(nift_direction: Vector2):
 		#$"../laserbgm".play()
 		atkTimer.start()
 		nift.get_node("pars").emitting = true
-		$AnimationTree.set("parameters/Idle/blend_position", nift_direction)
+		#$AnimationTree.set("parameters/Idle/blend_position", nift_direction)
+		$AnimationTree.get("parameters/playback").travel("Shoot")
+		$AnimationTree.set("parameters/Shoot/blend_position", nift_direction)
 		#print(nift_direction)
 		#var mouse_direction = Vector3(nift_direction.x, nift_direction.y, 0)
 		#nift.get_node("pars").process_material.set("direction", mouse_direction)
