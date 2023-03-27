@@ -46,7 +46,8 @@ func _on_ANIM_finished(anim_name):
 		two = false
 		globals.player_stop = false
 		await get_tree().create_timer(2).timeout # delay tip to give player time to actually interact w enemy
-		player.show_tip("Ah! Someone, anyone, help!")
+		#player.show_tip("Ah! Someone, anyone, help!", 3)
+		player.show_tip("Click to shoot, press space to dash", 5)
 	if anim_name == "whiteout":
 		get_tree().change_scene_to_file("res://scenes/world/Level.tscn")
 		

@@ -22,7 +22,8 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	autocorrode()
+	if (self.global_position.distance_to(player.get_global_position()) < 1000):
+		autocorrode()
 	var player_dir = self.global_position.direction_to(player.global_position)
 	#print(player_dir)
 	

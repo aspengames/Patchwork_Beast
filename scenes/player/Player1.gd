@@ -89,6 +89,8 @@ func _physics_process(_delta):
 		able_to_dash = false
 		$dashTimer.start()
 		dash(direction)
+		$AnimationTree.get("parameters/playback").travel("Dash")
+		$AnimationTree.set("parameters/Dash/blend_position", velocity)
 			
 	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and not globals.player_stop:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse
@@ -195,9 +197,10 @@ func actual_throw_nift():
 func _on_atk_timer_timeout():
 	attacking = false
 
-func show_tip(text):
+func show_tip(text, time):
 	$tips.visible = true
 	$tips/Label.text = text
+	$tips/tiptimer.wait_time = time
 	$tips/tiptimer.start()
 	
 func _on_tiptimer_timeout():

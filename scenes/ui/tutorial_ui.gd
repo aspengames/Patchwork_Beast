@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var buttons = $ButtonGroup
 @onready var playerv = $"../Map/Map/Player"
 
+var onetime = true
 var started = false
 
 func _ready():
@@ -16,4 +17,7 @@ func _process(delta):
 		$disappear.start()
 		
 func _on_disappear_timeout():
-	hide()
+	if onetime:
+		onetime = false
+		#playerv.show_tip("Click to shoot, press space to dash", 5)
+		hide()
