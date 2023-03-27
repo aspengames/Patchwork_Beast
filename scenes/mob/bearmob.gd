@@ -15,7 +15,7 @@ var speed = 150
 var charge_bar = false
 var atk_counter = 3
 
-@export var health = 8
+@export var health = 9999
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +23,7 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	autocorrode()
 	var player_dir = self.global_position.direction_to(player.global_position)
 	#print(player_dir)
 	attack_player_dir = self.global_position.direction_to(player.global_position)
@@ -84,6 +85,7 @@ func _process(_delta):
 		$anim.stop()
 		
 	if health < 1 and alive:
+		globals.mobs_on_screen -= 1
 		alive = false
 		$deadanim.play("dead")
 		$col.disabled = true
@@ -98,14 +100,35 @@ func _process(_delta):
 #func _physics_process(delta):
 #  var motion = enemy.dir * enemy.speed
 #  enemy.move_and_slide(motion)
+func autocorrode():
+	if curcor >= 0.025 and curcor < 0.9:
+		#print(curcor)
+		var tween1 = create_tween()
+		tween1.tween_property($Sprite/corrode.material, "shader_parameter/cutoff_two", curcor+0.0001, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		curcor += 0.0001
+
+@export var curcor = 0.165
+var damp = 0.5
+func hurt():
+	if curcor < 0.05:
+		damp = 1
+	#This function gets called when the player hits the mob
+	#$Sprite/corrode.material.set("shader_parameter/cutoff_two", 0.05)
+	var tween1 = create_tween()
+	curcor = curcor - ($Sprite/corrode.material.get("shader_parameter/cutoff_two") * damp)
+	tween1.tween_property($Sprite/corrode.material, "shader_parameter/cutoff_two", curcor, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT) 
+	if ($Sprite/corrode.material.get("shader_parameter/cutoff_two") < 0.025):
+		health = 0
+	pass
+
 
 func _on_deadanim_animation_finished(_anim_name):
 	trulydead = true
 
 func _on_vis_screen_entered():
-	globals.mobsight = true
+	globals.mobs_on_screen += 1
 func _on_vis_screen_exited():
-	globals.mobsight = false
+	globals.mobs_on_screen -= 1
 
 
 func _on_deathTimer_timeout():

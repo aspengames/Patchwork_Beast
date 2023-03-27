@@ -1,6 +1,6 @@
 extends Area2D
 
-var SPEED: int = 500
+var SPEED: int = 1000
 
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
@@ -20,9 +20,11 @@ func _on_Nift_body_entered(body):
 	if body.is_in_group("charge_mob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
+		body.hurt()
 	if body.is_in_group("bearmob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
+		body.hurt()
 	#body.dead()
 	#body.queue_free()
 

@@ -1,18 +1,53 @@
-[gd_scene load_steps=26 format=3 uid="uid://ckx0evukhppdl"]
+[gd_scene load_steps=33 format=3 uid="uid://ckx0evukhppdl"]
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
 [ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_whi4w"]
+[ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="4_gqqsi"]
 [ext_resource type="Texture2D" uid="uid://b65q7i7c1etgw" path="res://projectiles/particle3.png" id="4_pep6g"]
+[ext_resource type="Texture2D" uid="uid://j6yvwn4jmer4" path="res://art/mob/bear_spritesheet_mask.png" id="5_77s5d"]
 [ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="5_fgr5j"]
+[ext_resource type="Texture2D" uid="uid://t48psr5iadws" path="res://art/mob/bear_spritesheet_cor_mask.png" id="6_qc4ic"]
+[ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="9_kiy3a"]
 
 [sub_resource type="CapsuleShape2D" id="8"]
 
+[sub_resource type="Curve" id="Curve_6mugd"]
+min_value = -1.0
+_data = [Vector2(0, 0.0363637), 0.0, 0.0, 0, 0, Vector2(1, -0.0727272), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4dyu1"]
+min_value = -1.0
+_data = [Vector2(0, 0.127273), 0.0, 0.0, 0, 0, Vector2(0.987952, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_obpnc"]
+curve = SubResource("Curve_4dyu1")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdq5b"]
 particle_flag_disable_z = true
-gravity = Vector3(0, 98, 0)
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 980, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.4
+hue_variation_min = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("CurveTexture_obpnc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3yb5h"]
+shader = ExtResource("4_gqqsi")
+shader_parameter/cutoff_one = 1.301
+shader_parameter/cutoff_two = 0.135
+shader_parameter/smooth_size = 0.01
+shader_parameter/invert_mask = true
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("5_77s5d")
+shader_parameter/orig_mask = ExtResource("2_xgfbe")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
 blend_mode = 3
@@ -43,30 +78,6 @@ turbulence_enabled = true
 
 [sub_resource type="Animation" id="3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/shadow:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 480)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite/shadow:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.849158, 0.674999)]
-}
 
 [sub_resource type="Animation" id="Animation_tyj1j"]
 resource_name = "bearmob_attack"
@@ -108,6 +119,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.849158, 0.674999)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
 
 [sub_resource type="Animation" id="Animation_3j46e"]
 resource_name = "bearmob_idle"
@@ -121,6 +144,18 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/corrode:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -251,6 +286,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 480)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
 [sub_resource type="Animation" id="5"]
 resource_name = "mob_left"
@@ -291,6 +338,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.849158, 0.515)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="6"]
@@ -333,6 +392,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-64, 500)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
 
 [sub_resource type="Animation" id="7"]
 resource_name = "mob_up"
@@ -374,6 +445,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 480)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
 _data = {
@@ -395,6 +478,18 @@ gravity = Vector3(100, 0, 0)
 
 [sub_resource type="Animation" id="10"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aura:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="11"]
 resource_name = "dead"
@@ -410,6 +505,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aura:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_csyb8"]
 _data = {
@@ -418,11 +525,6 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5bca"]
-
-[sub_resource type="Curve" id="Curve_6mugd"]
-min_value = -1.0
-_data = [Vector2(0, 0.0363637), 0.0, 0.0, 0, 0, Vector2(1, -0.0727272), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [node name="bear" type="CharacterBody2D" groups=["bearmob"]]
 collision_layer = 13
@@ -434,18 +536,46 @@ position = Vector2(0, 250)
 scale = Vector2(15, 15)
 shape = SubResource("8")
 
+[node name="groundshake" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(4, 506)
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.95
+texture = ExtResource("4_pep6g")
+direction = Vector2(0, -1)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.1
+scale_amount_max = 0.4
+hue_variation_min = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_6mugd")
+
 [node name="groundshake2" type="GPUParticles2D" parent="."]
 position = Vector2(4, 506)
 emitting = false
-amount = 50
+amount = 100
 process_material = SubResource("ParticleProcessMaterial_gdq5b")
 texture = ExtResource("4_pep6g")
 lifetime = 0.5
 one_shot = true
+speed_scale = 2.0
 explosiveness = 0.95
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_xgfbe")
+hframes = 8
+vframes = 3
+frame = 16
+
+[node name="corrode" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_3yb5h")
+scale = Vector2(2.43, 2.43)
+texture = ExtResource("6_qc4ic")
 hframes = 8
 vframes = 3
 frame = 16
@@ -458,7 +588,6 @@ scale = Vector2(0.849158, 0.674999)
 texture = ExtResource("3_whi4w")
 
 [node name="pars_dirt" type="GPUParticles2D" parent="Sprite"]
-visible = false
 show_behind_parent = true
 position = Vector2(0, 488)
 emitting = false
@@ -511,26 +640,10 @@ show_behind_parent = true
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_fgr5j")
 
-[node name="groundshake" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(4, 506)
-emitting = false
-amount = 100
-lifetime = 0.5
-one_shot = true
-speed_scale = 2.0
-explosiveness = 0.95
-texture = ExtResource("4_pep6g")
-direction = Vector2(0, -1)
-initial_velocity_min = 500.0
-initial_velocity_max = 1000.0
-scale_amount_min = 0.1
-scale_amount_max = 0.4
-hue_variation_min = 0.1
-hue_variation_max = 1.0
-hue_variation_curve = SubResource("Curve_6mugd")
-
 [node name="atkCooldown" type="Timer" parent="."]
+
+[node name="aura" type="PointLight2D" parent="."]
+texture = ExtResource("9_kiy3a")
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]

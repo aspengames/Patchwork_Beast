@@ -6,6 +6,8 @@ var horizontal_input
 var vertical_input
 var direction = Vector2()
 
+var able_to_dash = true
+var invincible = false
 var speed = 400
 var dead = false
 var attacking = false
@@ -24,7 +26,7 @@ var atkTimer
 var hurtTimer
 #init the nift
 var NIFT: PackedScene = preload("res://projectiles/Nift.tscn")
-
+var nift_dir
 
 """ -------- FUNCTIONS -------- """
 #initialize variables
@@ -83,6 +85,11 @@ func _physics_process(_delta):
 			else:
 				$AnimationTree.get("parameters/playback").travel("Idle")
 			
+	if Input.is_action_just_pressed("space") and able_to_dash:
+		able_to_dash = false
+		$dashTimer.start()
+		dash(direction)
+			
 	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and not globals.player_stop:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse
 			#print("rotation is: ",  rotation)
@@ -92,7 +99,7 @@ func _physics_process(_delta):
 			attacking = true
 			var nift_direction = self.global_position.direction_to(get_global_mouse_position())
 			throw_nift(nift_direction)
-	if enemyin and hurtTimer.is_stopped():
+	if enemyin and hurtTimer.is_stopped() and not invincible:
 		enemyin = false
 		health -= 20
 		$ui/health.value = health
@@ -110,15 +117,23 @@ func _physics_process(_delta):
 		
 	pass
 
+func dash(player_dir):
+	invincible = true
+	knock = true
+	knockback_dir = direction
+	kb_onetime = true
+	knockback_str = 4
+	
 var enemyin = false
 var health = 80
 func _on_HITBOX_body_entered(body):
-	if body.is_in_group("charge_mob") and hurtTimer.is_stopped():
+	if body.is_in_group("charge_mob") and hurtTimer.is_stopped() and body.attacking:
 		enemyin = true
 		health -= 5
 		$ui/health.value = health
 		#print(health)
 		hurtTimer.start()
+		body.attacking = false
 		knockback(3, body.attack_player_dir)
 	if body.is_in_group("earthatk"):
 		#print("ow")
@@ -134,6 +149,12 @@ func _on_HITBOX_body_exited(body):
 
 func throw_nift(nift_direction: Vector2):
 	if NIFT:
+		$AnimationTree.get("parameters/playback").travel("Shoot")
+		$AnimationTree.set("parameters/Shoot/blend_position", nift_direction)
+		nift_dir = nift_direction
+		
+func actual_throw_nift():
+		var nift_direction = nift_dir
 		var nift = NIFT.instantiate()
 		get_tree().current_scene.get_node("Player/projectiles").add_child(nift)
 		nift.global_position = self.global_position#self.global_positions
@@ -159,8 +180,7 @@ func throw_nift(nift_direction: Vector2):
 		atkTimer.start()
 		nift.get_node("pars").emitting = true
 		#$AnimationTree.set("parameters/Idle/blend_position", nift_direction)
-		$AnimationTree.get("parameters/playback").travel("Shoot")
-		$AnimationTree.set("parameters/Shoot/blend_position", nift_direction)
+
 		#print(nift_direction)
 		#var mouse_direction = Vector3(nift_direction.x, nift_direction.y, 0)
 		#nift.get_node("pars").process_material.set("direction", mouse_direction)
@@ -202,5 +222,9 @@ func knockback(strength, mob_dir):
 
 
 func _on_kb_timer_timeout():
+	invincible = false
 	knock = false
 	velocity = Vector2.ZERO
+	
+func _on_dash_timer_timeout():
+	able_to_dash = true

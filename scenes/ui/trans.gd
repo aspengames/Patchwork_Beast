@@ -13,7 +13,7 @@ func _ready():
 			player.get_node("transition").visible = false
 			$anim.play_backwards("whiteout")
 		globals.player_talking = false
-		globals.mobsight = false
+		globals.mobs_on_screen = 0
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

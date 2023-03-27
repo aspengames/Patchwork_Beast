@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-const CHAR_READ_RATE = 0.05
+const CHAR_READ_RATE = 0.025
 var speed = 100
 
 @onready var textbox_container = $TextboxContainer

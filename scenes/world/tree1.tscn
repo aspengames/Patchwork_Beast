@@ -26,6 +26,7 @@ texture = ExtResource("2_w764m")
 offset = Vector2(0, -250)
 
 [node name="col" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(0, -100)
 
 [node name="col" type="CollisionShape2D" parent="col"]

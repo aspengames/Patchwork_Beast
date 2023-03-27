@@ -4,7 +4,7 @@ extends Node
 # var a = 2
 # var b = "text"
 var debug = false
-var mobsight = false
+var mobs_on_screen = 0
 var textbox_finished = false
 var player_stop = false
 var tutorial = true

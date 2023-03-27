@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var p2 = $Menu/HBoxContainer/Pointer/selector2
 @onready var p3 = $Menu/HBoxContainer/Pointer/selector3
 
-@onready var player = $"../Player/Player"
+@onready var player = $"../Map/Map/Player"
 
 # Declare member variables here. Examples:
 # var a = 2

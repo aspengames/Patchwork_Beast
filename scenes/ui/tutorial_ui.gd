@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var label = $Label
 @onready var buttons = $ButtonGroup
-@onready var playerv = $"../Player/Player"
+@onready var playerv = $"../Map/Map/Player"
 
 var started = false
 

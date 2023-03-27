@@ -1,13 +1,28 @@
-[gd_scene load_steps=20 format=3 uid="uid://0ke3upru7noy"]
+[gd_scene load_steps=25 format=3 uid="uid://0ke3upru7noy"]
 
 [ext_resource type="Script" path="res://scenes/mob/mob.gd" id="1_c7ajy"]
+[ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="2_02pvh"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_f6k5m"]
 [ext_resource type="Texture2D" uid="uid://byyv43onqh0yk" path="res://art/mob/mob_deer_spritesheet.png" id="2_nvxew"]
 [ext_resource type="Texture2D" uid="uid://swifahjqdls4" path="res://projectiles/particle2.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cl8s63d52vgh3" path="res://art/mob/deer_spritesheet_mask.png" id="4_vm36r"]
+[ext_resource type="Texture2D" uid="uid://ckubnpjbk330n" path="res://art/mob/deer_spritesheet_cor_mask.png" id="5_gvanb"]
+[ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="8_x7ctp"]
 
 [sub_resource type="CapsuleShape2D" id="8"]
 radius = 11.5333
 height = 23.0667
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpf4b"]
+resource_local_to_scene = true
+shader = ExtResource("2_02pvh")
+shader_parameter/cutoff_one = 1.301
+shader_parameter/cutoff_two = 0.165
+shader_parameter/smooth_size = 0.01
+shader_parameter/invert_mask = true
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("4_vm36r")
+shader_parameter/orig_mask = ExtResource("2_nvxew")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
 blend_mode = 3
@@ -98,6 +113,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.849158, 0.515)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
 
 [sub_resource type="Animation" id="Animation_ekqj3"]
 resource_name = "mob_attack_right"
@@ -140,6 +167,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.849158, 0.515)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23]
+}
 
 [sub_resource type="Animation" id="4"]
 resource_name = "mob_down"
@@ -179,6 +218,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 570)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 3]
 }
 
 [sub_resource type="Animation" id="5"]
@@ -220,6 +271,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.849158, 0.515)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 8, 9, 9]
+}
 
 [sub_resource type="Animation" id="6"]
 resource_name = "mob_right"
@@ -259,6 +322,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-64, 570)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
 }
 
 [sub_resource type="Animation" id="7"]
@@ -300,6 +375,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 570)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/corrode:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
 _data = {
@@ -314,12 +401,24 @@ _data = {
 }
 
 [sub_resource type="ParticleProcessMaterial" id="9"]
-emission_shape = 5
-emission_point_count = 1
+emission_shape = 1
+emission_sphere_radius = 128.0
 gravity = Vector3(100, 0, 0)
 
 [sub_resource type="Animation" id="10"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aura:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="11"]
 resource_name = "dead"
@@ -334,6 +433,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("aura:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_csyb8"]
@@ -353,12 +464,22 @@ scale = Vector2(-18.1424, 21.9503)
 shape = SubResource("8")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+clip_children = 2
 texture = ExtResource("2_nvxew")
 hframes = 8
 vframes = 3
-frame = 12
+frame = 20
+
+[node name="corrode" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_vpf4b")
+scale = Vector2(0.666, 0.666)
+texture = ExtResource("5_gvanb")
+hframes = 8
+vframes = 3
+frame = 20
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
+visible = false
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_fempb")
 position = Vector2(-64, 570)
@@ -373,12 +494,10 @@ libraries = {
 [node name="pars" type="GPUParticles2D" parent="."]
 visible = false
 position = Vector2(-100, 300)
-emitting = false
 amount = 50
 process_material = SubResource("9")
 texture = ExtResource("3")
 lifetime = 3.0
-one_shot = true
 
 [node name="deadanim" type="AnimationPlayer" parent="."]
 libraries = {
@@ -396,6 +515,9 @@ one_shot = true
 
 [node name="chargeTimer" type="Timer" parent="."]
 wait_time = 1.5
+
+[node name="aura" type="PointLight2D" parent="."]
+texture = ExtResource("8_x7ctp")
 
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
 [connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
