@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ckx0evukhppdl"]
+[gd_scene load_steps=34 format=3 uid="uid://ckx0evukhppdl"]
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
 [ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
@@ -526,7 +526,11 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5bca"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6y3lb"]
+
 [node name="bear" type="CharacterBody2D" groups=["bearmob"]]
+z_index = 1
+y_sort_enabled = true
 collision_layer = 13
 collision_mask = 0
 script = ExtResource("1_lcjnv")
@@ -645,6 +649,13 @@ texture = ExtResource("5_fgr5j")
 [node name="aura" type="PointLight2D" parent="."]
 texture = ExtResource("9_kiy3a")
 
+[node name="mobsight" type="Area2D" parent="."]
+position = Vector2(8, 187)
+
+[node name="vis" type="CollisionShape2D" parent="mobsight"]
+scale = Vector2(300, 300)
+shape = SubResource("CircleShape2D_6y3lb")
+
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
 [connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
@@ -652,3 +663,5 @@ texture = ExtResource("9_kiy3a")
 [connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
 [connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]
 [connection signal="timeout" from="atkCooldown" to="." method="_on_atk_cooldown_timeout"]
+[connection signal="body_entered" from="mobsight" to="." method="_on_mobsight_body_entered"]
+[connection signal="body_exited" from="mobsight" to="." method="_on_mobsight_body_exited"]

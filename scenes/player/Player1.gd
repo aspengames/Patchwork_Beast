@@ -6,6 +6,7 @@ var horizontal_input
 var vertical_input
 var direction = Vector2()
 
+var only_dash_while_walk = true
 var able_to_dash = true
 var invincible = false
 var speed = 400
@@ -73,19 +74,24 @@ func _physics_process(_delta):
 	if globals.player_stop:
 		velocity = Vector2.ZERO
 	if velocity == Vector2.ZERO:
+		only_dash_while_walk = false
 		$AnimationTree.get("parameters/playback").travel("Idle")
 	else:
 		if not is_moving:
+			only_dash_while_walk = false
 			$AnimationTree.get("parameters/playback").travel("Idle")
 		else:
 			if not attacking:
+				only_dash_while_walk = true
 				$AnimationTree.get("parameters/playback").travel("Walk")
 				$AnimationTree.set("parameters/Idle/blend_position", velocity)
 				$AnimationTree.set("parameters/Walk/blend_position", velocity)
 			else:
+				only_dash_while_walk = false
 				$AnimationTree.get("parameters/playback").travel("Idle")
 			
-	if Input.is_action_just_pressed("space") and able_to_dash:
+	if Input.is_action_just_pressed("space") and able_to_dash and only_dash_while_walk:
+		only_dash_while_walk = false
 		able_to_dash = false
 		$dashTimer.start()
 		dash(direction)

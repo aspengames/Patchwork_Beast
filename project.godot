@@ -13,6 +13,7 @@ config_version=5
 config/name="PatchworkBeastGodot4"
 run/main_scene="res://scenes/tutorial/tutorial1.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -26,7 +27,6 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/vsync/vsync_mode=0
 mouse_cursor/custom_image="res://art/ui/MouseV2.png"
 window/stretch/mode="canvas_items"
 

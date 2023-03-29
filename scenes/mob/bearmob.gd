@@ -5,7 +5,7 @@ extends CharacterBody2D
 # var a = 2
 # var b = "text"
 
-@onready var player = $"../Map/Map/Player"
+@onready var player = $"../Player"
 var dist = 999999
 var alive = true
 var trulydead = false
@@ -14,6 +14,7 @@ var attack_player_dir
 var speed = 150
 var charge_bar = false
 var atk_counter = 3
+var player_rad = false
 
 @export var health = 9999
 
@@ -23,77 +24,78 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if (self.global_position.distance_to(player.get_global_position()) < 1000):
-		autocorrode()
-	var player_dir = self.global_position.direction_to(player.global_position)
-	#print(player_dir)
-	attack_player_dir = self.global_position.direction_to(player.global_position)
-	var mob_rot = player_dir.angle()
-	#print(mob_rot)
-	#print(mob_rot)
-	#print(mob_rot)
-	#print(PI)
-	if not charge_bar:
-		if -PI/4 < mob_rot:
-			if mob_rot < PI/4:
-				$anim.play("mob_right")
-		if PI/4 < mob_rot:
-			if mob_rot < 3*PI/4:
-				$anim.play("mob_down")
-		if -PI < mob_rot:
-			if mob_rot < -3*PI/4:
-				$anim.play("mob_left")
-		if 3*PI/4 < mob_rot:
-			if mob_rot < PI:
-				$anim.play("mob_left")
-		if -3*PI/4 < mob_rot:
-			if mob_rot < -PI/4:
-				$anim.play("mob_up")
-
-	#print(globals.mobsight)
-	#print(self.global_position.distance_to(player.get_global_position()))
-	if (self.global_position.distance_to(player.get_global_position()) < 1000) and not trulydead:
-		#self.global_position += player_dir
-		#self.move_and_slide(player_dir * 500)
-		
-		if not $anim.is_playing():
-			$anim.play()
-		
-		if charge_bar:  
-			return
-			
-		if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
-			charge_bar = true
-			$anim.play("bearmob_attack")
-			#$Sprite/pars_dirt.emitting = true
-			# play attack, emit dirt particles
-			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
-			atk_counter = 3
-			$groundshake2.amount = 100
-			$groundshake2.process_material.initial_velocity_min = 500
-			$groundshake2.process_material.initial_velocity_max = 1000
-			$groundshake2.lifetime = 0.5
-		
-		self.velocity = player_dir * speed
-		
+	if player_rad:
+		if (self.global_position.distance_to(player.get_global_position()) < 1000):
+			autocorrode()
+		var player_dir = self.global_position.direction_to(player.global_position)
+		#print(player_dir)
+		attack_player_dir = self.global_position.direction_to(player.global_position)
+		var mob_rot = player_dir.angle()
+		#print(mob_rot)
+		#print(mob_rot)
+		#print(mob_rot)
+		#print(PI)
 		if not charge_bar:
-			self.move_and_slide()	
-			#$Sprite/pars_dirt.emitting = false
-		
-		if not $anim.is_playing():
-			$anim.play()
-	else:
-		$anim.stop()
-		
-	if health < 1 and alive:
-		globals.mobs_on_screen -= 1
-		alive = false
-		$deadanim.play("dead")
-		$col.disabled = true
-		
-	if trulydead and $pars.emitting == false: # pars is the player's particles?
-		$deathTimer.start()
-		
+			if -PI/4 < mob_rot:
+				if mob_rot < PI/4:
+					$anim.play("mob_right")
+			if PI/4 < mob_rot:
+				if mob_rot < 3*PI/4:
+					$anim.play("mob_down")
+			if -PI < mob_rot:
+				if mob_rot < -3*PI/4:
+					$anim.play("mob_left")
+			if 3*PI/4 < mob_rot:
+				if mob_rot < PI:
+					$anim.play("mob_left")
+			if -3*PI/4 < mob_rot:
+				if mob_rot < -PI/4:
+					$anim.play("mob_up")
+
+		#print(globals.mobsight)
+		#print(self.global_position.distance_to(player.get_global_position()))
+		if not trulydead:
+			#self.global_position += player_dir
+			#self.move_and_slide(player_dir * 500)
+			
+			if not $anim.is_playing():
+				$anim.play()
+			
+			if charge_bar:  
+				return
+				
+			if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
+				charge_bar = true
+				$anim.play("bearmob_attack")
+				#$Sprite/pars_dirt.emitting = true
+				# play attack, emit dirt particles
+				$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+				atk_counter = 3
+				$groundshake2.amount = 100
+				$groundshake2.process_material.initial_velocity_min = 500
+				$groundshake2.process_material.initial_velocity_max = 1000
+				$groundshake2.lifetime = 0.5
+			
+			self.velocity = player_dir * speed
+			
+			if not charge_bar:
+				self.move_and_slide()	
+				#$Sprite/pars_dirt.emitting = false
+			
+			if not $anim.is_playing():
+				$anim.play()
+		else:
+			$anim.stop()
+			
+		if health < 1 and alive:
+			globals.mobs_on_screen -= 1
+			alive = false
+			$deadanim.play("dead")
+			$col.disabled = true
+			
+		if trulydead and $pars.emitting == false: # pars is the player's particles?
+			$deathTimer.start()
+			
 
 #func _init(enemy, params):
 #  enemy.dir = (enemy.target.position - enemy.position).normalized()
@@ -193,3 +195,18 @@ func _on_atk_cooldown_timeout():
 	$groundshake2.process_material.initial_velocity_min *= 1.5
 	$groundshake2.process_material.initial_velocity_max *= 1.5
 	$groundshake2.lifetime *= 2
+
+
+func _on_mobsight_body_entered(body):
+	if body.is_in_group("player"):
+		player_rad = true
+		$mobsight/vis.scale *= 1.5
+		#print($mobsight/vis.scale)
+
+func _on_mobsight_body_exited(body):
+	if body.is_in_group("player"):
+		player_rad = false
+		$mobsight/vis.scale /= 1.5
+		#print($mobsight/vis.scale)
+		attacking = false
+		$anim.stop()

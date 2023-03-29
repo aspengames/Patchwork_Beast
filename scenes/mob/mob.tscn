@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://0ke3upru7noy"]
+[gd_scene load_steps=26 format=3 uid="uid://0ke3upru7noy"]
 
 [ext_resource type="Script" path="res://scenes/mob/mob.gd" id="1_c7ajy"]
 [ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="2_02pvh"]
@@ -453,7 +453,10 @@ _data = {
 "dead": SubResource("11")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kf10w"]
+
 [node name="mob" type="CharacterBody2D" groups=["charge_mob"]]
+y_sort_enabled = true
 collision_layer = 13
 collision_mask = 13
 script = ExtResource("1_c7ajy")
@@ -519,9 +522,18 @@ wait_time = 1.5
 [node name="aura" type="PointLight2D" parent="."]
 texture = ExtResource("8_x7ctp")
 
+[node name="mobsight" type="Area2D" parent="."]
+position = Vector2(8, 187)
+
+[node name="vis" type="CollisionShape2D" parent="mobsight"]
+scale = Vector2(300, 300)
+shape = SubResource("CircleShape2D_kf10w")
+
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
 [connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
 [connection signal="screen_exited" from="vis" to="." method="_on_vis_screen_exited"]
 [connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
 [connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]
 [connection signal="timeout" from="chargeTimer" to="." method="_on_charge_timer_timeout"]
+[connection signal="body_entered" from="mobsight" to="." method="_on_mobsight_entered"]
+[connection signal="body_exited" from="mobsight" to="." method="_on_mobsight_body_exited"]

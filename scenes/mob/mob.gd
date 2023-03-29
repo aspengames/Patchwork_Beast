@@ -5,7 +5,7 @@ extends CharacterBody2D
 # var a = 2
 # var b = "text"
 
-@onready var player = $"../Map/Map/Player"
+@onready var player = $"../Player"
 var dist = 999999
 var alive = true
 var trulydead = false
@@ -13,6 +13,7 @@ var buck = false
 var attacking = false
 var attack_player_dir
 var speed = 250
+var player_rad = false
 
 @export var health = 9999
 
@@ -22,76 +23,78 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (self.global_position.distance_to(player.get_global_position()) < 1000):
-		autocorrode()
-	var player_dir = self.global_position.direction_to(player.global_position)
-	#print(player_dir)
-	
-	var mob_rot = player_dir.angle()
-	#print(mob_rot)
-	#print(mob_rot)
-	#print(mob_rot)
-	#print(PI)
-	if not buck:
-		if -PI/4 < mob_rot:
-			if mob_rot < PI/4:
-				$anim.play("mob_right")
-		if PI/4 < mob_rot:
-			if mob_rot < 3*PI/4:
-				$anim.play("mob_down")
-		if -PI < mob_rot:
-			if mob_rot < -3*PI/4:
-				$anim.play("mob_left")
-		if 3*PI/4 < mob_rot:
-			if mob_rot < PI:
-				$anim.play("mob_left")
-		if -3*PI/4 < mob_rot:
-			if mob_rot < -PI/4:
-				$anim.play("mob_up")
-
-	#print(globals.mobsight)
-	#print(self.global_position.distance_to(player.get_global_position()))
-	if (self.global_position.distance_to(player.get_global_position()) < 1000) and (self.global_position.distance_to(player.get_global_position()) > 100) and not trulydead:
-		if not $anim.is_playing():
-			$anim.play()
-		if buck:
-			return
-		#self.global_position += player_dir
-		#self.move_and_slide(player_dir * 500)
-		if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
-			buck = true
-			
-			$atkTimer.start()
-			if -PI/2 < mob_rot:
-				if mob_rot < PI/2:
-					$anim.play("mob_attack_right")
-			if -PI/2 > mob_rot:
-				$anim.play("mob_attack_left")
-			if PI/2 < mob_rot: 
-				$anim.play("mob_attack_left")
-				
+	if player_rad:
+		#print("Processor called")
+		if (self.global_position.distance_to(player.get_global_position()) < 1000):
+			autocorrode()
+		var player_dir = self.global_position.direction_to(player.global_position)
+		#print(player_dir)
+		
+		var mob_rot = player_dir.angle()
+		#print(mob_rot)
+		#print(mob_rot)
+		#print(mob_rot)
+		#print(PI)
 		if not buck:
-			self.velocity = player_dir * speed
+			if -PI/4 < mob_rot:
+				if mob_rot < PI/4:
+					$anim.play("mob_right")
+			if PI/4 < mob_rot:
+				if mob_rot < 3*PI/4:
+					$anim.play("mob_down")
+			if -PI < mob_rot:
+				if mob_rot < -3*PI/4:
+					$anim.play("mob_left")
+			if 3*PI/4 < mob_rot:
+				if mob_rot < PI:
+					$anim.play("mob_left")
+			if -3*PI/4 < mob_rot:
+				if mob_rot < -PI/4:
+					$anim.play("mob_up")
+
+		#print(globals.mobsight)
+		#print(self.global_position.distance_to(player.get_global_position()))
+		if not trulydead:
+			if not $anim.is_playing():
+				$anim.play()
+			if buck:
+				return
+			#self.global_position += player_dir
+			#self.move_and_slide(player_dir * 500)
+			if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
+				buck = true
+				
+				$atkTimer.start()
+				if -PI/2 < mob_rot:
+					if mob_rot < PI/2:
+						$anim.play("mob_attack_right")
+				if -PI/2 > mob_rot:
+					$anim.play("mob_attack_left")
+				if PI/2 < mob_rot: 
+					$anim.play("mob_attack_left")
+					
+			if not buck:
+				self.velocity = player_dir * speed
+				
+			if attacking:
+				self.velocity = attack_player_dir * speed
+				speed += 5
 			
-		if attacking:
-			self.velocity = attack_player_dir * speed
-			speed += 5
-		
-		self.move_and_slide()	
-		
-		if not $anim.is_playing():
-			$anim.play()
-	else:
-		$anim.stop()
-		
-	if health < 1 and alive:
-		globals.mobs_on_screen -= 1
-		alive = false
-		$deadanim.play("dead")
-		$col.disabled = true
-		
-	if trulydead and $pars.emitting == false:
-		$deathTimer.start()
+			self.move_and_slide()	
+			
+			if not $anim.is_playing():
+				$anim.play()
+		else:
+			$anim.stop()
+			
+		if health < 1 and alive:
+			globals.mobs_on_screen -= 1
+			alive = false
+			$deadanim.play("dead")
+			$col.disabled = true
+			
+		if trulydead and $pars.emitting == false:
+			$deathTimer.start()
 		
 		
 func autocorrode():
@@ -142,7 +145,8 @@ func _on_atk_timer_timeout():
 	buck = false
 	speed = 500
 	$chargeTimer.start()
-	if (self.global_position.distance_to(player.get_global_position()) < 200):
+	var self_pos_down_50 = self.global_position - Vector2(0,150)
+	if (self_pos_down_50.distance_to(player.get_global_position()) < 200) or (self.global_position.distance_to(player.get_global_position()) < 200):
 		player.knockback(3, attack_player_dir)
 		player._on_HITBOX_body_entered(self)
 		attacking = false
@@ -151,3 +155,20 @@ func _on_atk_timer_timeout():
 func _on_charge_timer_timeout():
 	attacking = false
 	speed = 250
+
+
+func _on_mobsight_entered(body):
+	if body.is_in_group("player"):
+		player_rad = true
+		$mobsight/vis.scale *= 2
+		#print($mobsight/vis.scale)
+
+func _on_mobsight_body_exited(body):
+	if body.is_in_group("player"):
+		player_rad = false
+		$mobsight/vis.scale /= 2
+		#print($mobsight/vis.scale)
+		attacking = false
+		buck = false
+		speed = 250
+		$anim.stop()
