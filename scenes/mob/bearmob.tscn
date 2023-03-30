@@ -1,13 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://ckx0evukhppdl"]
+[gd_scene load_steps=34 format=3 uid="uid://cxc1evc8ipmut"]
 
 [ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
-[ext_resource type="Texture2D" uid="uid://brf4aoiw2k67k" path="res://art/mob/bear_spritesheet-01.png" id="2_xgfbe"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_whi4w"]
 [ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="4_gqqsi"]
 [ext_resource type="Texture2D" uid="uid://b65q7i7c1etgw" path="res://projectiles/particle3.png" id="4_pep6g"]
 [ext_resource type="Texture2D" uid="uid://j6yvwn4jmer4" path="res://art/mob/bear_spritesheet_mask.png" id="5_77s5d"]
 [ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="5_fgr5j"]
 [ext_resource type="Texture2D" uid="uid://t48psr5iadws" path="res://art/mob/bear_spritesheet_cor_mask.png" id="6_qc4ic"]
+[ext_resource type="Texture2D" uid="uid://durgixquxkd0t" path="res://art/mob/bear_spritesheet.png" id="6_uopqa"]
 [ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="9_kiy3a"]
 
 [sub_resource type="CapsuleShape2D" id="8"]
@@ -47,7 +47,7 @@ shader_parameter/smooth_size = 0.01
 shader_parameter/invert_mask = true
 shader_parameter/masking_color = Color(1, 1, 1, 1)
 shader_parameter/mask = ExtResource("5_77s5d")
-shader_parameter/orig_mask = ExtResource("2_xgfbe")
+shader_parameter/orig_mask = ExtResource("6_uopqa")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
 blend_mode = 3
@@ -571,14 +571,14 @@ speed_scale = 2.0
 explosiveness = 0.95
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_xgfbe")
+scale = Vector2(2.43, 2.43)
+texture = ExtResource("6_uopqa")
 hframes = 8
 vframes = 3
 frame = 16
 
 [node name="corrode" type="Sprite2D" parent="Sprite"]
 material = SubResource("ShaderMaterial_3yb5h")
-scale = Vector2(2.43, 2.43)
 texture = ExtResource("6_qc4ic")
 hframes = 8
 vframes = 3

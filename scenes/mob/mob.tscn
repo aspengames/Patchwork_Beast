@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://0ke3upru7noy"]
+[gd_scene load_steps=26 format=3 uid="uid://djq4e5olahqbj"]
 
 [ext_resource type="Script" path="res://scenes/mob/mob.gd" id="1_c7ajy"]
 [ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="2_02pvh"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_f6k5m"]
-[ext_resource type="Texture2D" uid="uid://byyv43onqh0yk" path="res://art/mob/mob_deer_spritesheet.png" id="2_nvxew"]
 [ext_resource type="Texture2D" uid="uid://swifahjqdls4" path="res://projectiles/particle2.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://cl8s63d52vgh3" path="res://art/mob/deer_spritesheet_mask.png" id="4_vm36r"]
+[ext_resource type="Texture2D" uid="uid://dbfytf2ae7f17" path="res://art/mob/deer_spritesheet.png" id="5_ge860"]
 [ext_resource type="Texture2D" uid="uid://ckubnpjbk330n" path="res://art/mob/deer_spritesheet_cor_mask.png" id="5_gvanb"]
 [ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="8_x7ctp"]
 
@@ -22,7 +22,7 @@ shader_parameter/smooth_size = 0.01
 shader_parameter/invert_mask = true
 shader_parameter/masking_color = Color(1, 1, 1, 1)
 shader_parameter/mask = ExtResource("4_vm36r")
-shader_parameter/orig_mask = ExtResource("2_nvxew")
+shader_parameter/orig_mask = ExtResource("5_ge860")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
 blend_mode = 3
@@ -468,7 +468,8 @@ shape = SubResource("8")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 clip_children = 2
-texture = ExtResource("2_nvxew")
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("5_ge860")
 hframes = 8
 vframes = 3
 frame = 20
