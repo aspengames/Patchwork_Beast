@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var textbox = $"../Map/Map/Player/Camera2D/Textbox"
 @onready var player = $"../Map/Map/Player"
-@onready var mob = $"../mob"
+@onready var mob = $"../Map/Map/mob"
 
 var one_shot = true
 var one = false

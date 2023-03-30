@@ -1253,12 +1253,12 @@ states/End/position = Vector2(914, 113)
 states/Idle/node = SubResource("15")
 states/Idle/position = Vector2(659, 113)
 states/Shoot/node = SubResource("AnimationNodeBlendSpace2D_8ktnk")
-states/Shoot/position = Vector2(659, 213)
+states/Shoot/position = Vector2(659, 211)
 states/Start/position = Vector2(401, 113)
 states/Walk/node = SubResource("22")
 states/Walk/position = Vector2(659, 18)
 transitions = ["Idle", "Walk", SubResource("23"), "Walk", "Idle", SubResource("24"), "Idle", "Shoot", SubResource("AnimationNodeStateMachineTransition_iitmg"), "Shoot", "Idle", SubResource("AnimationNodeStateMachineTransition_1k7mp"), "Walk", "Dash", SubResource("AnimationNodeStateMachineTransition_hfw6o"), "Dash", "Walk", SubResource("AnimationNodeStateMachineTransition_ty5qy")]
-graph_offset = Vector2(8.7982, -36)
+graph_offset = Vector2(8.7982, 6.23605)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="17"]
 
@@ -1296,7 +1296,7 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("7")
 hframes = 8
 vframes = 5
-frame = 33
+frame = 26
 
 [node name="death" type="Sprite2D" parent="."]
 visible = false
@@ -1317,7 +1317,7 @@ active = true
 parameters/playback = SubResource("17")
 parameters/Dash/blend_position = Vector2(-0.00160003, 0.0425532)
 parameters/Idle/blend_position = Vector2(0, 0.0176678)
-parameters/Shoot/blend_position = Vector2(-0.00319999, 0.00348425)
+parameters/Shoot/blend_position = Vector2(-0.366138, -0.746725)
 parameters/Walk/blend_position = Vector2(0.02112, -0.206838)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -1369,6 +1369,7 @@ visible = false
 position = Vector2(28.5, -13)
 
 [node name="lite" type="PointLight2D" parent="Staff1"]
+visible = false
 position = Vector2(1.5, 6.5)
 scale = Vector2(0.1, 0.1)
 shadow_enabled = true
@@ -1380,7 +1381,6 @@ texture = ExtResource("13_kax16")
 position = Vector2(-26.5, -15)
 
 [node name="lite" type="PointLight2D" parent="Staff2"]
-visible = false
 position = Vector2(-3, 4.5)
 scale = Vector2(0.1, 0.1)
 shadow_enabled = true

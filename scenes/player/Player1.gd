@@ -45,7 +45,7 @@ func _ready():
 #executed each frame
 func _physics_process(_delta):
 	#boolean returning if any moving key is pressed
-	var is_moving = Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left")
+	var is_moving = Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left") 
 	if globals.player_stop:
 		is_moving = false
 	""" Movement manager
@@ -105,6 +105,8 @@ func _physics_process(_delta):
 #				$explosion.emitting = true
 #				return			
 			attacking = true
+			#print("Set attacking to", attacking)
+			#print("A")
 			var nift_direction = self.global_position.direction_to(get_global_mouse_position())
 			throw_nift(nift_direction)
 	if enemyin and hurtTimer.is_stopped() and not invincible:
@@ -162,6 +164,7 @@ func throw_nift(nift_direction: Vector2):
 		nift_dir = nift_direction
 		
 func actual_throw_nift():
+		print("called")
 		var nift_direction = nift_dir
 		var nift = NIFT.instantiate()
 		get_tree().current_scene.get_node("Player/projectiles").add_child(nift)
@@ -186,6 +189,7 @@ func actual_throw_nift():
 		nift.rotation = nift_rotation
 		#$"../laserbgm".play()
 		atkTimer.start()
+		#print("Started Atk Timer")
 		nift.get_node("pars").emitting = true
 		#$AnimationTree.set("parameters/Idle/blend_position", nift_direction)
 
@@ -202,6 +206,7 @@ func actual_throw_nift():
 #			$AnimationTree.set("parameters/Walk/blend_position", get_global_mouse_position())
 func _on_atk_timer_timeout():
 	attacking = false
+	#print("Set attacking to", attacking)
 
 func show_tip(text, time):
 	$tips.visible = true
