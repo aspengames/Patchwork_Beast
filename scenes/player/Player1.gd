@@ -23,6 +23,7 @@ var kb_onetime = false
 #acceleration/deceleration lerping weight
 const ACCEL_WEIGHT = .3
 
+var display_name = "Ramis"
 var atkTimer
 var hurtTimer
 #init the nift
@@ -38,7 +39,7 @@ func _ready():
 	atkTimer = $atkTimer
 	hurtTimer = $hurtTimer
 	
-	$Camera2D/Textbox.set_new_name("Ramis")
+	$Camera2D/Textbox.set_new_name(display_name)
 	#temporary name setter
 	pass
 

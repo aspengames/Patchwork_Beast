@@ -25,6 +25,8 @@ var cur_text_done = false
 
 var tween1
 @onready var player = $"../.."
+var character_queue = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,6 +48,10 @@ func _process(_delta):
 			if !text_queue.is_empty():
 				speed = 0
 				display_text()
+				if !character_queue.is_empty():
+					var char_name = character_queue.pop_front()
+					set_sprite(char_name)
+					set_new_name(char_name)
 				
 		State.READING:
 			if label1.visible_ratio == 1.0 and not cur_text_done:
@@ -79,13 +85,23 @@ func queue_text(next_text):
 	text_queue.push_back(next_text)
 	globals.player_stop = true
 	
+func set_new_name(txtname):
+	print("Set Name to: ", txtname)
+	speaker_name.text = txtname
 	
-func set_new_name(_txtname):
-	speaker_name.text = _txtname
-	
+var prev_sprite = "Player"
 func set_sprite(sprite):
-	speaker_sprite = $Detail.get_node(sprite)
-	#$Detail.get_node(sprite).show()
+	if sprite == "Ramis":
+		sprite = "Player"
+	print("Set Sprite to: ", sprite)
+	#speaker_sprite = $Detail.get_node(sprite)
+	$Detail.get_node(prev_sprite).hide()
+	$Detail.get_node(sprite).show()
+	prev_sprite = sprite
+	
+func queue_character(character_name):
+	print("Queueing ", character_name)
+	character_queue.push_back(character_name)
 	
 func hide_textbox():
 	start_symbol.text = ""
@@ -100,6 +116,8 @@ func hide_textbox():
 			$Detail/Player.hide()
 		$Overlay.hide()
 		speed = 160
+		player.get_node("ui/health").visible = true
+		$Detail.get_node(prev_sprite).hide()
 	
 func show_textbox():
 	all_finished = false
@@ -111,6 +129,7 @@ func show_textbox():
 	else:
 		$Detail/Player.show()
 	$Overlay.show()
+	player.get_node("ui/health").visible = false
 	
 func display_text():
 	$TextboxContainer/Button.hide()

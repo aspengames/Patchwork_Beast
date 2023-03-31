@@ -104,11 +104,11 @@ func _process(_delta):
 #  var motion = enemy.dir * enemy.speed
 #  enemy.move_and_slide(motion)
 func autocorrode():
-	if curcor >= 0.025 and curcor < 0.9:
+	#if curcor >= 0.025 and curcor < 0.9:
 		#print(curcor)
 		var tween1 = create_tween()
 		tween1.tween_property($Sprite/corrode.material, "shader_parameter/cutoff_two", curcor+0.0001, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-		curcor += 0.0001
+		curcor += 0.0001 * 6
 
 @export var curcor = 0.165
 var damp = 0.5

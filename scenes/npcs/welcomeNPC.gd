@@ -4,6 +4,7 @@ var interacted = false
 var can_interact = true
 
 @onready var textbox = $"../../Map/Map/Player/Camera2D/Textbox"
+@onready var player = $"../../Map/Map/Player"
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -30,14 +31,17 @@ func _on_hitbox_body_entered(body):
 		
 		
 func _check_interaction():
-	print(globals.mobs_on_screen)
+	#print(globals.mobs_on_screen)
 	if globals.mobs_on_screen < 0:
 		globals.mobs_on_screen = 0
 	if Input.is_action_just_pressed("interact") and can_interact and globals.mobs_on_screen == 0:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		textbox.set_sprite("Isla")
-		textbox.set_new_name("Isla")
+		textbox.queue_character("Isla")
 		textbox.queue_text("So you ran into a Corroded spirit out there, huh?")
+		textbox.queue_character("Ramis")
+		textbox.queue_text("Sorry! I hadn't realized I was in the spirit forest already...I ran into a strange spirit deer all the way back near Mossglen and thought I'd investigate.")
+		textbox.queue_character("Isla")
+		textbox.queue_text("Serves you right. No human should be trespassing on our lands.")
 		can_interact = false
 
 	if globals.textbox_finished:
