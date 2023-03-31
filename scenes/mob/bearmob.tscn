@@ -78,6 +78,30 @@ turbulence_enabled = true
 
 [sub_resource type="Animation" id="3"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/shadow:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.388253, 0.308624)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/shadow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 210.699)]
+}
 
 [sub_resource type="Animation" id="Animation_tyj1j"]
 resource_name = "bearmob_attack"
@@ -105,7 +129,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 570)]
+"values": [Vector2(0, 180)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -117,7 +141,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.849158, 0.674999)]
+"values": [Vector2(0.39, 0.29)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -161,6 +185,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [16, 17]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.29, 0.29)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite/shadow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 180)]
+}
 
 [sub_resource type="Animation" id="Animation_2ffpw"]
 resource_name = "mob_attack_left"
@@ -189,7 +237,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 570)]
+"values": [Vector2(0, 210)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -231,7 +279,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-64, 570)]
+"values": [Vector2(0, 210)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -272,7 +320,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.515)]
+"values": [Vector2(0.29, 0.29)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -284,7 +332,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 480)]
+"values": [Vector2(0, 180)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -325,7 +373,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 500)]
+"values": [Vector2(45, 180)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -337,7 +385,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.849158, 0.515)]
+"values": [Vector2(0.53, 0.29)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -378,7 +426,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.849158, 0.515)]
+"values": [Vector2(0.53, 0.29)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -390,7 +438,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-64, 500)]
+"values": [Vector2(-45, 180)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -431,7 +479,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.515)]
+"values": [Vector2(0.29, 0.29)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -443,7 +491,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 480)]
+"values": [Vector2(0, 180)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -588,8 +636,8 @@ frame = 16
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_fempb")
-position = Vector2(0, 480)
-scale = Vector2(0.849158, 0.674999)
+position = Vector2(0, 210.699)
+scale = Vector2(0.388253, 0.308624)
 texture = ExtResource("3_whi4w")
 
 [node name="pars_dirt" type="GPUParticles2D" parent="Sprite"]
