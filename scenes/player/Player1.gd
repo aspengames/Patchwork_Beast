@@ -6,7 +6,6 @@ var horizontal_input
 var vertical_input
 var direction = Vector2()
 
-var only_dash_while_walk = true
 var able_to_dash = true
 var invincible = false
 var speed = 400
@@ -74,24 +73,20 @@ func _physics_process(_delta):
 	if globals.player_stop:
 		velocity = Vector2.ZERO
 	if velocity == Vector2.ZERO:
-		only_dash_while_walk = false
 		$AnimationTree.get("parameters/playback").travel("Idle")
 	else:
 		if not is_moving:
-			only_dash_while_walk = false
 			$AnimationTree.get("parameters/playback").travel("Idle")
 		else:
 			if not attacking:
-				only_dash_while_walk = true
 				$AnimationTree.get("parameters/playback").travel("Walk")
 				$AnimationTree.set("parameters/Idle/blend_position", velocity)
 				$AnimationTree.set("parameters/Walk/blend_position", velocity)
+				#$AnimationTree.set("parameters/Dash/blend_position", velocity)
 			else:
-				only_dash_while_walk = false
 				$AnimationTree.get("parameters/playback").travel("Idle")
 			
-	if Input.is_action_just_pressed("space") and able_to_dash and only_dash_while_walk:
-		only_dash_while_walk = false
+	if Input.is_action_just_pressed("space") and able_to_dash and walking_anim_check():
 		able_to_dash = false
 		$dashTimer.start()
 		dash(direction)
@@ -104,11 +99,11 @@ func _physics_process(_delta):
 #			if globals.tutorial:
 #				$explosion.emitting = true
 #				return			
-			attacking = true
-			#print("Set attacking to", attacking)
-			#print("A")
-			var nift_direction = self.global_position.direction_to(get_global_mouse_position())
-			throw_nift(nift_direction)
+			if not dashing_anim_check():
+				attacking = true
+				#print("Set attacking to", attacking)
+				var nift_direction = self.global_position.direction_to(get_global_mouse_position())
+				throw_nift(nift_direction)
 	if enemyin and hurtTimer.is_stopped() and not invincible:
 		enemyin = false
 		health -= 20
@@ -134,6 +129,12 @@ func dash(player_dir):
 	kb_onetime = true
 	knockback_str = 4
 	
+func dashing_anim_check():
+	return $AnimationTree["parameters/playback"].get_current_node() == "Dash"
+	
+func walking_anim_check():
+	return $AnimationTree["parameters/playback"].get_current_node() == "Walk"
+
 var enemyin = false
 var health = 80
 func _on_HITBOX_body_entered(body):
@@ -164,7 +165,6 @@ func throw_nift(nift_direction: Vector2):
 		nift_dir = nift_direction
 		
 func actual_throw_nift():
-		print("called")
 		var nift_direction = nift_dir
 		var nift = NIFT.instantiate()
 		get_tree().current_scene.get_node("Player/projectiles").add_child(nift)

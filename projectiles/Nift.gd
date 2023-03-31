@@ -7,24 +7,26 @@ func _physics_process(delta):
 	global_position += SPEED * direction * delta
 	
 func destroy():
-	print("qd")
+	#print("qd")
 	queue_free()
 
 
 func _on_Nift_area_entered(_area):
-	destroy()
+	pass
+	#destroy()
 	
 func _on_Nift_body_entered(body):
-	destroy()
-	print("Entered body!")
+	#print("Entered body!")
 	if body.is_in_group("charge_mob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
 		body.hurt()
+		destroy()
 	if body.is_in_group("bearmob"):
 		body.get_node("pars").emitting = true
 		body.health -= 1
 		body.hurt()
+		destroy()
 	#body.dead()
 	#body.queue_free()
 
