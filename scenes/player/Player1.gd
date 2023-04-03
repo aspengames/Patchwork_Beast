@@ -9,7 +9,7 @@ var direction = Vector2()
 var only_dash_while_walk = true
 var able_to_dash = true
 var invincible = false
-var speed = 400
+var speed = 400 #400
 var dead = false
 var attacking = false
 var knockback_dir = Vector2()
@@ -45,6 +45,7 @@ func _ready():
 
 #executed each frame
 func _physics_process(_delta):
+	
 	#print(str(Engine.get_frames_per_second()))
 	#boolean returning if any moving key is pressed
 	var is_moving = Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left") 

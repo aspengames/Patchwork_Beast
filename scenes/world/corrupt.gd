@@ -15,6 +15,7 @@ func set_initial_corruption():
 			trees.append(body)
 	#print("Trees are", trees)
 	for tree in trees:
+		#pass
 		tree.get_owner().set_corruption(percent_to_corrupt)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

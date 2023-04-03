@@ -40,6 +40,7 @@ hue_variation_max = 1.0
 hue_variation_curve = SubResource("CurveTexture_obpnc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3yb5h"]
+resource_local_to_scene = true
 shader = ExtResource("4_gqqsi")
 shader_parameter/cutoff_one = 1.301
 shader_parameter/cutoff_two = 0.135

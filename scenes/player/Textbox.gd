@@ -51,6 +51,8 @@ func _process(_delta):
 				if !character_queue.is_empty():
 					var char_name = character_queue.pop_front()
 					set_sprite(char_name)
+					if "Player" in char_name:
+						char_name = "Ramis"
 					set_new_name(char_name)
 				
 		State.READING:

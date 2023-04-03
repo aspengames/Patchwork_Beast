@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmbunj2yc6omg"]
+
+[ext_resource type="Texture2D" uid="uid://0mt0m1e7grl4" path="res://art/environment/house_small.png" id="1_h7qw2"]
+[ext_resource type="Texture2D" uid="uid://dhhrwvdq0t5uj" path="res://art/environment/house_small_roof.png" id="2_i8inn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1phnq"]
+size = Vector2(336, 10.9933)
+
+[node name="House1" type="Sprite2D"]
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("1_h7qw2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_i8inn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -14.7692)
+scale = Vector2(1, 20.6)
+shape = SubResource("RectangleShape2D_1phnq")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]

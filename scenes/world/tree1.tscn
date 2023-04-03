@@ -112,5 +112,6 @@ occluder = SubResource("OccluderPolygon2D_e80qd")
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 
 [node name="clight" type="PointLight2D" parent="."]
+visible = false
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("7_ehcis")

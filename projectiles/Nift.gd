@@ -36,9 +36,10 @@ func _on_Nift_body_entered(body):
 func _on_VisibilityNotifier2D_screen_exited():
 	# In future would set this to delete after 5 seconds if not coming into screen again
 	$screenLeave.start()
-	print("Started")
+	#destroy()
+	
 	
 
 func _on_screen_leave_timeout():
-	print("deleted")
+	print("particle deleted")
 	destroy()
