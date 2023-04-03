@@ -1,15 +1,18 @@
 extends Area2D
 
 var SPEED: int = 1000
+var one_time = true
 
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
 	global_position += SPEED * direction * delta
+	if one_time:
+		$woosh.play()
+		one_time = false
 	
 func destroy():
 	#print("qd")
 	queue_free()
-
 
 func _on_Nift_area_entered(_area):
 	pass

@@ -148,10 +148,10 @@ script = ExtResource("9")
 [node name="Night" type="ColorRect" parent="."]
 z_index = 1
 material = SubResource("CanvasItemMaterial_1djf1")
-offset_left = -5680.0
-offset_top = -1088.0
-offset_right = -5640.0
-offset_bottom = -1048.0
+offset_left = -4258.0
+offset_top = -3806.0
+offset_right = -4218.0
+offset_bottom = -3766.0
 scale = Vector2(585.594, -742.596)
 
 [node name="ForestDarken" type="Node2D" parent="."]

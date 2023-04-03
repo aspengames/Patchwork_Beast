@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c17iqy4eucnxw"]
+[gd_scene load_steps=8 format=3 uid="uid://c17iqy4eucnxw"]
 
 [ext_resource type="Texture2D" uid="uid://c6k4uxpeogbi1" path="res://projectiles/particle1.png" id="1"]
 [ext_resource type="Script" path="res://projectiles/Nift.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://dd5l5ofvxbhvd" path="res://projectiles/lite.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://73wqw0bpkxnl" path="res://scenes/particles/pars2.tscn" id="3_5uaq6"]
 [ext_resource type="PackedScene" uid="uid://blrib1vldqgsp" path="res://scenes/particles/pars.tscn" id="4"]
+[ext_resource type="AudioStream" uid="uid://cml4wn3a6hy6d" path="res://music/ui_jingle2.mp3" id="6_w0cj4"]
 
 [sub_resource type="CircleShape2D" id="1"]
 
@@ -38,6 +39,9 @@ color = Color(0.952941, 0.952941, 0.952941, 1)
 
 [node name="screenLeave" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="woosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_w0cj4")
 
 [connection signal="area_entered" from="." to="." method="_on_Nift_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Nift_body_entered"]

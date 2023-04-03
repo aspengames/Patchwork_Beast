@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://bia4ew2otfdpp"]
+
+[ext_resource type="Script" path="res://scenes/tutorial/instruction_ui.gd" id="1_fr82m"]
+[ext_resource type="Texture2D" uid="uid://c7hxnjauis644" path="res://art/ui/button_w.png" id="2_2k7eu"]
+[ext_resource type="Texture2D" uid="uid://bmer20si2sj2p" path="res://art/ui/button_a.png" id="3_8ifls"]
+[ext_resource type="Texture2D" uid="uid://bsd3admp6qi3h" path="res://art/ui/button_s.png" id="4_6l76q"]
+[ext_resource type="Texture2D" uid="uid://fpkj1bvyrmdd" path="res://art/ui/button_d.png" id="5_2arva"]
+[ext_resource type="Texture2D" uid="uid://bxd87nhfi4jry" path="res://art/ui/Left_click.png" id="6_gw4wm"]
+[ext_resource type="FontFile" uid="uid://dc431603em5h8" path="res://fonts/Lucida Sans Unicode.ttf" id="6_u3p0e"]
+
+[sub_resource type="CanvasItemMaterial" id="2"]
+
+[node name="instruction_ui" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_fr82m")
+
+[node name="disappear" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="UseLeft_Click" type="Node2D" parent="."]
+position = Vector2(-40, 0)
+
+[node name="ButtonGroup" type="Node2D" parent="UseLeft_Click"]
+position = Vector2(1225, 1016)
+scale = Vector2(0.25, 0.25)
+
+[node name="ButtonW" type="Sprite2D" parent="UseLeft_Click/ButtonGroup"]
+visible = false
+position = Vector2(-1024, -368)
+texture = ExtResource("2_2k7eu")
+
+[node name="ButtonA" type="Sprite2D" parent="UseLeft_Click/ButtonGroup"]
+visible = false
+position = Vector2(-1296, -80)
+texture = ExtResource("3_8ifls")
+
+[node name="ButtonS" type="Sprite2D" parent="UseLeft_Click/ButtonGroup"]
+visible = false
+position = Vector2(-1024, -80)
+texture = ExtResource("4_6l76q")
+
+[node name="ButtonD" type="Sprite2D" parent="UseLeft_Click/ButtonGroup"]
+visible = false
+position = Vector2(-752, -80)
+texture = ExtResource("5_2arva")
+
+[node name="Sprite2D" type="Sprite2D" parent="UseLeft_Click/ButtonGroup"]
+position = Vector2(-972, -152)
+texture = ExtResource("6_gw4wm")
+
+[node name="Label" type="Label" parent="UseLeft_Click"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 829.0
+offset_top = 948.0
+offset_right = 1383.0
+offset_bottom = 1026.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_u3p0e")
+theme_override_font_sizes/font_size = 48
+text = "use         to shoot"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(1, 1, 1, 0)
+
+[connection signal="timeout" from="disappear" to="." method="_on_disappear_timeout" flags=18]

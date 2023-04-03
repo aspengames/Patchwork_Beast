@@ -94,7 +94,7 @@ func _physics_process(_delta):
 				if not attacking:
 					$AnimationTree.get("parameters/playback").travel("Idle")
 			
-	if Input.is_action_just_pressed("space") and able_to_dash and only_dash_while_walk:
+	if Input.is_action_just_pressed("space") and able_to_dash and only_dash_while_walk and globals.dash_enabled:
 		only_dash_while_walk = false
 		able_to_dash = false
 		$dashTimer.start()
