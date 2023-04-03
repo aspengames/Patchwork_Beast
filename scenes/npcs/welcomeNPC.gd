@@ -22,7 +22,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if interacted:
-		print("self name is ", self.name)
+		#print("self name is ", self.name)
 		_check_interaction(self.name)
 
 

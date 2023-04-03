@@ -7,6 +7,9 @@ func _ready():
 
 func set_initial_corruption():
 	await get_tree().physics_frame
+	#print("awaited physics")
+	await $htmlCorruptTimer.timeout
+	#print("Timer timed out")
 	var bodies = get_overlapping_bodies()
 	#print("Overlapping bodies are ", bodies)
 	var trees = []

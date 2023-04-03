@@ -8,6 +8,9 @@ func _ready():
 	
 func get_deers():
 	await get_tree().physics_frame
+	#print("awaited physics")
+	await $htmlTimer.timeout
+	#print("Timer timed out")
 	var bodies = get_overlapping_bodies()
 	#print("Overlapping bodies are ", bodies)
 	var deers = []

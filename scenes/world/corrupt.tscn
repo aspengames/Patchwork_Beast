@@ -13,3 +13,6 @@ percent_to_corrupt = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(250, 250)
 shape = SubResource("CircleShape2D_qvj4t")
+
+[node name="htmlCorruptTimer" type="Timer" parent="."]
+autostart = true

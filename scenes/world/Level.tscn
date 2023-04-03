@@ -296,10 +296,12 @@ percent_to_dark = 0.9
 visible = false
 
 [node name="corrupt" parent="TreeCorrupt" instance=ExtResource("12_8y5bq")]
+position = Vector2(6258, -12785)
+scale = Vector2(2, 2)
 percent_to_corrupt = 0.0
 
 [node name="corrupt2" parent="TreeCorrupt" instance=ExtResource("12_8y5bq")]
-position = Vector2(3079, -17621)
+position = Vector2(2783, -17661)
 percent_to_corrupt = 0.1
 
 [node name="corrupt3" parent="TreeCorrupt" instance=ExtResource("12_8y5bq")]
@@ -341,6 +343,9 @@ position = Vector2(-1611, -3663)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area1/deer_abl"]
 scale = Vector2(50, 50)
 shape = SubResource("RectangleShape2D_i6xwl")
+
+[node name="htmlTimer" type="Timer" parent="Area1"]
+autostart = true
 
 [connection signal="body_entered" from="Area1/deer_abl" to="Area1" method="_on_deer_abl_body_entered"]
 

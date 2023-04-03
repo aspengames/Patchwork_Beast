@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dgvpb3f32c5nh"]
+[gd_scene load_steps=22 format=3 uid="uid://dgvpb3f32c5nh"]
 
 [ext_resource type="TileSet" uid="uid://boxgtk1pebwh2" path="res://RegularTileset.tres" id="1_4cw7q"]
 [ext_resource type="PackedScene" uid="uid://bmwew08qyosbj" path="res://scenes/player/Player.tscn" id="2_dppys"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cgn188hjafggy" path="res://scenes/ui/trans.tscn" id="6_rldc7"]
 [ext_resource type="PackedScene" uid="uid://dt68nvcfsdots" path="res://scenes/ui/MainMenu.tscn" id="8_g314n"]
 [ext_resource type="PackedScene" uid="uid://bia4ew2otfdpp" path="res://scenes/tutorial/instruction_ui.tscn" id="9_hhwpm"]
+[ext_resource type="PackedScene" uid="uid://dtv7lvm8cap5f" path="res://scenes/world/corrupt.tscn" id="10_5uucj"]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_y6fan"]
 
@@ -158,6 +159,13 @@ libraries = {
 [node name="MainMenu" parent="." instance=ExtResource("8_g314n")]
 
 [node name="instruction_ui" parent="." instance=ExtResource("9_hhwpm")]
+
+[node name="TreeCorrupt" type="Node2D" parent="."]
+
+[node name="corrupt" parent="TreeCorrupt" instance=ExtResource("10_5uucj")]
+position = Vector2(887, -1304)
+scale = Vector2(2, 2)
+percent_to_corrupt = 0.0
 
 [connection signal="body_entered" from="TutorialStart/Area2D" to="TutorialStart" method="_on_PLAYER_entered"]
 [connection signal="animation_finished" from="TutorialStart/anim" to="TutorialStart" method="_on_ANIM_finished"]
