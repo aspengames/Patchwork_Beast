@@ -1,7 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccxmnhx0k27ly"]
+[gd_scene load_steps=12 format=3 uid="uid://ccxmnhx0k27ly"]
 
 [ext_resource type="Texture2D" uid="uid://p70rtxav33mk" path="res://art/environment/tree2.png" id="1_tmhi8"]
+[ext_resource type="Script" path="res://scenes/world/treecorrupt.gd" id="2_43vm8"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_xpgm3"]
+[ext_resource type="Texture2D" uid="uid://w7b50t4vdhkq" path="res://art/environment/tree2_cor.png" id="3_eo3h6"]
+[ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="3_n75ym"]
+[ext_resource type="Texture2D" uid="uid://bjl8l6xsu7l68" path="res://art/mob/corrosion_mask.png" id="4_u5thg"]
+[ext_resource type="Texture2D" uid="uid://c7n6yknuscw0" path="res://art/environment/redglow.png" id="7_dfl7c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0be4y"]
+resource_local_to_scene = true
+shader = ExtResource("3_n75ym")
+shader_parameter/cutoff_one = 1.301
+shader_parameter/cutoff_two = -0.01
+shader_parameter/smooth_size = 0.0
+shader_parameter/invert_mask = false
+shader_parameter/masking_color = Color(1, 1, 1, 1)
+shader_parameter/mask = ExtResource("4_u5thg")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wsyto"]
 blend_mode = 3
@@ -19,6 +34,12 @@ z_index = 1
 y_sort_enabled = true
 texture = ExtResource("1_tmhi8")
 offset = Vector2(0, -50)
+script = ExtResource("2_43vm8")
+
+[node name="Corrode" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0be4y")
+texture = ExtResource("3_eo3h6")
+offset = Vector2(0, -50)
 
 [node name="Shadow" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -29,7 +50,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_xpgm3")
 offset = Vector2(0, -250)
 
-[node name="col" type="StaticBody2D" parent="."]
+[node name="col" type="StaticBody2D" parent="." groups=["tree"]]
 visible = false
 position = Vector2(0, -75)
 
@@ -39,6 +60,7 @@ scale = Vector2(7, 7)
 shape = SubResource("CapsuleShape2D_oeahd")
 
 [node name="lightocclude" type="Node2D" parent="."]
+visible = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="lightocclude"]
 occluder = SubResource("OccluderPolygon2D_m5tjl")
@@ -87,3 +109,9 @@ occluder = SubResource("OccluderPolygon2D_m5tjl")
 position = Vector2(2, 43)
 scale = Vector2(0.1, 0.1)
 occluder = SubResource("OccluderPolygon2D_m5tjl")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+
+[node name="clight" type="PointLight2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_dfl7c")

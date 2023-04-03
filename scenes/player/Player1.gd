@@ -45,6 +45,7 @@ func _ready():
 
 #executed each frame
 func _physics_process(_delta):
+	#print(str(Engine.get_frames_per_second()))
 	#boolean returning if any moving key is pressed
 	var is_moving = Input.is_action_pressed("move_up") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left") 
 	if globals.player_stop:
@@ -222,9 +223,13 @@ func show_tip(text, time):
 	$tips/tiptimer.wait_time = time
 	$tips/tiptimer.start()
 	
+signal tip_timed
 func _on_tiptimer_timeout():
 	$tips.visible = false
+	emit_signal("tip_timed")
 
+func upgrade():
+	$upgrade.emitting = true
 
 func _on_PLAYERANIM_finished(anim_name):
 	if anim_name == "death":

@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://q2bbqm3dvfiv"]
+
+[ext_resource type="Texture2D" uid="uid://dg7ywmwxt7rv2" path="res://art/npc/liri_idle1.png" id="1_roupq"]
+[ext_resource type="Texture2D" uid="uid://ctqjrdanbiv4j" path="res://art/npc/liri_idle2.png" id="2_j1hbv"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j1hbv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_roupq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]

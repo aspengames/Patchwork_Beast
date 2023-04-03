@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dcpr27g828o2d"]
+
+[ext_resource type="Texture2D" uid="uid://v3qjct018c0x" path="res://art/npc/shopkeep_idle_1.png" id="1_tckkw"]
+[ext_resource type="Texture2D" uid="uid://uimr3dkh1x0a" path="res://art/npc/shopkeep_idle_2.png" id="2_so8aa"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tckkw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_so8aa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]

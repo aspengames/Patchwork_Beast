@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var player = $"../../Map/Map/Player"
+@onready var player = $"../../NAV/Map/Map/Player"
 @onready var darklyr = $"../../Night"
 
 @export var vertical = true
@@ -65,8 +65,18 @@ func _process(_delta):
 				if not upright:
 					player_walked_perc = 1 - player_walked_perc
 				
-				var partial_color = Color.from_hsv(0.61202210187912, player_walked_perc * 0.59803873300552, ((1 - player_walked_perc) * 0.2) + 0.80000001192093, 1.0)
-				#print(partial_color)
+				var partial_color = Color.from_hsv(0.61202210187912 * percent_to_dark, percent_to_dark * 0.59803873300552, (((1 - player_walked_perc) * 0.2) + 0.80000001192093), 1.0)
+				#print("A", partial_color)
+				
+				#Don't do anything if color is lighter than current
+				var night_color = darklyr.color
+				#print(night_color.h, night_color.s, night_color.v, "NIGHT")
+				if night_color.h > partial_color.h:
+					#print("No action")
+					return
+				if night_color.s > partial_color.s:
+					#print("No action")
+					return
 				
 				var tween1 = create_tween()
 				tween1.connect("finished", reset)
@@ -83,8 +93,18 @@ func _process(_delta):
 				if not upright:
 					player_walked_perc = 1 - player_walked_perc
 				
-				var partial_color = Color.from_hsv(0.61202210187912, player_walked_perc * 0.59803873300552, ((1 - player_walked_perc) * 0.2) + 0.80000001192093, 1.0)
+				var partial_color = Color.from_hsv(0.61202210187912 * percent_to_dark, percent_to_dark * 0.59803873300552, (((1 - player_walked_perc) * 0.2) + 0.80000001192093), 1.0)
 				#print(partial_color)
+				
+				#Don't do anything if color is lighter than current
+				var night_color = darklyr.color
+				#print(night_color.h, night_color.s, night_color.v, "NIGHT")
+				if night_color.h > partial_color.h:
+					#print("No action")
+					return
+				if night_color.s > partial_color.s:
+					#print("No action")
+					return
 				
 				var tween1 = create_tween()
 				tween1.connect("finished", reset)

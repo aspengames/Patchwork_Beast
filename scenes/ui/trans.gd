@@ -1,5 +1,5 @@
 extends CanvasLayer
-@onready var player = $"../Map/Map/Player"
+@onready var player = $"../NAV/Map/Map/Player"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -91,6 +91,7 @@ func set_new_name(txtname):
 	
 var prev_sprite = "Player"
 func set_sprite(sprite):
+	$Detail.get_node("Player").hide()
 	if sprite == "Ramis":
 		sprite = "Player"
 	print("Set Sprite to: ", sprite)

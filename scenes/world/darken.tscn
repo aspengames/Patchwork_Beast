@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://knkbv00hknvs"]
+
+[ext_resource type="Script" path="res://scenes/world/darken.gd" id="1_7v4a8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mg76"]
+
+[node name="darken" type="Area2D"]
+position = Vector2(5238, -14255)
+script = ExtResource("1_7v4a8")
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2(458, 309)
+scale = Vector2(150, 150)
+shape = SubResource("RectangleShape2D_4mg76")
+
+[connection signal="body_entered" from="." to="." method="_on_darken_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_darken_body_exited"]

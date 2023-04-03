@@ -15,14 +15,53 @@ var attack_player_dir
 var speed = 250
 var player_rad = false
 
+signal deers_healed
+
 @export var health = 9999
+@export var sleeping = false
+#Navigation
+var movement_speed: float = 200.0
+var movement_target_position: Vector2 = Vector2.ZERO
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	#Navigation actor setup
+	call_deferred("actor_setup")
+	if sleeping:
+		$anim.play("sleep")
 	
+func actor_setup():
+	# Wait for the first physics frame so the NavigationServer can sync.
+	await get_tree().physics_frame
+	# Now that the navigation map is no longer empty, set the movement target.
+	set_movement_target(movement_target_position)
+	
+func set_movement_target(movement_target: Vector2):
+	#print("Setting")
+	navigation_agent.target_position = movement_target
+	
+var move_to_player = false
+func _physics_process(delta):
+	if sleeping:
+		return
+	if move_to_player:
+		move_to_player = false
+		movement_target_position = player.get_global_position()
+		set_movement_target(movement_target_position)
+		var current_agent_position: Vector2 = global_transform.origin
+		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+		var new_velocity: Vector2 = next_path_position - current_agent_position
+		new_velocity = new_velocity.normalized()
+		new_velocity = new_velocity * movement_speed
+		#print("new velocity is", new_velocity)
+		velocity = new_velocity
+		move_and_slide()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if sleeping:
+		return
 	if player_rad:
 		#print("Processor called")
 		if (self.global_position.distance_to(player.get_global_position()) < 1000):
@@ -80,6 +119,7 @@ func _process(delta):
 				self.velocity = attack_player_dir * speed
 				speed += 5
 			
+			move_to_player = true
 			self.move_and_slide()	
 			
 			if not $anim.is_playing():
@@ -92,6 +132,10 @@ func _process(delta):
 			alive = false
 			$deadanim.play("dead")
 			$col.disabled = true
+			globals.deers -= 1
+			if globals.deers <= 0:
+				emit_signal("deers_healed")
+				print("Emitted signal deers healed")
 			
 		if trulydead and $pars.emitting == false:
 			$deathTimer.start()
