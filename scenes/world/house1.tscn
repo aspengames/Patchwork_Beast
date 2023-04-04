@@ -15,10 +15,17 @@ z_index = 2
 texture = ExtResource("2_i8inn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 9.23077)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, -101.538)
+scale = Vector2(1, 20.6)
+polygon = PackedVector2Array(-178.462, 10.7543, -135.385, 10.7244, -98.4615, 9.8581, 92.3077, 9.8581, 135.385, 10.7244, 172.308, 10.7543, 172.308, 9.55937, 166.154, 8.66318, 166.154, -0.59746, -166.154, -0.59746, -166.154, 8.66318, -178.462, 9.55937)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -14.7692)
 scale = Vector2(1, 20.6)
 shape = SubResource("RectangleShape2D_1phnq")
+disabled = true
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
