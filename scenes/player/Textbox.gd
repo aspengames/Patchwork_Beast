@@ -72,6 +72,8 @@ func _process(_delta):
 				change_state(State.FINISHED)
 		State.FINISHED:
 			if cur_text_done and Input.is_action_just_pressed("interact_advance"):
+				$advance.play()
+				print("played advance")
 				cur_text_done = false
 				change_state(State.READY)
 				if text_queue.is_empty():

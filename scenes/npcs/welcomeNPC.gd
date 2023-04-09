@@ -38,6 +38,7 @@ func _check_interaction(npc):
 	if globals.mobs_on_screen < 0:
 		globals.mobs_on_screen = 0
 	if Input.is_action_just_pressed("interact") and can_interact and globals.mobs_on_screen == 0:
+		$interact.play()
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		# Available player expressions: Ramis(Player), PlayerShock, PlayerConcern, PlayerLaugh, PlayerApology, PlayerCat
 		match npc:

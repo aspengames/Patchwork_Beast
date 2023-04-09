@@ -9,7 +9,7 @@ var direction = Vector2()
 var only_dash_while_walk = true
 var able_to_dash = true
 var invincible = false
-var speed = 400 #400
+var speed = 800 #400
 var dead = false
 var attacking = false
 var knockback_dir = Vector2()
@@ -70,31 +70,40 @@ func _physics_process(_delta):
 	if knock:
 		direction = knockback_dir
 		velocity = direction * speed * knockback_str
+		
 		if kb_onetime:
 			kb_onetime = false
 			$kbTimer.start()
+			$sounds/knock.play()
 		
 	if globals.player_stop:
 		velocity = Vector2.ZERO
+		
 	if velocity == Vector2.ZERO:
 		only_dash_while_walk = false
 		if not attacking:
 			$AnimationTree.get("parameters/playback").travel("Idle")
+			$sounds/steps.stop()
 	else:
 		if not is_moving:
 			only_dash_while_walk = false
 			if not attacking:
 				$AnimationTree.get("parameters/playback").travel("Idle")
+				$sounds/steps.stop()
 		else:
 			if not attacking:
 				only_dash_while_walk = true
 				$AnimationTree.get("parameters/playback").travel("Walk")
 				$AnimationTree.set("parameters/Idle/blend_position", velocity)
 				$AnimationTree.set("parameters/Walk/blend_position", velocity)
+				if not $sounds/steps.is_playing():
+					$sounds/steps.play()
+					print("playing footsteps")
 			else:
 				only_dash_while_walk = false
 				if not attacking:
 					$AnimationTree.get("parameters/playback").travel("Idle")
+					$sounds/steps.stop()
 			
 	if Input.is_action_just_pressed("space") and able_to_dash and only_dash_while_walk and globals.dash_enabled:
 		only_dash_while_walk = false
@@ -103,6 +112,7 @@ func _physics_process(_delta):
 		dash(direction)
 		$AnimationTree.get("parameters/playback").travel("Dash")
 		$AnimationTree.set("parameters/Dash/blend_position", velocity)
+		$sounds/dash.play()
 			
 	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and not globals.player_stop:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse

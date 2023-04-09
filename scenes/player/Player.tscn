@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bmwew08qyosbj"]
+[gd_scene load_steps=72 format=3 uid="uid://bmwew08qyosbj"]
 
 [ext_resource type="Script" path="res://scenes/player/Player1.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://7em1q548jd3t" path="res://scenes/player/Textbox.tscn" id="3"]
@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://bodhc2cygav3o" path="res://scenes/ui/tips.tscn" id="9_vrsyg"]
 [ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="13_kax16"]
 [ext_resource type="PackedScene" uid="uid://dyf511d64rc6c" path="res://scenes/ui/upgrade_ui.tscn" id="14_un22k"]
+[ext_resource type="AudioStream" uid="uid://hjvmf0piumuc" path="res://music/footsteps.mp3" id="15_4pspp"]
+[ext_resource type="AudioStream" uid="uid://db13utjh1lgo3" path="res://music/whoosh.wav" id="16_4bhbr"]
+[ext_resource type="AudioStream" uid="uid://bbo74lg5sg5c6" path="res://music/knockback.mp3" id="17_l2gmb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8i05x"]
 blend_mode = 3
@@ -1421,6 +1424,20 @@ explosiveness = 0.1
 [node name="upgrade_ui" parent="." instance=ExtResource("14_un22k")]
 visible = false
 script = null
+
+[node name="sounds" type="Node2D" parent="."]
+position = Vector2(-256, -136.5)
+scale = Vector2(0.5, 0.5)
+
+[node name="steps" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("15_4pspp")
+
+[node name="dash" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("16_4bhbr")
+
+[node name="knock" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("17_l2gmb")
+volume_db = -1.874
 
 [connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_PLAYERANIM_finished"]
 [connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]

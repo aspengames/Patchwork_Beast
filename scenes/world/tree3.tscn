@@ -1,22 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://mngg3840tgb3"]
+[gd_scene load_steps=10 format=3 uid="uid://mngg3840tgb3"]
 
 [ext_resource type="Texture2D" uid="uid://budy8003ltdsq" path="res://art/environment/tree3.png" id="1_3tou1"]
 [ext_resource type="Script" path="res://scenes/world/treecorrupt.gd" id="2_k04fa"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_vp8kt"]
 [ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="3_435up"]
 [ext_resource type="Texture2D" uid="uid://brc7i6o4ab8yt" path="res://art/environment/tree3_cor.png" id="3_e2mh5"]
-[ext_resource type="Texture2D" uid="uid://bjl8l6xsu7l68" path="res://art/mob/corrosion_mask.png" id="4_mc5ef"]
-[ext_resource type="Texture2D" uid="uid://c7n6yknuscw0" path="res://art/environment/redglow.png" id="7_8gvkn"]
+[ext_resource type="Texture2D" uid="uid://dowl1pynqfga" path="res://art/environment/tree_corrosion_mask_1.png" id="4_g5tf6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_snijq"]
 resource_local_to_scene = true
 shader = ExtResource("3_435up")
-shader_parameter/cutoff_one = 1.301
-shader_parameter/cutoff_two = -0.01
+shader_parameter/cutoff_one = -0.01
+shader_parameter/cutoff_two = 2.0
 shader_parameter/smooth_size = 0.0
-shader_parameter/invert_mask = false
+shader_parameter/invert_mask = true
 shader_parameter/masking_color = Color(1, 1, 1, 1)
-shader_parameter/mask = ExtResource("4_mc5ef")
+shader_parameter/mask = ExtResource("4_g5tf6")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wsyto"]
 blend_mode = 3
@@ -24,10 +23,6 @@ blend_mode = 3
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bbpdi"]
 radius = 5.0
 height = 13.4286
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qthv6"]
-cull_mode = 2
-polygon = PackedVector2Array(-32, 106, 23, 106, 67, 69, 67, 22, 27, -15, -27, -15, -66, 17, -66, 71, -32, 106)
 
 [node name="Tree3" type="Sprite2D"]
 z_index = 1
@@ -57,62 +52,4 @@ position = Vector2(-1, 72)
 scale = Vector2(7, 7)
 shape = SubResource("CapsuleShape2D_bbpdi")
 
-[node name="lightocclude" type="Node2D" parent="."]
-visible = false
-position = Vector2(0, -71)
-scale = Vector2(1.5, 1.5)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="lightocclude"]
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(0, 5)
-scale = Vector2(0.9, 0.9)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D3" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(-1, 10)
-scale = Vector2(0.8, 0.8)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D4" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(1, 15)
-scale = Vector2(0.7, 0.7)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D5" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(2, 21)
-scale = Vector2(0.6, 0.6)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D6" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(2, 26)
-scale = Vector2(0.5, 0.5)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D7" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(3, 32)
-scale = Vector2(0.4, 0.4)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D8" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(2, 37)
-scale = Vector2(0.3, 0.3)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D9" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(2, 40)
-scale = Vector2(0.2, 0.2)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
-[node name="LightOccluder2D10" type="LightOccluder2D" parent="lightocclude"]
-position = Vector2(2, 43)
-scale = Vector2(0.1, 0.1)
-occluder = SubResource("OccluderPolygon2D_qthv6")
-
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-
-[node name="clight" type="PointLight2D" parent="."]
-visible = false
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("7_8gvkn")

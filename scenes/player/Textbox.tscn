@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://7em1q548jd3t"]
+[gd_scene load_steps=17 format=3 uid="uid://7em1q548jd3t"]
 
 [ext_resource type="Script" path="res://scenes/player/Textbox.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://dyd5esmv50rd5" path="res://art/npc/textbox.png" id="2_vtx7q"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c5b2dfhqbyu3" path="res://art/npc/shopkeep_talk.png" id="7_ysook"]
 [ext_resource type="Texture2D" uid="uid://cd4a8gjo80xsh" path="res://art/player/ramis_talk_apologetic.png" id="8_3kv24"]
 [ext_resource type="Texture2D" uid="uid://b8dpry7wo434c" path="res://art/player/ramis_talk_meow.png" id="9_d0rdl"]
+[ext_resource type="AudioStream" uid="uid://cbi1u58n7ogrw" path="res://music/ui_click.mp3" id="15_i3ege"]
 
 [sub_resource type="CanvasItemMaterial" id="3"]
 blend_mode = 3
@@ -161,3 +162,7 @@ size_flags_vertical = 8
 position = Vector2(745, 208)
 scale = Vector2(0.3814, 0.3814)
 texture = ExtResource("7_5d00l")
+
+[node name="advance" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_i3ege")
+volume_db = -7.495

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb6x1f05vmdf3"]
+[gd_scene load_steps=10 format=3 uid="uid://cb6x1f05vmdf3"]
 
 [ext_resource type="Texture2D" uid="uid://bhyjqpixnlnpd" path="res://art/npc/ingame_npc.png" id="1"]
 [ext_resource type="Script" path="res://scenes/npcs/welcomeNPC.gd" id="1_vw312"]
 [ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_x8cvm"]
 [ext_resource type="Texture2D" uid="uid://d4cgnaljdrpih" path="res://art/npc/exclaim.png" id="3"]
 [ext_resource type="SpriteFrames" uid="uid://d3g7ocoxbbdka" path="res://scenes/npcs/Spriteframes/HealerSPF.tres" id="5_f17fs"]
+[ext_resource type="AudioStream" uid="uid://deiu5uusmeca1" path="res://music/ui_jingle3.mp3" id="6_sqelt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kf2ql"]
 blend_mode = 3
@@ -58,6 +59,10 @@ shape = SubResource("1")
 visible = false
 position = Vector2(10, 101)
 shape = SubResource("2")
+
+[node name="interact" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_sqelt")
+volume_db = -15.928
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
