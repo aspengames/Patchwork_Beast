@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsr0h3tafj6uj"]
+[gd_scene load_steps=7 format=3 uid="uid://dsr0h3tafj6uj"]
 
 [ext_resource type="PackedScene" uid="uid://c16edq2qyasmh" path="res://scenes/ui/healthbar.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://buxj3xdlha0mv" path="res://art/ui/dash_popup.png" id="2_5j0nq"]
+[ext_resource type="PackedScene" uid="uid://broi7pn45a6mb" path="res://scenes/ui/boss_healthbar.tscn" id="3_5t5yw"]
 
 [sub_resource type="Animation" id="Animation_hyb7h"]
 length = 0.001
@@ -62,3 +63,15 @@ texture = ExtResource("2_5j0nq")
 libraries = {
 "": SubResource("AnimationLibrary_3be36")
 }
+
+[node name="boss_health" parent="." instance=ExtResource("3_5t5yw")]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -391.0
+offset_top = -52.0
+offset_right = 2209.0
+offset_bottom = 580.0
+grow_horizontal = 2
+scale = Vector2(0.3, 0.3)

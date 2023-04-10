@@ -552,11 +552,11 @@ scale = Vector2(-18.1424, 21.9503)
 shape = SubResource("8")
 
 [node name="Sleep" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_jgyan")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(2.8, 2.8)
 texture = ExtResource("5_ge860")
 hframes = 8

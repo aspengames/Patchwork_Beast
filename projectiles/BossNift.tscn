@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cewh20vom2n1t"]
+
+[ext_resource type="Script" path="res://projectiles/Nift.gd" id="1_a3qga"]
+[ext_resource type="PackedScene" uid="uid://blrib1vldqgsp" path="res://scenes/particles/pars.tscn" id="2_h0q2i"]
+[ext_resource type="PackedScene" uid="uid://73wqw0bpkxnl" path="res://scenes/particles/pars2.tscn" id="3_ft0q5"]
+[ext_resource type="Texture2D" uid="uid://c7gvmjqmbuadi" path="res://art/mob/gear_single.png" id="4_h0sm6"]
+[ext_resource type="PackedScene" uid="uid://dd5l5ofvxbhvd" path="res://projectiles/lite.tscn" id="5_rx4ec"]
+[ext_resource type="AudioStream" uid="uid://cml4wn3a6hy6d" path="res://music/ui_jingle2.mp3" id="6_ko7yp"]
+
+[sub_resource type="CircleShape2D" id="1"]
+
+[node name="Nift" type="Area2D" groups=["bossnift", "projectile"]]
+z_index = 100
+collision_layer = 1036
+collision_mask = 1036
+script = ExtResource("1_a3qga")
+
+[node name="pars" parent="." instance=ExtResource("2_h0q2i")]
+emitting = false
+one_shot = true
+
+[node name="pars2" parent="." instance=ExtResource("3_ft0q5")]
+visible = false
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("4_h0sm6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+
+[node name="Light2D" parent="." instance=ExtResource("5_rx4ec")]
+scale = Vector2(0.5, 0.25)
+color = Color(0.952941, 0.952941, 0.952941, 1)
+
+[node name="screenLeave" type="Timer" parent="."]
+
+[node name="woosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ko7yp")
+
+[connection signal="area_entered" from="." to="." method="_on_Nift_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Nift_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="screenLeave" to="." method="_on_screen_leave_timeout"]

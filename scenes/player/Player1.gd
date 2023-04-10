@@ -98,7 +98,7 @@ func _physics_process(_delta):
 				$AnimationTree.set("parameters/Walk/blend_position", velocity)
 				if not $sounds/steps.is_playing():
 					$sounds/steps.play()
-					print("playing footsteps")
+					#print("playing footsteps")
 			else:
 				only_dash_while_walk = false
 				if not attacking:
@@ -170,7 +170,15 @@ func _on_HITBOX_body_entered(body):
 		$ui/health.value = health
 		print(health)
 		print(body.get_parent().attack_player_dir)
-
+	if body.is_in_group("boss"):
+		health -= 7
+		$ui/health.value = health
+		print(health)
+	if body.is_in_group("bossnift"):
+		health -= 5
+		$ui/health.value = health
+		print(health)
+		
 func _on_HITBOX_body_exited(body):
 	if body.is_in_group("charge_mob"):
 		#hurtTimer.stop()

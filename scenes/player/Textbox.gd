@@ -83,6 +83,7 @@ func _process(_delta):
 				if text_queue.is_empty():
 					globals.textbox_finished = true
 					globals.player_stop = false
+				globals.conv_amnt_comp += 1
 				
 				
 func queue_text(next_text):

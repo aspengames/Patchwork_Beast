@@ -16,14 +16,21 @@ var charge_bar = false
 var atk_counter = 3
 var player_rad = false
 
+signal bears_healed
+
 @export var health = 9999
+@export var sleeping = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if sleeping:
+		$anim/animV2.play("sleep")
 	pass # Replace with function body.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if sleeping:
+		return
 	if player_rad:
 		if (self.global_position.distance_to(player.get_global_position()) < 1000):
 			autocorrode()
@@ -92,6 +99,10 @@ func _process(_delta):
 			alive = false
 			$deadanim.play("dead")
 			$col.disabled = true
+			globals.bears -= 1
+			if globals.bears <= 0:
+				emit_signal("bears_healed")
+				print("Emitted signal bears healed")
 			
 		if trulydead and $pars.emitting == false: # pars is the player's particles?
 			$deathTimer.start()
@@ -111,16 +122,16 @@ func autocorrode():
 		curcor += 0.0001 * 6
 
 @export var curcor = 0.165
-var damp = 0.5
+var damp = 0.95
 func hurt():
 	if curcor < 0.05:
 		damp = 1
 	#This function gets called when the player hits the mob
 	#$Sprite/corrode.material.set("shader_parameter/cutoff_two", 0.05)
 	var tween1 = create_tween()
-	curcor = curcor - ($Sprite/corrode.material.get("shader_parameter/cutoff_two") * damp)
+	curcor = curcor - ($Sprite/corrode.material.get("shader_parameter/cutoff_two"))
 	tween1.tween_property($Sprite/corrode.material, "shader_parameter/cutoff_two", curcor, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT) 
-	if ($Sprite/corrode.material.get("shader_parameter/cutoff_two") < 0.025):
+	if ($Sprite/corrode.material.get("shader_parameter/cutoff_two") < 0.015):
 		health = 0
 	pass
 

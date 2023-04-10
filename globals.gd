@@ -12,8 +12,10 @@ var player_talking = true
 var global_dead = false
 var dash_enabled = false #false by default
 
+var conv_amnt_comp = 0
 
 var deers = 3
+var bears = 4
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

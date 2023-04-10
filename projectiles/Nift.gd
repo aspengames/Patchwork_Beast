@@ -30,6 +30,16 @@ func _on_Nift_body_entered(body):
 		body.health -= 1
 		body.hurt()
 		destroy()
+	if body.is_in_group("player"):
+		if self.is_in_group("bossnift"):
+			#print("Bossnift in player!")
+			body._on_HITBOX_body_entered(self)
+			destroy()
+	if body.is_in_group("boss"):
+		print("BOSS HIT")
+		body.health -= 1
+		body.hurt()
+		destroy()
 	#body.dead()
 	#body.queue_free()
 

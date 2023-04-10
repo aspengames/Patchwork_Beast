@@ -1,83 +1,18 @@
-[gd_scene load_steps=44 format=3 uid="uid://cxc1evc8ipmut"]
+[gd_scene load_steps=29 format=3 uid="uid://kehhb8x40xfx"]
 
-[ext_resource type="Script" path="res://scenes/mob/bearmob.gd" id="1_lcjnv"]
-[ext_resource type="Texture2D" uid="uid://bdes78ik5yuyw" path="res://art/mob/bear_sleep_2.png" id="3_qjixa"]
-[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="3_whi4w"]
-[ext_resource type="Shader" path="res://scenes/mob/mob.gdshader" id="4_gqqsi"]
-[ext_resource type="Texture2D" uid="uid://b65q7i7c1etgw" path="res://projectiles/particle3.png" id="4_pep6g"]
-[ext_resource type="Texture2D" uid="uid://j6yvwn4jmer4" path="res://art/mob/bear_spritesheet_mask.png" id="5_77s5d"]
-[ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="5_fgr5j"]
-[ext_resource type="Texture2D" uid="uid://t48psr5iadws" path="res://art/mob/bear_spritesheet_cor_mask.png" id="6_qc4ic"]
-[ext_resource type="Texture2D" uid="uid://durgixquxkd0t" path="res://art/mob/bear_spritesheet.png" id="6_uopqa"]
-[ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="9_kiy3a"]
-[ext_resource type="Texture2D" uid="uid://bn3usc388gtjb" path="res://art/mob/bear_sleep_1.png" id="9_m14jc"]
+[ext_resource type="Texture2D" uid="uid://lo8jaue8fyeb" path="res://art/mob/boss_spritesheet.png" id="1_c5bdk"]
+[ext_resource type="Script" path="res://scenes/mob/boss.gd" id="1_l2w8y"]
+[ext_resource type="Texture2D" uid="uid://dwpsv2qqw4jbe" path="res://art/environment/shadow_mult.png" id="2_iuoog"]
+[ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="4_vd46h"]
+[ext_resource type="Texture2D" uid="uid://b65q7i7c1etgw" path="res://projectiles/particle3.png" id="5_giwyv"]
+[ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="6_e47w4"]
 
-[sub_resource type="CapsuleShape2D" id="8"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l70x6"]
+radius = 45.0
+height = 166.0
 
-[sub_resource type="Curve" id="Curve_6mugd"]
-min_value = -1.0
-_data = [Vector2(0, 0.0363637), 0.0, 0.0, 0, 0, Vector2(1, -0.0727272), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_4dyu1"]
-min_value = -1.0
-_data = [Vector2(0, 0.127273), 0.0, 0.0, 0, 0, Vector2(0.987952, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_xtgbb"]
-curve = SubResource("Curve_4dyu1")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdq5b"]
-particle_flag_disable_z = true
-direction = Vector3(0, -1, 0)
-gravity = Vector3(0, 980, 0)
-initial_velocity_min = 500.0
-initial_velocity_max = 1000.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.1
-scale_max = 0.4
-hue_variation_min = 0.1
-hue_variation_max = 1.0
-hue_variation_curve = SubResource("CurveTexture_xtgbb")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3yb5h"]
-resource_local_to_scene = true
-shader = ExtResource("4_gqqsi")
-shader_parameter/cutoff_one = 1.301
-shader_parameter/cutoff_two = 0.135
-shader_parameter/smooth_size = 0.01
-shader_parameter/invert_mask = true
-shader_parameter/masking_color = Color(1, 1, 1, 1)
-shader_parameter/mask = ExtResource("5_77s5d")
-shader_parameter/orig_mask = ExtResource("6_uopqa")
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fempb"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qqs16"]
 blend_mode = 3
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ilesv"]
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 6)
-emission_ring_height = 1.0
-emission_ring_radius = 6.0
-emission_ring_inner_radius = 0.5
-particle_flag_disable_z = true
-spread = 180.0
-gravity = Vector3(0, 98, 0)
-initial_velocity_min = 789.47
-initial_velocity_max = 852.63
-angular_velocity_min = -0.07
-angular_velocity_max = 127.59
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-radial_accel_max = 50.53
-damping_min = 20.0
-damping_max = 85.27
-angle_min = -30.0
-angle_max = 30.0
-scale_min = 0.3
-scale_max = 1.3
-turbulence_enabled = true
 
 [sub_resource type="Animation" id="3"]
 length = 0.001
@@ -908,245 +843,60 @@ _data = {
 "mob_up": SubResource("7")
 }
 
-[sub_resource type="Animation" id="Animation_5ylgv"]
-resource_name = "sleep"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sleep:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Sleep:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("9_m14jc"), ExtResource("3_qjixa")]
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ixae"]
 
-[sub_resource type="Animation" id="Animation_g2sfr"]
-length = 0.001
+[sub_resource type="Curve" id="Curve_oqwp7"]
+min_value = -1.0
+_data = [Vector2(0, 0.127273), 0.0, 0.0, 0, 0, Vector2(0.987952, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_skpct"]
-_data = {
-"RESET": SubResource("Animation_g2sfr"),
-"sleep": SubResource("Animation_5ylgv")
-}
+[sub_resource type="CurveTexture" id="CurveTexture_obpnc"]
+curve = SubResource("Curve_oqwp7")
 
-[sub_resource type="ParticleProcessMaterial" id="9"]
-emission_shape = 5
-emission_point_count = 1
-gravity = Vector3(100, 0, 0)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8pf02"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 980, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.4
+hue_variation_min = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("CurveTexture_obpnc")
 
-[sub_resource type="Animation" id="10"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("aura:energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_pdju8"]
 
-[sub_resource type="Animation" id="11"]
-resource_name = "dead"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("aura:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_csyb8"]
-_data = {
-"RESET": SubResource("10"),
-"dead": SubResource("11")
-}
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_o5bca"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6y3lb"]
-
-[node name="bear" type="CharacterBody2D" groups=["bearmob"]]
-z_index = 1
-y_sort_enabled = true
+[node name="patchworkbeast" type="CharacterBody2D" groups=["boss"]]
+scale = Vector2(1.5, 1.5)
 collision_layer = 13
-script = ExtResource("1_lcjnv")
+collision_mask = 13
+script = ExtResource("1_l2w8y")
 
 [node name="col" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, 250)
-scale = Vector2(15, 15)
-shape = SubResource("8")
-
-[node name="groundshake" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(4, 506)
-emitting = false
-amount = 100
-lifetime = 0.5
-one_shot = true
-speed_scale = 2.0
-explosiveness = 0.95
-texture = ExtResource("4_pep6g")
-direction = Vector2(0, -1)
-initial_velocity_min = 500.0
-initial_velocity_max = 1000.0
-scale_amount_min = 0.1
-scale_amount_max = 0.4
-hue_variation_min = 0.1
-hue_variation_max = 1.0
-hue_variation_curve = SubResource("Curve_6mugd")
-
-[node name="groundshake2" type="GPUParticles2D" parent="."]
-position = Vector2(4, 506)
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_gdq5b")
-texture = ExtResource("4_pep6g")
-lifetime = 0.5
-one_shot = true
-speed_scale = 2.0
-explosiveness = 0.95
-
-[node name="Sleep" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-3, 88)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_qjixa")
+position = Vector2(-1, 60)
+shape = SubResource("CapsuleShape2D_l70x6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(2.43, 2.43)
-texture = ExtResource("6_uopqa")
+texture = ExtResource("1_c5bdk")
 hframes = 8
-vframes = 3
-frame = 16
-
-[node name="corrode" type="Sprite2D" parent="Sprite"]
-material = SubResource("ShaderMaterial_3yb5h")
-texture = ExtResource("6_qc4ic")
-hframes = 8
-vframes = 3
-frame = 16
+vframes = 6
+frame = 17
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
-material = SubResource("CanvasItemMaterial_fempb")
+material = SubResource("CanvasItemMaterial_qqs16")
 position = Vector2(0, 210.699)
 scale = Vector2(0.388253, 0.308624)
-texture = ExtResource("3_whi4w")
-
-[node name="pars_dirt" type="GPUParticles2D" parent="Sprite"]
-show_behind_parent = true
-position = Vector2(0, 488)
-emitting = false
-amount = 30
-process_material = SubResource("ParticleProcessMaterial_ilesv")
-texture = ExtResource("4_pep6g")
-lifetime = 0.6
-explosiveness = 0.84
-randomness = 0.55
+texture = ExtResource("2_iuoog")
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_bb3kj")
 }
-
-[node name="animV2" type="AnimationPlayer" parent="anim"]
-libraries = {
-"": SubResource("AnimationLibrary_skpct")
-}
-
-[node name="pars" type="GPUParticles2D" parent="."]
-visible = false
-position = Vector2(552, 296)
-emitting = false
-amount = 50
-process_material = SubResource("9")
-texture = ExtResource("4_pep6g")
-lifetime = 3.0
-
-[node name="deadanim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_csyb8")
-}
-
-[node name="vis" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="deathTimer" type="Timer" parent="."]
-wait_time = 3.0
-
-[node name="atkTimer" type="Timer" parent="."]
-wait_time = 2.5
-one_shot = true
-
-[node name="atkRadius" type="Area2D" parent="." groups=["earthatk"]]
-visible = false
-show_behind_parent = true
-position = Vector2(0, 495)
-
-[node name="earth_shatter_hitbox" type="CollisionShape2D" parent="atkRadius"]
-scale = Vector2(40, 40)
-shape = SubResource("CircleShape2D_o5bca")
-
-[node name="Sprite2D" type="Sprite2D" parent="atkRadius/earth_shatter_hitbox"]
-visible = false
-show_behind_parent = true
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_fgr5j")
-
-[node name="atkCooldown" type="Timer" parent="."]
-
-[node name="aura" type="PointLight2D" parent="."]
-texture = ExtResource("9_kiy3a")
 
 [node name="mobsight" type="Area2D" parent="."]
 visible = false
@@ -1154,14 +904,51 @@ position = Vector2(8, 187)
 
 [node name="vis" type="CollisionShape2D" parent="mobsight"]
 scale = Vector2(300, 300)
-shape = SubResource("CircleShape2D_6y3lb")
+shape = SubResource("CircleShape2D_2ixae")
+
+[node name="eyeright" type="PointLight2D" parent="."]
+position = Vector2(19.3333, -17.3333)
+scale = Vector2(0.05, 0.05)
+energy = 3.0
+texture = ExtResource("4_vd46h")
+
+[node name="eyeleft" type="PointLight2D" parent="."]
+position = Vector2(-23.3333, -18)
+scale = Vector2(0.05, 0.05)
+energy = 3.0
+texture = ExtResource("4_vd46h")
+
+[node name="groundshake2" type="GPUParticles2D" parent="."]
+position = Vector2(0.666667, 186)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_8pf02")
+texture = ExtResource("5_giwyv")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.95
+
+[node name="atkTimer" type="Timer" parent="."]
+
+[node name="atkCooldown" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="atkRadius" type="Area2D" parent="." groups=["earthatk"]]
+visible = false
+show_behind_parent = true
+position = Vector2(2, 183.333)
+
+[node name="earth_shatter_hitbox" type="CollisionShape2D" parent="atkRadius"]
+scale = Vector2(40, 40)
+shape = SubResource("CircleShape2D_pdju8")
+
+[node name="Sprite2D" type="Sprite2D" parent="atkRadius/earth_shatter_hitbox"]
+visible = false
+show_behind_parent = true
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_e47w4")
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
-[connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]
-[connection signal="screen_entered" from="vis" to="." method="_on_vis_screen_entered"]
-[connection signal="screen_exited" from="vis" to="." method="_on_vis_screen_exited"]
-[connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
-[connection signal="timeout" from="atkTimer" to="." method="_on_atk_timer_timeout"]
-[connection signal="timeout" from="atkCooldown" to="." method="_on_atk_cooldown_timeout"]
 [connection signal="body_entered" from="mobsight" to="." method="_on_mobsight_body_entered"]
 [connection signal="body_exited" from="mobsight" to="." method="_on_mobsight_body_exited"]
+[connection signal="timeout" from="atkCooldown" to="." method="_on_atk_cooldown_timeout"]
