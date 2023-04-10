@@ -9,7 +9,7 @@ var direction = Vector2()
 var only_dash_while_walk = true
 var able_to_dash = true
 var invincible = false
-var speed = 800 #400
+var speed = 400 #400
 var dead = false
 var attacking = false
 var knockback_dir = Vector2()
@@ -26,6 +26,7 @@ const ACCEL_WEIGHT = .3
 var display_name = "Ramis"
 var atkTimer
 var hurtTimer
+var smashTimer
 #init the nift
 var NIFT: PackedScene = preload("res://projectiles/Nift.tscn")
 var nift_dir
@@ -38,6 +39,7 @@ func _ready():
 	
 	atkTimer = $atkTimer
 	hurtTimer = $hurtTimer
+	smashTimer = $smashTimer
 	
 	$Camera2D/Textbox.set_new_name(display_name)
 	#temporary name setter
@@ -114,6 +116,19 @@ func _physics_process(_delta):
 		$AnimationTree.set("parameters/Dash/blend_position", velocity)
 		$sounds/dash.play()
 			
+	if Input.is_action_just_pressed("smash_attack") and globals.smash_enabled and smashTimer.is_stopped():
+		#print("SMASH")
+		globals.player_stop = true
+		$AnimationTree.get("parameters/playback").travel("Smash")
+		smashTimer.start()
+		var bodies = $smashradius.get_overlapping_bodies()
+		for body in bodies:
+			if body.is_in_group("charge_mob") or body.is_in_group("bearmob") or body.is_in_group("boss"):
+				body.hurt() 
+				body.hurt() #Using two for extra dmg. in future I would add a modifier like hurt(strength) to do atk strength
+				if body.is_in_group("bearmob"):
+					body.knockback(3, body.attack_player_dir)
+	
 	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and not globals.player_stop:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse
 			#print("rotation is: ",  rotation)
@@ -274,3 +289,10 @@ func _on_kb_timer_timeout():
 	
 func _on_dash_timer_timeout():
 	able_to_dash = true
+
+
+func _on_smash_timer_timeout():
+	smashTimer.stop()
+	
+func reset_movement():
+	globals.player_stop = false

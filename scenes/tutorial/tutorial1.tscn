@@ -115,6 +115,7 @@ position = Vector2(1151, 480)
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_y6fan")
 parameters/Dash/blend_position = Vector2(0, 0)
 parameters/Shoot/blend_position = Vector2(0, 0)
+parameters/Smash/blend_position = Vector2(0, 0)
 
 [node name="explosion" type="GPUParticles2D" parent="Map/Map/Player"]
 emitting = false

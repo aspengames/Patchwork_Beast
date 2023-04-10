@@ -27,7 +27,9 @@ func _on_ANIM_finished(anim_name):
 	if anim_name == "camera_shift_boss" and not one:
 		one = true
 		prev = globals.conv_amnt_comp + 1
+		textbox.queue_character("PlayerApology")
 		textbox.queue_text("What is that thing? It looks like a monster made from rusty metal. Could it be the source of the corrosion?")
+		textbox.queue_character("PlayerShock")
 		textbox.queue_text("...!")
 	if anim_name == "camera_shift_boss" and two:
 		globals.player_stop = false

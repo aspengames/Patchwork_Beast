@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var player = $"../NAV/Map/Map/Player"
-var completed_area1 = false
+var completed_area2 = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	call_deferred("get_bears")
@@ -21,7 +21,6 @@ func get_bears():
 	print("bears", bears)
 	globals.bears = len(bears)
 	print("Set globals bears to ", globals.bears)
-	globals.bears -= 3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,10 +30,11 @@ func area_completed():
 	print("Area has been completed!")
 	$"../NAV/Map/Map/sleepb".visible = true
 	$"../NAV/Map/Map/sleepb/col".disabled = false
-	completed_area1 = true
+	completed_area2 = true
 
 func _on_deer_abl_body_entered(body):
-	if body.is_in_group("player") and completed_area1:
+	if body.is_in_group("player") and completed_area2:
+		completed_area2 = false
 		player.show_tip("The bear rests peacefully, thanking you for your kindness.", 3)
 		player.tip_timed.connect(give_smash)
 		
@@ -54,7 +54,8 @@ func cont_smash():
 func cont_smash2():
 	player.tip_timed.disconnect(cont_smash2)
 	player.get_node("upgrade_ui").visible = true
-	globals.dash_enabled = true
+	globals.smash_enabled = true
+	player.get_node("upgrade_ui/Space/ButtonGroup/ButtonA").texture = load("res://art/ui/Right_click.png")
 	player.get_node("upgrade_ui/Space/Label").text = "use                   to smash"
 	player.get_node("upgrade_ui/unim").play("popin")
 	player.tip_timed.connect(hide_smash)

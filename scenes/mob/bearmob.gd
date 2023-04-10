@@ -16,6 +16,11 @@ var charge_bar = false
 var atk_counter = 3
 var player_rad = false
 
+var knockback_dir = Vector2()
+var knockback_str = 1
+var knock = false
+var kb_onetime = false
+
 signal bears_healed
 
 @export var health = 9999
@@ -23,6 +28,7 @@ signal bears_healed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Sprite/corrode.material.set("shader_parameter/cutoff_two", curcor)
 	if sleeping:
 		$anim/animV2.play("sleep")
 	pass # Replace with function body.
@@ -85,6 +91,15 @@ func _process(_delta):
 			
 			self.velocity = player_dir * speed
 			
+			if knock:
+				pass
+				#print("knocking bear") #WORK IN PROGRESS
+				player_dir = knockback_dir
+				self.velocity = player_dir * speed * knockback_str
+				
+				if kb_onetime:
+					kb_onetime = false
+			
 			if not charge_bar:
 				self.move_and_slide()	
 				#$Sprite/pars_dirt.emitting = false
@@ -129,7 +144,9 @@ func hurt():
 	#This function gets called when the player hits the mob
 	#$Sprite/corrode.material.set("shader_parameter/cutoff_two", 0.05)
 	var tween1 = create_tween()
-	curcor = curcor - ($Sprite/corrode.material.get("shader_parameter/cutoff_two"))
+	if curcor < 0.1:
+		damp = 1.5
+	curcor = curcor - ($Sprite/corrode.material.get("shader_parameter/cutoff_two") * damp)
 	tween1.tween_property($Sprite/corrode.material, "shader_parameter/cutoff_two", curcor, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT) 
 	if ($Sprite/corrode.material.get("shader_parameter/cutoff_two") < 0.015):
 		health = 0
@@ -147,6 +164,13 @@ func _on_vis_screen_exited():
 
 func _on_deathTimer_timeout():
 	queue_free()
+
+func knockback(strength, mob_dir):
+	knockback_dir = mob_dir
+	knockback_str = strength
+	knock = true
+	kb_onetime = true
+	#print(mob_dir, strength, "n")
 
 
 func _on_anim_animation_finished(anim_name):

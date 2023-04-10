@@ -34,6 +34,7 @@ func area_completed():
 
 func _on_deer_abl_body_entered(body):
 	if body.is_in_group("player") and completed_area1:
+		completed_area1 = false
 		player.show_tip("The deer rests peacefully, thanking you for your kindness.", 3)
 		player.tip_timed.connect(give_dash)
 		
