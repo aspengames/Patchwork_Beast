@@ -6,6 +6,7 @@ extends CharacterBody2D
 # var b = "text"
 
 @onready var player = $"../Player"
+@onready var textbox = $"../Player/Camera2D/Textbox"
 var dist = 999999
 var alive = true
 var trulydead = false
@@ -239,7 +240,6 @@ func _on_vis_screen_exited():
 func _on_deathTimer_timeout():
 	queue_free()
 
-
 func _on_anim_animation_finished(anim_name):
 	if (anim_name == "bossmob_attack_right" or anim_name == "bossmob_attack_left" or anim_name == "bossmob_attack1") and $atkCooldown.is_stopped():
 		$anim.play("bearmob_idle")
@@ -272,6 +272,10 @@ func hurt():
 		#Super Janky not animated or clean - getting rid of boss + boss healthbar ASAP
 		call_deferred("queue_free")
 		player.get_node("ui/boss_health").visible = false
+		textbox.queue_character("PlayerApology")
+		textbox.queue_text("Whew...")
+		textbox.queue_character("Ramis")
+		textbox.queue_text("I think I've stopped the source of the corrosion.")
 
 func _on_atk_cooldown_timeout():
 	$atkCooldown.stop()

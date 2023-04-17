@@ -3,6 +3,7 @@ extends Area2D
 @onready var player = $"../NAV/Map/Map/Player"
 @onready var textbox = $"../NAV/Map/Map/Player/Camera2D/Textbox"
 @onready var boss = $"../NAV/Map/Map/patchworkbeast"
+@onready var gearblock = $"../NAV/Map/Map/biggear"
 var one = false
 var two = false
 var prev = 9999
@@ -25,6 +26,9 @@ func _on_Boss_start(body):
 		
 func _on_ANIM_finished(anim_name):
 	if anim_name == "camera_shift_boss" and not one:
+		#setting gear blocker
+		gearblock.visible = true
+		gearblock.get_node("col/col").disabled = false
 		one = true
 		prev = globals.conv_amnt_comp + 1
 		textbox.queue_character("PlayerApology")

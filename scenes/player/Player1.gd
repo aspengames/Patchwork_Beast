@@ -31,6 +31,9 @@ var smashTimer
 var NIFT: PackedScene = preload("res://projectiles/Nift.tscn")
 var nift_dir
 
+#Testing tile tileset
+#@onready var tilemap = $"../"
+
 """ -------- FUNCTIONS -------- """
 #initialize variables
 func _ready():
@@ -136,6 +139,12 @@ func _physics_process(_delta):
 #			if globals.tutorial:
 #				$explosion.emitting = true
 #				return			
+			#testing placing tile on tileset
+#			tilemap.set_cell(0, Vector2i(7500,-25000),1,Vector2i(11,11))
+#			print(tilemap)
+#			print("Setting tilemap cell")
+
+
 			print("clickattack")
 			attacking = true
 			#print("Set attacking to", attacking)

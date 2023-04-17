@@ -1539,6 +1539,7 @@ volume_db = -1.874
 bus = &"Effects"
 
 [node name="smash_pars" type="GPUParticles2D" parent="."]
+z_index = 100
 position = Vector2(0.5, 59)
 emitting = false
 amount = 100
