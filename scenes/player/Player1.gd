@@ -16,6 +16,7 @@ var knockback_dir = Vector2()
 var knockback_str = 1
 var knock = false
 var kb_onetime = false
+@onready var textbox = $Camera2D/Textbox
 #velocity vectors
 #var velocity = Vector2()
 #var delta_velocity = Vector2()
@@ -133,7 +134,7 @@ func _physics_process(_delta):
 				if body.is_in_group("bearmob"):
 					body.knockback(3, body.attack_player_dir)
 	
-	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and not globals.player_stop:# and not $"../../MainMenu".visible:
+	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and textbox.unfreeze and not globals.player_stop:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse
 			#print("rotation is: ",  rotation)
 #			if globals.tutorial:

@@ -35,6 +35,8 @@ func _on_ANIM_finished(anim_name):
 		textbox.queue_text("What is that thing? It looks like a monster made from rusty metal. Could it be the source of the corrosion?")
 		textbox.queue_character("PlayerShock")
 		textbox.queue_text("...!")
+		textbox.unfreeze = false
+		#globals.player_stop = true
 	if anim_name == "camera_shift_boss" and two:
 		globals.player_stop = false
 		player.get_node("ui/boss_health").visible = true

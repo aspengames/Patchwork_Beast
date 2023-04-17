@@ -193,7 +193,7 @@ scale = Vector2(0.3, 0.3)
 
 [node name="sleepd" parent="NAV/Map/Map" instance=ExtResource("6")]
 z_index = 1
-position = Vector2(3008, -22048)
+position = Vector2(3040, -22112)
 scale = Vector2(0.3, 0.3)
 sleeping = true
 
@@ -204,7 +204,7 @@ disabled = true
 material = SubResource("ShaderMaterial_ep0qi")
 
 [node name="sleepb" parent="NAV/Map/Map" instance=ExtResource("7_rrllb")]
-position = Vector2(13408, -20536)
+position = Vector2(13472, -20344)
 scale = Vector2(0.4, 0.4)
 sleeping = true
 
@@ -414,11 +414,11 @@ shape = SubResource("RectangleShape2D_i6xwl")
 autostart = true
 
 [node name="Area2" type="Area2D" parent="."]
-visible = false
 position = Vector2(10673, -18396)
 script = ExtResource("18_1useb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2"]
+position = Vector2(2247, 684)
 scale = Vector2(300, 300)
 shape = SubResource("CircleShape2D_1wc62")
 

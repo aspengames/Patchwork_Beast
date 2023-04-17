@@ -3,6 +3,7 @@ extends CanvasLayer
 
 const CHAR_READ_RATE = 0.025
 var speed = 100
+var unfreeze = true
 
 @onready var textbox_container = $TextboxContainer
 @onready var start_symbol = $TextboxContainer/MarginContainer/HBoxContainer/Start
@@ -82,7 +83,9 @@ func _process(_delta):
 				hide_textbox()
 				if text_queue.is_empty():
 					globals.textbox_finished = true
-					globals.player_stop = false
+					if unfreeze:
+						globals.player_stop = false
+					unfreeze = true
 				globals.conv_amnt_comp += 1
 				
 				
