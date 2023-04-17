@@ -203,6 +203,10 @@ texture_region_size = Vector2i(128, 128)
 11:7/0 = 0
 11:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 11:7/0/physics_layer_0/angular_velocity = 0.0
+11:11/size_in_atlas = Vector2i(5, 3)
+11:11/0 = 0
+11:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+11:11/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjcjr"]
 texture = ExtResource("3_6cqvd")

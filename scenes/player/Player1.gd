@@ -76,7 +76,8 @@ func _physics_process(_delta):
 		if kb_onetime:
 			kb_onetime = false
 			$kbTimer.start()
-			$sounds/knock.play()
+			if not invincible: #only play knock sound if not dashing
+				$sounds/knock.play()
 		
 	if globals.player_stop:
 		velocity = Vector2.ZERO
@@ -114,7 +115,7 @@ func _physics_process(_delta):
 		dash(direction)
 		$AnimationTree.get("parameters/playback").travel("Dash")
 		$AnimationTree.set("parameters/Dash/blend_position", velocity)
-		$sounds/dash.play()
+		
 			
 	if Input.is_action_just_pressed("smash_attack") and globals.smash_enabled and smashTimer.is_stopped():
 		#print("SMASH")
@@ -161,6 +162,7 @@ func _physics_process(_delta):
 	pass
 
 func dash(player_dir):
+	$sounds/dash.play()
 	invincible = true
 	knock = true
 	knockback_dir = direction
@@ -179,6 +181,7 @@ func _on_HITBOX_body_entered(body):
 		hurtTimer.start()
 		body.attacking = false
 		knockback(3, body.attack_player_dir)
+		print("get knocked")
 	if body.is_in_group("earthatk"):
 		#print("ow")
 		health -= 10

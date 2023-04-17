@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt68nvcfsdots"]
+[gd_scene load_steps=7 format=3 uid="uid://dt68nvcfsdots"]
 
 [ext_resource type="Texture2D" uid="uid://bo66xai4c1esv" path="res://art/ui/mainmenu.png" id="2_jqwth"]
 [ext_resource type="Texture2D" uid="uid://pg4gs08jsbdh" path="res://art/ui/pointer.png" id="3"]
 [ext_resource type="Script" path="res://scenes/ui/MainMenu.gd" id="4"]
 [ext_resource type="FontFile" uid="uid://ceacdqc72473j" path="res://fonts/DraconisBold.ttf" id="4_lnqcr"]
+[ext_resource type="PackedScene" uid="uid://dviqbt6cf7dgx" path="res://scenes/ui/options_menu.tscn" id="5_k1xtp"]
+[ext_resource type="Texture2D" uid="uid://2yl5m1kmcwm2" path="res://art/ui/pb_logo_new.png" id="6_uia5n"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("4")
@@ -18,14 +20,19 @@ texture = ExtResource("2_jqwth")
 expand_mode = 1
 
 [node name="Menu" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 45.0
+offset_top = 137.0
+offset_right = 421.0
+offset_bottom = 445.0
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 8
+size_flags_vertical = 4
 
 [node name="Pointer" type="VBoxContainer" parent="Menu/HBoxContainer"]
 layout_mode = 2
@@ -81,11 +88,22 @@ shortcut_in_tooltip = false
 text = "Quit"
 flat = true
 
+[node name="OptionsMenu" parent="." instance=ExtResource("5_k1xtp")]
+layer = 2
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(545, 279)
+scale = Vector2(0.387054, 0.387054)
+texture = ExtResource("6_uia5n")
+
 [connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer/PLAY" to="." method="_on_PLAY_focus_entered"]
 [connection signal="mouse_entered" from="Menu/HBoxContainer/VBoxContainer/PLAY" to="." method="_on_PLAY_mouse_entered"]
 [connection signal="pressed" from="Menu/HBoxContainer/VBoxContainer/PLAY" to="." method="_on_PLAY_pressed"]
 [connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer/OPTIONS" to="." method="_on_OPTIONS_focus_entered"]
 [connection signal="mouse_entered" from="Menu/HBoxContainer/VBoxContainer/OPTIONS" to="." method="_on_OPTIONS_mouse_entered"]
+[connection signal="pressed" from="Menu/HBoxContainer/VBoxContainer/OPTIONS" to="." method="_on_OPTIONS_pressed"]
 [connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer/QUIT" to="." method="_on_QUIT_focus_entered"]
 [connection signal="mouse_entered" from="Menu/HBoxContainer/VBoxContainer/QUIT" to="." method="_on_QUIT_mouse_entered"]
 [connection signal="pressed" from="Menu/HBoxContainer/VBoxContainer/QUIT" to="." method="_on_QUIT_pressed"]

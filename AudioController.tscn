@@ -7,3 +7,4 @@ script = ExtResource("1_4wen4")
 
 [node name="MainBGM" type="AudioStreamPlayer" parent="."]
 volume_db = -17.903
+bus = &"Background"

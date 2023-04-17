@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cewh20vom2n1t"]
+[gd_scene load_steps=9 format=3 uid="uid://cewh20vom2n1t"]
 
 [ext_resource type="Script" path="res://projectiles/Nift.gd" id="1_a3qga"]
 [ext_resource type="PackedScene" uid="uid://blrib1vldqgsp" path="res://scenes/particles/pars.tscn" id="2_h0q2i"]
 [ext_resource type="PackedScene" uid="uid://73wqw0bpkxnl" path="res://scenes/particles/pars2.tscn" id="3_ft0q5"]
+[ext_resource type="Texture2D" uid="uid://h7stotodes0i" path="res://projectiles/boss_nift_pars.png" id="3_utna5"]
 [ext_resource type="Texture2D" uid="uid://c7gvmjqmbuadi" path="res://art/mob/gear_single.png" id="4_h0sm6"]
 [ext_resource type="PackedScene" uid="uid://dd5l5ofvxbhvd" path="res://projectiles/lite.tscn" id="5_rx4ec"]
 [ext_resource type="AudioStream" uid="uid://cml4wn3a6hy6d" path="res://music/ui_jingle2.mp3" id="6_ko7yp"]
@@ -17,6 +18,7 @@ script = ExtResource("1_a3qga")
 
 [node name="pars" parent="." instance=ExtResource("2_h0q2i")]
 emitting = false
+texture = ExtResource("3_utna5")
 one_shot = true
 
 [node name="pars2" parent="." instance=ExtResource("3_ft0q5")]
