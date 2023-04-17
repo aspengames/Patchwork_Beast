@@ -10,8 +10,8 @@ var player_stop = false
 var tutorial = true
 var player_talking = true
 var global_dead = false
-var dash_enabled = true #false by default
-var smash_enabled = true
+var dash_enabled = false #false by default
+var smash_enabled = false
 
 var conv_amnt_comp = 0
 

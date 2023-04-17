@@ -7,7 +7,7 @@ func _ready():
 
 func set_corruption(percentcor):
 	#$clight.energy = percentcor
-	percentcor = 1 - percentcor
+	#percentcor = 1 - percentcor
 	$Corrode.material.set("shader_parameter/cutoff_two", percentcor)
 	pass
 

@@ -1,9 +1,11 @@
 extends CanvasLayer
-@onready var player = $"../NAV/Map/Map/Player"
+var player
+#@onready var player = $"../NAV/Map/Map/Player"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if globals.tutorial and get_tree().current_scene.name != "Tutorial":
+		player = $"../NAV/Map/Map/Player"
 		globals.player_stop = false
 		if globals.global_dead:
 			player.get_node("transition/ColorRect").color = Color(0,0,0,255)

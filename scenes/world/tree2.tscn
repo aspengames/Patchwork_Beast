@@ -10,7 +10,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0be4y"]
 resource_local_to_scene = true
 shader = ExtResource("3_n75ym")
-shader_parameter/cutoff_one = -0.01
+shader_parameter/cutoff_one = 1.301
 shader_parameter/cutoff_two = 2.0
 shader_parameter/smooth_size = 0.0
 shader_parameter/invert_mask = true
