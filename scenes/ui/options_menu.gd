@@ -1,7 +1,7 @@
 extends CanvasLayer
 var vsync = true
 var resolution = 1  # 0 is 720p, 1 is fhd, 2 is 1440hd, 3 is 4k.
-var resolution_array = [Vector2(1280, 720), Vector2(1920,1080), Vector2(2560,1440), Vector2(3840,2160)]
+var resolution_array = ["Auto", Vector2(1280, 720), Vector2(1920,1080), Vector2(2560,1440), Vector2(3840,2160)]
 
 @onready var music_vol = $OptionsBG/MusicSlider.value
 @onready var sfx_vol = $OptionsBG/SFXSlider.value
@@ -49,7 +49,10 @@ func _on_sfx_slider_value_changed(value):
 
 func _on_option_button_item_selected(index):
 	$click.play()
-	DisplayServer.window_set_size(resolution_array[index])
+	if index == 0:
+		DisplayServer.window_set_size(DisplayServer.screen_get_size())
+	else:
+		DisplayServer.window_set_size(resolution_array[index])
 
 
 func _on_music_slider_drag_started():
