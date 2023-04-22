@@ -47,6 +47,7 @@ func _on_ANIM_finished(anim_name):
 	if anim_name == "camera_shift" and not one:
 		one = true
 		textbox.queue_text("A deer spirit! What are you doing so far from home? I should be closer to Mossglen village than the enchanted forest...")
+		textbox.queue_character("PlayerShock")
 		textbox.queue_text("Wait…what’s that on the deer’s leg? Rust? So strange…it seems to be spreading…")
 	if anim_name == "camera_shift" and two:
 		player.get_node("atkTimer").set_wait_time(1)

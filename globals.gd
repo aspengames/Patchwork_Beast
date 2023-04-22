@@ -17,6 +17,16 @@ var conv_amnt_comp = 0
 
 var deers = 3
 var bears = 4
+
+var resolution = 1
+var fullscreen = false
+var vsync = true
+var music_bus := AudioServer.get_bus_index("Background")
+var sfx_bus := AudioServer.get_bus_index("Effects")
+var music_vol = AudioServer.get_bus_volume_db(music_bus)
+var sfx_vol = AudioServer.get_bus_volume_db(sfx_bus)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

@@ -16,6 +16,7 @@ var knockback_dir = Vector2()
 var knockback_str = 1
 var knock = false
 var kb_onetime = false
+@onready var pausemenu = $PauseMenu
 @onready var textbox = $Camera2D/Textbox
 #velocity vectors
 #var velocity = Vector2()
