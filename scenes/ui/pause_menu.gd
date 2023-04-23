@@ -1,33 +1,27 @@
 extends CanvasLayer
 @onready var optionsoverlay = $OptionsMenu/Overlay
 signal unpause
+# PauseMenu.tscn is the pause menu ONLY. It must be called by the pausefunction.gd script,
+# which it passes the signal unpause to.
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	# when calling the options menu via the pause menu, don't duplicate the bg overlays.
 	optionsoverlay.hide()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	# prevent duplicate overlays
-
 
 func _on_resume_pressed():
 	print("game resumed")
 	$click.play()
 	await get_tree().create_timer(0.3).timeout
-	hide()
 	unpause.emit()
-
-
-
+	hide()
+	
 func _on_options_pressed():
 	$click.play()
 	$OptionsMenu.visible = true
 
-
 func _on_quit_pressed():
-	$click.play()
-	#quits game (do you want this to quit to main menu?)
+	# may implement quit to main menu instead of quit game in the future. under construction.
 	get_tree().quit()

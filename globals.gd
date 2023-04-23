@@ -1,8 +1,7 @@
 extends Node
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+#general
 var debug = false
 var mobs_on_screen = 0
 var textbox_finished = false
@@ -15,21 +14,24 @@ var smash_enabled = false
 
 var conv_amnt_comp = 0
 
+#mob counts
 var deers = 3
 var bears = 4
 
+#options menu
 var resolution = 1
 var fullscreen = false
 var vsync = true
 var music_bus := AudioServer.get_bus_index("Background")
 var sfx_bus := AudioServer.get_bus_index("Effects")
-var music_vol = AudioServer.get_bus_volume_db(music_bus)
-var sfx_vol = AudioServer.get_bus_volume_db(sfx_bus)
-
+var music_vol = 10 # max 10. THIS IS A LINEAR (not DB value)
+var sfx_vol = 10 # max 10. THIS IS A LINEAR (not DB value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	#set initial audio
+	AudioServer.set_bus_volume_db(music_bus, linear_to_db(music_vol))
+	AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(sfx_vol))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -177,6 +177,8 @@ visible = false
 [connection signal="body_entered" from="TutorialStart/Area2D" to="TutorialStart" method="_on_PLAYER_entered"]
 [connection signal="animation_finished" from="TutorialStart/anim" to="TutorialStart" method="_on_ANIM_finished"]
 [connection signal="animation_finished" from="trans/anim" to="TutorialStart" method="_on_ANIM_finished"]
+[connection signal="visibility_changed" from="MainMenu" to="." method="_on_main_menu_visibility_changed"]
+[connection signal="unpause" from="PauseMenu" to="." method="_on_pause_menu_unpause"]
 
 [editable path="Map/Map/Player"]
 [editable path="Map/Map/Player/transition"]

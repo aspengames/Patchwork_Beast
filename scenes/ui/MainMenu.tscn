@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://2yl5m1kmcwm2" path="res://art/ui/pb_logo_new.png" id="6_uia5n"]
 
 [node name="MainMenu" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("4")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -89,8 +90,8 @@ text = "Quit"
 flat = true
 
 [node name="OptionsMenu" parent="." instance=ExtResource("5_k1xtp")]
-layer = 2
-visible = false
+process_mode = 3
+layer = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5

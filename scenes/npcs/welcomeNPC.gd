@@ -51,13 +51,13 @@ func _check_interaction(npc):
 				textbox.queue_text("Serves you right. No human should be meddling in our matters.")
 			"Ilya":
 				textbox.queue_character("Shopkeep")
-				textbox.queue_text("Hah, so you're the newest lad that [Healer] recruited to cleanse the forest, eh?")
+				textbox.queue_text("Hah, so you're the newest lad that our Healer recruited to cleanse the forest, eh?")
 				textbox.queue_character("Ramis")
 				textbox.queue_text("That's me now, I guess!")
 				textbox.queue_character("Shopkeep")
 				textbox.queue_text("Between you and me, I'd turn around. Mossglen's already done for--don't risk your life for this.")
 				textbox.queue_character("PlayerConcern")
-				textbox.queue_text("[Healer's] already been so generous. I promised I'd help.")
+				textbox.queue_text("Healer's already been so generous. I promised I'd help.")
 			"Iliea":
 				textbox.queue_character("Healer")
 				textbox.queue_text("Oh, you're awake! Ran into a Corroded spirit out there, huh? Thank the gods I found you passed out right at the edge of Mossglen.")
@@ -70,7 +70,7 @@ func _check_interaction(npc):
 				textbox.queue_character("PlayerApology")
 				textbox.queue_text("Well...I didn't know my staff could cure Corrosion, but I guess I could help?")
 				textbox.queue_character("Healer")
-				textbox.queue_text("Perfect! Welcome to Mossglen, new resident. Go talk to [Shopkeep] and he'll have your room and board taken care of!")
+				textbox.queue_text("Perfect! Welcome to Mossglen, new resident. Go talk to the shopkeep and he'll have your room and board taken care of!")
 				textbox.queue_character("PlayerShock")
 				textbox.queue_text("Wait, wait, what?")
 		can_interact = false

@@ -9,5 +9,4 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func play_music():
 	$MainBGM.stream = MainBGM
-	$MainBGM.volume_db -= 10
 	$MainBGM.play()

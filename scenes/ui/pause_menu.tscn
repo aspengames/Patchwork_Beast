@@ -103,7 +103,6 @@ bus = &"Effects"
 
 [node name="OptionsMenu" parent="." instance=ExtResource("6_431lf")]
 layer = 2
-visible = false
 
 [connection signal="pressed" from="PauseBG/BackButton" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PauseBG/Resume" to="." method="_on_resume_pressed"]

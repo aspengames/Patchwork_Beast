@@ -8,23 +8,17 @@ extends CanvasLayer
 @onready var player = $"../Map/Map/Player"
 @onready var options = $OptionsMenu
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if globals.debug:
 		_on_PLAY_pressed()
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	get_tree().paused = true
 
 
 func _on_PLAY_pressed():
+	get_tree().paused = false
 	#get_tree().change_scene("res://scenes/world/Level.tscn")
 	options.get_node("click").play()
 	self.visible = false
