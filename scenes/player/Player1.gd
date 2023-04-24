@@ -32,6 +32,7 @@ var smashTimer
 var NIFT: PackedScene = preload("res://projectiles/Nift.tscn")
 var nift_dir
 
+var paused_textbox = false
 #Testing tile tileset
 #@onready var tilemap = $"../"
 
@@ -46,11 +47,43 @@ func _ready():
 	smashTimer = $smashTimer
 	
 	$Camera2D/Textbox.set_new_name(display_name)
+	
+	get_tree().current_scene.get_node("PauseMenu").connect("unpause", _on_pause_menu_unpause)
+	
 	#temporary name setter
 	pass
 
 #executed each frame
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("escape") and not get_tree().current_scene.get_node("MainMenu").visible:
+		if not get_tree().paused:
+			if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				paused_textbox = true
+			get_tree().current_scene.get_node("PauseMenu").show()
+			get_tree().current_scene.get_node("PauseMenu/Overlay").show()
+			get_tree().current_scene.get_node("PauseMenu/PauseBG").show()
+			get_tree().paused = true
+			globals.player_stop = true
+			$sounds/steps.stop()
+		else:
+			if get_tree().current_scene.get_node("PauseMenu/OptionsMenu").visible:
+				get_tree().current_scene.get_node("PauseMenu/OptionsMenu").hide()
+				return
+			get_tree().current_scene.get_node("PauseMenu/Overlay").hide()
+			get_tree().current_scene.get_node("PauseMenu/PauseBG").hide()
+			get_tree().current_scene.get_node("PauseMenu")._on_resume_pressed()
+			get_tree().current_scene.get_node("PauseMenu").hide()
+			if textbox.get_node("TextboxContainer").visible:
+				return
+			globals.player_stop = false
+	#print("paused", get_tree().paused)
+	if get_tree().paused:
+		if not get_tree().current_scene.get_node("PauseMenu").visible:
+			get_tree().paused = false
+			if not textbox.get_node("TextboxContainer").visible:
+				globals.player_stop = false
+		return
 	
 	#print(str(Engine.get_frames_per_second()))
 	#boolean returning if any moving key is pressed
@@ -119,7 +152,8 @@ func _physics_process(_delta):
 		dash(direction)
 		$AnimationTree.get("parameters/playback").travel("Dash")
 		$AnimationTree.set("parameters/Dash/blend_position", velocity)
-		
+	
+
 			
 	if Input.is_action_just_pressed("smash_attack") and globals.smash_enabled and smashTimer.is_stopped():
 		#print("SMASH")
@@ -294,7 +328,6 @@ func knockback(strength, mob_dir):
 	kb_onetime = true
 	#print(mob_dir, strength, "n")
 
-
 func _on_kb_timer_timeout():
 	invincible = false
 	knock = false
@@ -303,9 +336,14 @@ func _on_kb_timer_timeout():
 func _on_dash_timer_timeout():
 	able_to_dash = true
 
-
 func _on_smash_timer_timeout():
 	smashTimer.stop()
 	
 func reset_movement():
 	globals.player_stop = false
+
+func _on_pause_menu_unpause():
+	get_tree().paused = false
+	get_tree().current_scene.get_node("PauseMenu/click").play()
+	if paused_textbox:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

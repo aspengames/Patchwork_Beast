@@ -1,9 +1,9 @@
 extends CanvasLayer
 
 
-@onready var p1 = $Menu/HBoxContainer/Pointer/selector1
-@onready var p2 = $Menu/HBoxContainer/Pointer/selector2
-@onready var p3 = $Menu/HBoxContainer/Pointer/selector3
+@onready var p1 = $Pointer/selector1
+@onready var p2 = $Pointer/selector2
+@onready var p3 = $Pointer/selector3
 
 @onready var player = $"../Map/Map/Player"
 @onready var options = $OptionsMenu
@@ -13,8 +13,8 @@ func _ready():
 	if globals.debug:
 		_on_PLAY_pressed()
 	pass # Replace with function body.
-
-	get_tree().paused = true
+	if get_tree().current_scene.name == "Tutorial":
+		get_tree().paused = true
 
 
 func _on_PLAY_pressed():

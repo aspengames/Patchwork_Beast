@@ -1383,6 +1383,7 @@ scale_max = 0.3
 radius = 158.028
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+process_mode = 3
 z_index = 1
 y_sort_enabled = true
 position = Vector2(512, 273)
@@ -1411,7 +1412,6 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("7")
 hframes = 8
 vframes = 6
-frame = 40
 
 [node name="death" type="Sprite2D" parent="."]
 visible = false
@@ -1441,6 +1441,7 @@ scale = Vector2(1, 1e-05)
 script = ExtResource("5_lak5g")
 
 [node name="Textbox" parent="Camera2D" instance=ExtResource("3")]
+process_mode = 1
 
 [node name="color" parent="Camera2D" instance=ExtResource("4")]
 
