@@ -168,7 +168,7 @@ func _physics_process(_delta):
 				if body.is_in_group("bearmob"):
 					body.knockback(3, body.attack_player_dir)
 	
-	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and textbox.unfreeze and not globals.player_stop:# and not $"../../MainMenu".visible:
+	if Input.is_action_just_pressed("action_attack") and atkTimer.is_stopped() and not dead and textbox.unfreeze and not globals.player_stop and globals.allowed_to_shoot:# and not $"../../MainMenu".visible:
 			#get_global_mouse_position() for shooting towards mouse
 			#print("rotation is: ",  rotation)
 #			if globals.tutorial:
@@ -347,3 +347,10 @@ func _on_pause_menu_unpause():
 	get_tree().current_scene.get_node("PauseMenu/click").play()
 	if paused_textbox:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+func _on_village_area_body_entered(body):
+	globals.allowed_to_shoot = false
+	
+
+func _on_village_area_body_exited(body):
+	globals.allowed_to_shoot = true
