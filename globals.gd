@@ -11,6 +11,7 @@ var player_talking = true
 var global_dead = false
 var dash_enabled = false #false by default
 var smash_enabled = false
+var allowed_to_shoot = true
 
 var conv_amnt_comp = 0
 

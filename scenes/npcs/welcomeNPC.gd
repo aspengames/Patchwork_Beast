@@ -9,14 +9,15 @@ var can_interact = true
 # var a = 2
 # var b = "text"
 @export var NPC_Spriteframes: Resource
-
-
+@onready var interact
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	$AnimatedSprite2D.sprite_frames = NPC_Spriteframes
 	$AnimatedSprite2D.play("idle")
 	if can_interact:
 		$Icon.visible = true
+	interact = player.get_node("Interact_UI")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +31,7 @@ func _on_hitbox_body_entered(body):
 	if body.is_in_group("player") and can_interact:
 		#print("interacted")
 		interacted = true
-		
+		interact.visible = true
 		
 		
 func _check_interaction(npc):
@@ -89,3 +90,4 @@ func _on_hitbox_body_exited(body):
 		#print("interacted")
 		interacted = false
 		can_interact = true
+		interact.visible = false
