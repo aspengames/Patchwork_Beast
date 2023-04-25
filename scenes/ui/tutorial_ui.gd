@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var label = $UseWASD/Label
 @onready var buttons = $UseWASD/ButtonGroup
-@onready var playerv = $"../Map/Map/Player"
+@onready var playerv = $"../NAV/Map/Map/Player"
 
 var onetime = true
 var started = false

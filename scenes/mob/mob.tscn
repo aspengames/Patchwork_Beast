@@ -539,6 +539,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_kf10w"]
 
 [node name="deer" type="CharacterBody2D" groups=["charge_mob"]]
+z_index = 1
 y_sort_enabled = true
 collision_layer = 13
 collision_mask = 13
@@ -630,6 +631,10 @@ max_speed = 250.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+autostart = true
+
+[node name="StateTimer" type="Timer" parent="."]
+one_shot = true
 autostart = true
 
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]

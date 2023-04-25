@@ -9,6 +9,7 @@ var two = false
 var prev = 9999
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	boss.get_node("anim").connect("animation_finished", _on_BOSS_finished)
 	pass # Replace with function body.
 
 
@@ -17,7 +18,7 @@ func _process(delta):
 	if globals.conv_amnt_comp > prev and one and not two:
 		two = true
 		boss.get_node("anim").play("bossmob_activate")
-		$anim.play_backwards("camera_shift_boss")
+		
 
 func _on_Boss_start(body):
 	if body.is_in_group("player") and not one:
@@ -41,4 +42,7 @@ func _on_ANIM_finished(anim_name):
 		globals.player_stop = false
 		player.get_node("ui/boss_health").visible = true
 		boss.activated = true
-		
+	
+func _on_BOSS_finished(anim_name):
+	if anim_name == "bossmob_activate":
+		$anim.play_backwards("camera_shift_boss")

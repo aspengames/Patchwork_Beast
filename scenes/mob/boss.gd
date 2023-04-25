@@ -25,6 +25,12 @@ var NIFT: PackedScene = preload("res://projectiles/BossNift.tscn")
 var nift_dir
 
 var atkTimer
+
+#Navigation
+var movement_speed: float = 200.0
+var movement_target_position: Vector2 = Vector2.ZERO
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	atkTimer = $atkTimer
@@ -79,7 +85,9 @@ func _process(_delta):
 				attacking = false
 				print("scuttled")
 				speed = 150
+				movement_speed = 200
 				player.knockback(3, attack_player_dir)
+				player_shake()
 			if not scuttle and attacking and (self.global_position.distance_to(player.get_global_position()) < rand_dist):
 				attacking = false
 				print("Second ATK")
@@ -109,18 +117,21 @@ func _process(_delta):
 				
 						var nift_direction = self.global_position.direction_to(player.get_global_position())
 						throw_nift(nift_direction)
+						$atkCooldown.start()
 					1:
 						rand_dist = (randi() % 201) #0 to 200
 						rand_dist = 300 + rand_dist
 						attacking = true
 						#If not within rand_dist, bear will run at player!!! 
-						pass
+						$atkCooldown.start()
+
 					2:
 						print("Third ATK")
-						speed = 300
+						speed = 500
+						movement_speed = 400
 						scuttle = true
 						attacking = true
-						pass
+						$atkCooldown.start()
 				#$Sprite/pars_dirt.emitting = true
 				# play attack, emit dirt particles
 #				$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
@@ -133,6 +144,15 @@ func _process(_delta):
 			self.velocity = player_dir * speed
 			
 			if not charge_bar:
+				#New Navigation Movement
+				var movement_target_position = player.get_global_position()
+				set_movement_target(movement_target_position)
+				var current_agent_position: Vector2 = global_transform.origin
+				var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+				var new_velocity: Vector2 = next_path_position - current_agent_position
+				new_velocity = new_velocity.normalized()
+				new_velocity = new_velocity * movement_speed
+				velocity = new_velocity
 				self.move_and_slide()	
 				#$Sprite/pars_dirt.emitting = false
 			
@@ -297,3 +317,10 @@ func _on_mobsight_body_exited(body):
 		#print($mobsight/vis.scale)
 		attacking = false
 		$anim.stop()
+
+func set_movement_target(movement_target: Vector2):
+	#print("Setting")
+	navigation_agent.target_position = movement_target
+	
+func player_shake():
+	player.get_node("Camera2D").large_shake()

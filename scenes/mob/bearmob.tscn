@@ -1128,7 +1128,7 @@ show_behind_parent = true
 position = Vector2(0, 495)
 
 [node name="earth_shatter_hitbox" type="CollisionShape2D" parent="atkRadius"]
-scale = Vector2(40, 40)
+scale = Vector2(100, 100)
 shape = SubResource("CircleShape2D_o5bca")
 
 [node name="Sprite2D" type="Sprite2D" parent="atkRadius/earth_shatter_hitbox"]
@@ -1159,6 +1159,8 @@ process_material = SubResource("ParticleProcessMaterial_hqaem")
 texture = ExtResource("12_25p15")
 lifetime = 3.0
 one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_finished" from="deadanim" to="." method="_on_deadanim_animation_finished"]

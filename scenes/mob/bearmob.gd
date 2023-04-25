@@ -26,6 +26,11 @@ signal bears_healed
 @export var health = 9999
 @export var sleeping = false
 
+#Navigation
+var movement_speed: float = 200.0
+var movement_target_position: Vector2 = Vector2.ZERO
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite/corrode.material.set("shader_parameter/cutoff_two", curcor)
@@ -82,7 +87,7 @@ func _process(_delta):
 				$anim.play("bearmob_attack")
 				#$Sprite/pars_dirt.emitting = true
 				# play attack, emit dirt particles
-				$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+				$atkRadius/earth_shatter_hitbox.scale = Vector2(100,100)
 				atk_counter = 3
 				$groundshake2.amount = 100
 				$groundshake2.process_material.initial_velocity_min = 500
@@ -101,7 +106,16 @@ func _process(_delta):
 					kb_onetime = false
 			
 			if not charge_bar:
-				self.move_and_slide()	
+				#New Navigation Movement
+				var movement_target_position = player.get_global_position()
+				set_movement_target(movement_target_position)
+				var current_agent_position: Vector2 = global_transform.origin
+				var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+				var new_velocity: Vector2 = next_path_position - current_agent_position
+				new_velocity = new_velocity.normalized()
+				new_velocity = new_velocity * movement_speed
+				velocity = new_velocity
+				self.move_and_slide()
 				#$Sprite/pars_dirt.emitting = false
 			
 			if not $anim.is_playing():
@@ -191,16 +205,19 @@ func _on_anim_animation_finished(anim_name):
 		#Screen Shake
 		if atk_counter == 2:
 			player.get_node("Camera2D").small_shake()
-			player.knockback(1, attack_player_dir)
+			if $atkRadius.overlaps_body(player):
+				player.knockback(1, attack_player_dir)
 		elif atk_counter == 1:
 			player.get_node("Camera2D").med_shake()
-			player.knockback(3, attack_player_dir)
+			if $atkRadius.overlaps_body(player):
+				player.knockback(3, attack_player_dir)
 		elif atk_counter == 0:
 			player.get_node("Camera2D").large_shake()
-			player.knockback(6, attack_player_dir)
+			if $atkRadius.overlaps_body(player):
+				player.knockback(6, attack_player_dir)
 		
 		if atk_counter <= -1:
-			$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+			$atkRadius/earth_shatter_hitbox.scale = Vector2(100,100)
 			attacking = false
 			charge_bar = false
 			atk_counter = 3
@@ -217,7 +234,7 @@ func _on_atk_cooldown_timeout():
 	else:
 		$anim.play('bearmob_idle')
 		#Reset
-		$atkRadius/earth_shatter_hitbox.scale = Vector2(40,40)
+		$atkRadius/earth_shatter_hitbox.scale = Vector2(100,100)
 		attacking = false
 		charge_bar = false
 		atk_counter = 3
@@ -245,3 +262,7 @@ func _on_mobsight_body_exited(body):
 		#print($mobsight/vis.scale)
 		attacking = false
 		$anim.stop()
+
+func set_movement_target(movement_target: Vector2):
+	#print("Setting")
+	navigation_agent.target_position = movement_target

@@ -15,6 +15,10 @@ var attack_player_dir
 var speed = 250
 var player_rad = false
 
+var wandering = true
+@onready var stateTimer = $StateTimer
+var randv_set = false
+
 signal deers_healed
 
 @export var health = 9999
@@ -23,10 +27,14 @@ signal deers_healed
 var movement_speed: float = 200.0
 var movement_target_position: Vector2 = Vector2.ZERO
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+var start_vector = Vector2.ZERO
+var target_vector = Vector2.ZERO
+var idle = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Navigation actor setup
+	start_vector = global_transform.origin
 	call_deferred("actor_setup")
 	if sleeping:
 		$anim.play("sleep")
@@ -43,8 +51,8 @@ func set_movement_target(movement_target: Vector2):
 	
 var move_to_player = false
 func _physics_process(delta):
-	if sleeping:
-		return
+#	if sleeping:
+#		return
 	if move_to_player:
 		move_to_player = false
 		movement_target_position = player.get_global_position()
@@ -55,41 +63,91 @@ func _physics_process(delta):
 		new_velocity = new_velocity.normalized()
 		new_velocity = new_velocity * movement_speed
 		#print("new velocity is", new_velocity)
+#		velocity = new_velocity
+#		move_and_slide()
+	#print("Wandering", wandering)
+	#print(navigation_agent.distance_to_target())
+	if wandering and (navigation_agent.distance_to_target() > 600):
+		#print("In here")
+		if stateTimer.is_stopped():
+			randomize()
+			var rand_num = randi_range(0,2)
+			if rand_num:
+				randv_set = false
+				#wandering = false
+			else:
+				randv_set = true
+			stateTimer.start(randi_range(0, 2))
+		if not randv_set:
+			var rand_target_vector = Vector2(randf_range(-320, 320), randf_range(-320, 320))
+			target_vector = self.global_transform.origin + rand_target_vector
+			set_movement_target(target_vector)
+			print("TARGET VECTOR IS ", target_vector)
+			await get_tree().create_timer(0.3).timeout
+			randv_set = true
+		var current_agent_position: Vector2 = self.global_transform.origin
+		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+		var new_velocity: Vector2 = next_path_position - current_agent_position
+		new_velocity = new_velocity.normalized()
+		new_velocity = new_velocity * movement_speed
+		#print("new velocity is", new_velocity)
 		velocity = new_velocity
-		move_and_slide()
+		if velocity > Vector2.ZERO:
+			idle = false
+			move_and_slide()
+		else:
+			idle = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if sleeping:
 		return
+			#movement_target_position = pass
+	if health < 1 and alive:
+			globals.mobs_on_screen -= 1
+			alive = false
+			$deadanim.play("dead")
+			$col.disabled = true
+			globals.deers -= 1
+			if globals.deers <= 0:
+				emit_signal("deers_healed")
+				print("Emitted signal deers healed")
+			
+	if trulydead and $pars.emitting == false:
+		$deathTimer.start()
 	if player_rad:
 		#print("Processor called")
 		if (self.global_position.distance_to(player.get_global_position()) < 1000):
 			autocorrode()
 		var player_dir = self.global_position.direction_to(player.global_position)
 		#print(player_dir)
-		
 		var mob_rot = player_dir.angle()
-		#print(mob_rot)
-		#print(mob_rot)
-		#print(mob_rot)
-		#print(PI)
-		if not buck:
-			if -PI/4 < mob_rot:
-				if mob_rot < PI/4:
-					$anim.play("mob_right")
-			if PI/4 < mob_rot:
-				if mob_rot < 3*PI/4:
-					$anim.play("mob_down")
-			if -PI < mob_rot:
-				if mob_rot < -3*PI/4:
-					$anim.play("mob_left")
-			if 3*PI/4 < mob_rot:
-				if mob_rot < PI:
-					$anim.play("mob_left")
-			if -3*PI/4 < mob_rot:
-				if mob_rot < -PI/4:
-					$anim.play("mob_up")
+		if velocity > Vector2.ZERO and not idle:
+			if wandering:
+				mob_rot = self.global_position.direction_to(target_vector).angle()
+			#print(mob_rot)
+			#print(mob_rot)
+			#print(mob_rot)
+			#print(PI)
+			if not buck:
+				if -PI/4 < mob_rot:
+					if mob_rot < PI/4:
+						$anim.play("mob_right")
+				if PI/4 < mob_rot:
+					if mob_rot < 3*PI/4:
+						$anim.play("mob_down")
+				if -PI < mob_rot:
+					if mob_rot < -3*PI/4:
+						$anim.play("mob_left")
+				if 3*PI/4 < mob_rot:
+					if mob_rot < PI:
+						$anim.play("mob_left")
+				if -3*PI/4 < mob_rot:
+					if mob_rot < -PI/4:
+						$anim.play("mob_up")
+		elif not buck:
+			pass
+			#$anim.stop()
 
 		#print(globals.mobsight)
 		#print(self.global_position.distance_to(player.get_global_position()))
@@ -100,9 +158,13 @@ func _process(delta):
 				return
 			#self.global_position += player_dir
 			#self.move_and_slide(player_dir * 500)
-			if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
+			#print("Cur dist", navigation_agent.distance_to_target())
+			#if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
+			if (navigation_agent.distance_to_target() <= 600) and not buck and not attacking:
+				idle = false
+				wandering = false
 				buck = true
-				
+				print("attacking!!!!!")
 				$atkTimer.start()
 				if -PI/2 < mob_rot:
 					if mob_rot < PI/2:
@@ -111,34 +173,28 @@ func _process(delta):
 					$anim.play("mob_attack_left")
 				if PI/2 < mob_rot: 
 					$anim.play("mob_attack_left")
-					
+			
 			if not buck:
 				self.velocity = player_dir * speed
 				
 			if attacking:
 				self.velocity = attack_player_dir * speed
 				speed += 5
+				if not navigation_agent.is_target_reachable():
+					print("TARGET NOT VALID")
+					attacking = false
+					speed = 250
 			
 			move_to_player = true
-			self.move_and_slide()	
+			if not wandering:
+				self.move_and_slide()	
 			
 			if not $anim.is_playing():
 				$anim.play()
 		else:
 			$anim.stop()
 			
-		if health < 1 and alive:
-			globals.mobs_on_screen -= 1
-			alive = false
-			$deadanim.play("dead")
-			$col.disabled = true
-			globals.deers -= 1
-			if globals.deers <= 0:
-				emit_signal("deers_healed")
-				print("Emitted signal deers healed")
-			
-		if trulydead and $pars.emitting == false:
-			$deathTimer.start()
+		
 		
 		
 func autocorrode():

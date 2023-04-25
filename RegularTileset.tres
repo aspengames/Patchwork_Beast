@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=34 format=3 uid="uid://boxgtk1pebwh2"]
+[gd_resource type="TileSet" load_steps=36 format=3 uid="uid://boxgtk1pebwh2"]
 
 [ext_resource type="Texture2D" uid="uid://bjhp3po54pmh6" path="res://art/environment/tileset_vectorized.png" id="1_6vwi6"]
 [ext_resource type="Texture2D" uid="uid://0qqol07or6yq" path="res://art/environment/shadow.png" id="1_pisck"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bluhrii51gcd7" path="res://art/environment/tileset_path.png" id="7_eg837"]
 [ext_resource type="PackedScene" uid="uid://br1pel4tsnjrt" path="res://scenes/world/house2.tscn" id="8_rq3vb"]
 [ext_resource type="PackedScene" uid="uid://d4nmpqxyq5kna" path="res://scenes/world/house3.tscn" id="9_sxjus"]
+[ext_resource type="Texture2D" uid="uid://6757lxcuvbf5" path="res://art/environment/barrier.png" id="11_od2cx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqsse"]
 texture = ExtResource("1_pisck")
@@ -377,6 +378,14 @@ scenes/2/scene = ExtResource("7_4ij4d")
 scenes/3/scene = ExtResource("8_rq3vb")
 scenes/4/scene = ExtResource("9_sxjus")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fn8kp"]
+texture = ExtResource("11_od2cx")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
 [resource]
 tile_size = Vector2i(128, 128)
 physics_layer_0/collision_layer = 1
@@ -392,3 +401,4 @@ sources/2 = SubResource("TileSetAtlasSource_pjcjr")
 sources/3 = SubResource("TileSetScenesCollectionSource_2d1vj")
 sources/5 = SubResource("TileSetScenesCollectionSource_yvnyc")
 sources/4 = SubResource("TileSetAtlasSource_ms2u4")
+sources/6 = SubResource("TileSetAtlasSource_fn8kp")

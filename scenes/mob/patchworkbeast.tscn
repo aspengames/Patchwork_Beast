@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.388253, 0.308624)]
+"values": [Vector2(0.29, 0.29)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 210.699)]
+"values": [Vector2(0, 180)]
 }
 
 [sub_resource type="Animation" id="Animation_tyj1j"]
@@ -150,6 +150,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_hgnij"]
 resource_name = "bossmob_activate"
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -284,6 +285,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"player_shake"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_1tgm7"]
@@ -884,13 +899,13 @@ shape = SubResource("CapsuleShape2D_l70x6")
 texture = ExtResource("1_c5bdk")
 hframes = 8
 vframes = 6
-frame = 17
+frame = 16
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_qqs16")
-position = Vector2(0, 210.699)
-scale = Vector2(0.388253, 0.308624)
+position = Vector2(0, 180)
+scale = Vector2(0.29, 0.29)
 texture = ExtResource("2_iuoog")
 
 [node name="anim" type="AnimationPlayer" parent="."]
@@ -907,15 +922,15 @@ scale = Vector2(300, 300)
 shape = SubResource("CircleShape2D_2ixae")
 
 [node name="eyeright" type="PointLight2D" parent="."]
-position = Vector2(19.3333, -17.3333)
+position = Vector2(20, -6.66666)
 scale = Vector2(0.05, 0.05)
-energy = 3.0
+energy = 0.0
 texture = ExtResource("4_vd46h")
 
 [node name="eyeleft" type="PointLight2D" parent="."]
-position = Vector2(-23.3333, -18)
+position = Vector2(-22, -6.66666)
 scale = Vector2(0.05, 0.05)
-energy = 3.0
+energy = 0.0
 texture = ExtResource("4_vd46h")
 
 [node name="groundshake2" type="GPUParticles2D" parent="."]
@@ -947,6 +962,8 @@ visible = false
 show_behind_parent = true
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_e47w4")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="body_entered" from="mobsight" to="." method="_on_mobsight_body_entered"]

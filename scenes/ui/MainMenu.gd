@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var p2 = $Pointer/selector2
 @onready var p3 = $Pointer/selector3
 
-@onready var player = $"../Map/Map/Player"
+@onready var player = $"../NAV/Map/Map/Player"
 @onready var options = $OptionsMenu
 
 # Called when the node enters the scene tree for the first time.
