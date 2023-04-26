@@ -30,6 +30,11 @@ var atkTimer
 var movement_speed: float = 200.0
 var movement_target_position: Vector2 = Vector2.ZERO
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var gearblock = $"../../../../NAV/Map/Map/biggear"
+@onready var bossfight = $"../../../../Boss"
+@onready var forestdarken = $"../../../../ForestDarken"
+@onready var treecorrupt = $"../../../../TreeCorrupt"
+@onready var tilemap = $"../../../../NAV/Map/Map"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -296,6 +301,31 @@ func hurt():
 		textbox.queue_text("Whew...")
 		textbox.queue_character("Ramis")
 		textbox.queue_text("I think I've stopped the source of the corrosion.")
+		
+		gearblock.get_node("col/col").disabled = true
+		gearblock.visible = false
+		gearblock.queue_free()
+		
+		bossfight.get_node("anim").play("boss_defeat")
+		
+		forestdarken.queue_free()
+		
+		treecorrupt.get_node("corrupt4").animate_uncorrupt()
+		treecorrupt.get_node("corrupt8").animate_uncorrupt()
+		treecorrupt.get_node("corrupt9").animate_uncorrupt()
+		for i in range(8):
+			print("i is ", i)
+			if i == 0:
+				treecorrupt.get_node("corrupt").set_corruption(0)
+				continue
+			if i == 1 or i == 4:
+				continue
+			treecorrupt.get_node(str("corrupt" + str(i))).set_corruption(0)
+			
+		tilemap.set_layer_enabled(1, false)#layer_1.enabled = false
+		tilemap.set_layer_enabled(6, true)#layer_6.enabled = true
+		
+		
 
 func _on_atk_cooldown_timeout():
 	$atkCooldown.stop()
