@@ -76,6 +76,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2ilge"]
 resource_name = "dash_down"
@@ -867,10 +879,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [40, 41, 42, 43, 44, 45]
+"values": [40, 41, 42, 42, 43, 44, 45]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -897,6 +909,18 @@ tracks/2/keys = {
 "args": [],
 "method": &"reset_movement"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="7"]
@@ -1398,7 +1422,7 @@ show_behind_parent = true
 z_as_relative = false
 y_sort_enabled = true
 material = SubResource("CanvasItemMaterial_8i05x")
-position = Vector2(0, 54.5)
+position = Vector2(0, 54)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_7ct4t")
 
@@ -1413,6 +1437,7 @@ scale = Vector2(0.27, 0.27)
 texture = ExtResource("7")
 hframes = 8
 vframes = 6
+frame = 45
 
 [node name="death" type="Sprite2D" parent="."]
 visible = false
@@ -1420,6 +1445,7 @@ position = Vector2(-21, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_xdsgc")
 hframes = 4
+frame = 1
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1486,6 +1512,7 @@ visible = false
 position = Vector2(28.5, -13)
 
 [node name="lite" type="PointLight2D" parent="Staff1"]
+visible = false
 position = Vector2(1.5, 6.5)
 scale = Vector2(0.1, 0.1)
 shadow_enabled = true
@@ -1497,7 +1524,6 @@ texture = ExtResource("13_kax16")
 position = Vector2(-26.5, -15)
 
 [node name="lite" type="PointLight2D" parent="Staff2"]
-visible = false
 position = Vector2(-3, 4.5)
 scale = Vector2(0.1, 0.1)
 shadow_enabled = true

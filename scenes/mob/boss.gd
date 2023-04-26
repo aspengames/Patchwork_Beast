@@ -50,7 +50,7 @@ func _process(_delta):
 		#print(mob_rot)
 		#print(mob_rot)
 		#print(PI)
-		if not charge_bar:
+		if not charge_bar and player.get_node("ui/boss_health").value > 0:
 			if -PI/4 < mob_rot:
 				if mob_rot < PI/4:
 					$anim.play("mob_right")
@@ -69,7 +69,7 @@ func _process(_delta):
 
 		#print(globals.mobsight)
 		#print(self.global_position.distance_to(player.get_global_position()))
-		if not trulydead:
+		if not trulydead and player.get_node("ui/boss_health").value > 0:
 			#self.global_position += player_dir
 			#self.move_and_slide(player_dir * 500)
 			
@@ -158,17 +158,19 @@ func _process(_delta):
 			
 			if not $anim.is_playing():
 				$anim.play()
-		else:
+		elif player.get_node("ui/boss_health").value > 0:
 			$anim.stop()
 			
-		if health < 1 and alive:
+		if player.get_node("ui/boss_health").value < 1 and alive:
 			globals.mobs_on_screen -= 1
 			alive = false
-			$deadanim.play("dead")
+			print("boss dead anim")
+			$anim.stop()
+			$anim.play("bossmob_death")
 			$col.disabled = true
 			
-		if trulydead and $pars.emitting == false: # pars is the player's particles?
-			$deathTimer.start()
+		#if trulydead: # and $pars.emitting == false: # pars is the player's particles?
+			#$deathTimer.start()
 			
 
 func throw_nift(nift_direction: Vector2):
@@ -250,6 +252,15 @@ func actual_throw_nift():
 
 func _on_deadanim_animation_finished(_anim_name):
 	trulydead = true
+	if player.get_node("ui/boss_health").value <= 0 and trulydead:
+		await get_tree().create_timer(5).timeout
+		#Super Janky not animated or clean - getting rid of boss + boss healthbar ASAP
+		#call_deferred("queue_free")
+		player.get_node("ui/boss_health").visible = false
+		textbox.queue_character("PlayerApology")
+		textbox.queue_text("Whew...")
+		textbox.queue_character("Ramis")
+		textbox.queue_text("I think I've stopped the source of the corrosion.")
 
 func _on_vis_screen_entered():
 	globals.mobs_on_screen += 1
@@ -288,14 +299,7 @@ func hurt():
 	randomize()
 	var rand_hurt = (randi() % 8) + 2 #4-9
 	player.get_node("ui/boss_health").value -= rand_hurt
-	if player.get_node("ui/boss_health").value <= 0:
-		#Super Janky not animated or clean - getting rid of boss + boss healthbar ASAP
-		call_deferred("queue_free")
-		player.get_node("ui/boss_health").visible = false
-		textbox.queue_character("PlayerApology")
-		textbox.queue_text("Whew...")
-		textbox.queue_character("Ramis")
-		textbox.queue_text("I think I've stopped the source of the corrosion.")
+	
 
 func _on_atk_cooldown_timeout():
 	$atkCooldown.stop()

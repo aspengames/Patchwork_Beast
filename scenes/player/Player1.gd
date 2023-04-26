@@ -349,8 +349,10 @@ func _on_pause_menu_unpause():
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_village_area_body_entered(body):
-	globals.allowed_to_shoot = false
+	if body.is_in_group("player"):
+		globals.allowed_to_shoot = false
 	
 
 func _on_village_area_body_exited(body):
-	globals.allowed_to_shoot = true
+	if body.is_in_group("player"):
+		globals.allowed_to_shoot = true
