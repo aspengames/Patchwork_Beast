@@ -1,5 +1,4 @@
-<p align="center"><img src="https://user-images.githubusercontent.com/96705270/217971482-01e1c090-7af1-4367-9d1c-8084c9ceb29b.png"></p>
-
+<p align="center"><img src="https://github.com/aspengames/Patchwork_Beast/assets/96705270/78b9135d-a5f1-4e6b-9f0f-c7fcb6505744"></p>
 ### About The Game
 
 Patchwork Beast is a top-down roleplaying game centered around curing a forest of
