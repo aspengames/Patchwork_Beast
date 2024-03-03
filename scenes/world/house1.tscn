@@ -7,21 +7,27 @@
 size = Vector2(336, 10.9933)
 
 [node name="House1" type="Sprite2D"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, 150)
 scale = Vector2(1.3, 1.3)
 texture = ExtResource("1_h7qw2")
+offset = Vector2(0, -150)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
 texture = ExtResource("2_i8inn")
+offset = Vector2(0, -150)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
-position = Vector2(0, 9.23077)
+z_index = 1
+position = Vector2(0, -140.769)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(0, -101.538)
 scale = Vector2(1, 20.6)
-polygon = PackedVector2Array(-178.462, 10.7543, -135.385, 10.7244, -98.4615, 9.8581, 92.3077, 9.8581, 135.385, 10.7244, 172.308, 10.7543, 172.308, 9.55937, 166.154, 8.66318, 166.154, -0.59746, -166.154, -0.59746, -166.154, 8.66318, -178.462, 9.55937)
+polygon = PackedVector2Array(-178.462, 10.7543, -135.385, 10.7244, -100, 10.5676, 96.9231, 10.5676, 135.385, 10.7244, 172.308, 10.7543, 172.308, 9.55937, 166.154, 8.66318, 166.154, -0.59746, -166.154, -0.59746, -166.154, 8.66318, -178.462, 9.55937)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -14.7692)

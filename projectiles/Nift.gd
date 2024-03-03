@@ -39,9 +39,14 @@ func _on_Nift_body_entered(body):
 		print("BOSS HIT")
 		body.health -= 1
 		body.hurt()
-		body.hurt()
-		body.hurt()
-		body.hurt()
+		
+		#DEBUG ONLY, INSTA-KILL
+		#body.hurt()
+		#body.hurt()
+		#body.hurt()
+		#body.hurt()
+		#body.hurt()
+		
 		#default 1x
 		destroy()
 	#body.dead()

@@ -24,6 +24,18 @@ func _on_Boss_start(body):
 	if body.is_in_group("player") and not one:
 		globals.player_stop = true
 		$anim.play("camera_shift_boss")
+		if globals.discord_enabled:
+			#DISCORD RICH PRESENCE
+			print("UPDATED DISCORD RP")
+#			discord_sdk.details = "Fighting the Beast"
+#			discord_sdk.state = ""
+#			discord_sdk.large_image = "boss"
+#			discord_sdk.large_image_text = "They will not survive."
+#			discord_sdk.small_image = ""
+#			discord_sdk.small_image_text = ""
+#			#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#			#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#			discord_sdk.refresh() # Always refresh after changing the values!
 		
 func _on_ANIM_finished(anim_name):
 	if anim_name == "camera_shift_boss" and not one:
@@ -42,6 +54,8 @@ func _on_ANIM_finished(anim_name):
 		globals.player_stop = false
 		player.get_node("ui/boss_health").visible = true
 		boss.activated = true
+		AudioController.play_boss()
+		boss.get_node("bossaud").stream = boss.gearSFX1
 	
 func _on_BOSS_finished(anim_name):
 	if anim_name == "bossmob_activate":

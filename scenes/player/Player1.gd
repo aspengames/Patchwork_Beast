@@ -55,7 +55,7 @@ func _ready():
 
 #executed each frame
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("escape") and not get_tree().current_scene.get_node("MainMenu").visible:
+	if Input.is_action_just_pressed("escape") and not get_tree().current_scene.get_node("MainMenu/TextureRect").visible:
 		if not get_tree().paused:
 			if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -153,7 +153,13 @@ func _physics_process(_delta):
 		$AnimationTree.get("parameters/playback").travel("Dash")
 		$AnimationTree.set("parameters/Dash/blend_position", velocity)
 	
-
+	if Input.is_action_just_pressed("unalive"):
+		dead = true
+		$AnimationPlayer2.play("death")
+		globals.player_stop = true
+		globals.global_dead = true
+		globals.has_died = true
+		globals.death_counter += 1
 			
 	if Input.is_action_just_pressed("smash_attack") and globals.smash_enabled and smashTimer.is_stopped():
 		#print("SMASH")
@@ -163,6 +169,7 @@ func _physics_process(_delta):
 		var bodies = $smashradius.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("charge_mob") or body.is_in_group("bearmob") or body.is_in_group("boss"):
+				print("calling smash hurt on body: ", body.name)
 				body.hurt() 
 				body.hurt() #Using two for extra dmg. in future I would add a modifier like hurt(strength) to do atk strength
 				if body.is_in_group("bearmob"):
@@ -199,6 +206,8 @@ func _physics_process(_delta):
 		$AnimationPlayer2.play("death")
 		globals.player_stop = true
 		globals.global_dead = true
+		globals.has_died = true
+		globals.death_counter += 1
 	#applying the needed vector to the object, to make it move thanks to the move_and_slide function
 	if not attacking:
 		move_and_slide()
@@ -340,6 +349,7 @@ func _on_smash_timer_timeout():
 	smashTimer.stop()
 	
 func reset_movement():
+	attacking = false
 	globals.player_stop = false
 
 func _on_pause_menu_unpause():

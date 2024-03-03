@@ -1,5 +1,8 @@
 extends CanvasLayer
 @onready var optionsoverlay = $OptionsMenu/Overlay
+@onready var player = $"../NAV/Map/Map/Player"
+@onready var options = $OptionsMenu
+
 signal unpause
 # PauseMenu.tscn is the pause menu ONLY. It must be called by the pausefunction.gd script,
 # which it passes the signal unpause to.
@@ -28,4 +31,22 @@ func _on_options_pressed():
 
 func _on_quit_pressed():
 	# may implement quit to main menu instead of quit game in the future. under construction.
-	get_tree().quit()
+	#get_tree().quit() #NO
+	get_tree().paused = true
+	#get_tree().change_scene("res://scenes/world/Level.tscn")
+	options.get_node("click").play()
+	print("PARENT")
+	print(get_parent())
+	print("SELF")
+	print(self)
+	get_tree().change_scene_to_file("res://scenes/tutorial/tutorial1.tscn")
+	#for child in get_parent().get_node("MainMenu").get_children():
+	#	child.show()
+	#$OptionsMenu.visible = false
+	
+	
+	#player.get_node("transition/anim").seek(0,0)
+	#player.get_node("transition").visible = true
+	#player.get_node("transition/anim").play("fade")
+	
+	

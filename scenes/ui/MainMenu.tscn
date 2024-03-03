@@ -78,8 +78,8 @@ layer = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(545, 279)
-scale = Vector2(0.387054, 0.387054)
+position = Vector2(587, 394)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("6_uia5n")
 
 [node name="Pointer" type="VBoxContainer" parent="."]
