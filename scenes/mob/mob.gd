@@ -15,7 +15,7 @@ var attack_player_dir
 var speed = 250
 var player_rad = false
 
-var wandering = true
+var wandering = false
 @onready var stateTimer = $StateTimer
 var randv_set = false
 
@@ -30,6 +30,10 @@ var movement_target_position: Vector2 = Vector2.ZERO
 var start_vector = Vector2.ZERO
 var target_vector = Vector2.ZERO
 var idle = true
+
+var walk = preload("res://music/deer_walk.mp3")
+var walkf = preload("res://music/deer_walk_fast.mp3")
+var paw = preload("res://music/deer_pawing.mp3")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,7 +55,31 @@ func set_movement_target(movement_target: Vector2):
 	
 var move_to_player = false
 func _physics_process(delta):
-#	if sleeping:
+#	if velocity > Vector2.ZERO and ($anim.current_animation == "mob_attack_left" || $anim.current_animation == "mob_attack_right"):
+#		var player_dir = self.global_position.direction_to(player.global_position)
+		#print(player_dir)
+#		var mob_rot = player_dir.angle()
+#		if -PI/4 < mob_rot:
+#			if mob_rot < PI/4:
+#				print("mobrightanim")
+#				$anim.play("mob_right")
+#		if PI/4 < mob_rot:
+#			if mob_rot < 3*PI/4:
+#				print("mobdownanim")
+#				$anim.play("mob_down")
+#		if -PI < mob_rot:
+#			if mob_rot < -3*PI/4:
+#				print("mobleftanim")
+#				$anim.play("mob_left")
+#		if 3*PI/4 < mob_rot:
+#			if mob_rot < PI:
+#				print("mobleftanim1")
+#				$anim.play("mob_left")
+#		if -3*PI/4 < mob_rot:
+#			if mob_rot < -PI/4:
+#				print("mobupanim")
+#				$anim.play("mob_up")
+	#if sleeping:
 #		return
 	if move_to_player:
 		move_to_player = false
@@ -65,38 +93,38 @@ func _physics_process(delta):
 		#print("new velocity is", new_velocity)
 #		velocity = new_velocity
 #		move_and_slide()
-	#print("Wandering", wandering)
-	#print(navigation_agent.distance_to_target())
-	if wandering and (navigation_agent.distance_to_target() > 600):
-		#print("In here")
-		if stateTimer.is_stopped():
-			randomize()
-			var rand_num = randi_range(0,2)
-			if rand_num:
-				randv_set = false
-				#wandering = false
-			else:
-				randv_set = true
-			stateTimer.start(randi_range(0, 2))
-		if not randv_set:
-			var rand_target_vector = Vector2(randf_range(-320, 320), randf_range(-320, 320))
-			target_vector = self.global_transform.origin + rand_target_vector
-			set_movement_target(target_vector)
-			print("TARGET VECTOR IS ", target_vector)
-			await get_tree().create_timer(0.3).timeout
-			randv_set = true
-		var current_agent_position: Vector2 = self.global_transform.origin
-		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-		var new_velocity: Vector2 = next_path_position - current_agent_position
-		new_velocity = new_velocity.normalized()
-		new_velocity = new_velocity * movement_speed
-		#print("new velocity is", new_velocity)
-		velocity = new_velocity
-		if velocity > Vector2.ZERO:
-			idle = false
-			move_and_slide()
-		else:
-			idle = true
+#	#print("Wandering", wandering)
+#	#print(navigation_agent.distance_to_target())
+#	if wandering:# and (navigation_agent.distance_to_target() > 600):
+#		#print("In here")
+#		if stateTimer.is_stopped():
+#			randomize()
+#			var rand_num = randi_range(0,2)
+#			if rand_num:
+#				randv_set = false
+#				#wandering = false
+#			else:
+#				randv_set = true
+#			stateTimer.start(randi_range(0, 2))
+#		if not randv_set:
+#			var rand_target_vector = Vector2(randf_range(-320, 320), randf_range(-320, 320))
+#			target_vector = self.global_transform.origin + rand_target_vector
+#			set_movement_target(target_vector)
+#			print("TARGET VECTOR IS ", target_vector)
+#			await get_tree().create_timer(0.3).timeout
+#			randv_set = true
+#		var current_agent_position: Vector2 = self.global_transform.origin
+#		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+#		var new_velocity: Vector2 = next_path_position - current_agent_position
+#		new_velocity = new_velocity.normalized()
+#		new_velocity = new_velocity * movement_speed
+#		#print("new velocity is", new_velocity)
+#		velocity = new_velocity
+#		if velocity > Vector2.ZERO:
+#			idle = false
+#			move_and_slide()
+#		else:
+#			idle = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -108,6 +136,7 @@ func _process(delta):
 			alive = false
 			$deadanim.play("dead")
 			$col.disabled = true
+			$deeraud.stop()
 			globals.deers -= 1
 			if globals.deers <= 0:
 				emit_signal("deers_healed")
@@ -115,6 +144,30 @@ func _process(delta):
 			
 	if trulydead and $pars.emitting == false:
 		$deathTimer.start()
+#		if wandering:
+#			$deeraud.stream = walk
+#			$deeraud.play()
+#			var mob_rot = self.global_position.direction_to(target_vector).angle()
+#			$Sprite/corrode.material.set("shader_parameter/cutoff_two", -1)
+#			if not buck:
+#				if -PI/4 < mob_rot:
+#					if mob_rot < PI/4:
+#						$anim.play("mob_right")
+#				if PI/4 < mob_rot:
+#					if mob_rot < 3*PI/4:
+#						$anim.play("mob_down")
+#				if -PI < mob_rot:
+#					if mob_rot < -3*PI/4:
+#						$anim.play("mob_left")
+#				if 3*PI/4 < mob_rot:
+#					if mob_rot < PI:
+#						$anim.play("mob_left")
+#				if -3*PI/4 < mob_rot:
+#					if mob_rot < -PI/4:
+#						$anim.play("mob_up")
+	if velocity == Vector2.ZERO:
+		$deeraud.stop()
+
 	if player_rad:
 		#print("Processor called")
 		if (self.global_position.distance_to(player.get_global_position()) < 1000):
@@ -122,29 +175,33 @@ func _process(delta):
 		var player_dir = self.global_position.direction_to(player.global_position)
 		#print(player_dir)
 		var mob_rot = player_dir.angle()
-		if velocity > Vector2.ZERO and not idle:
-			if wandering:
-				mob_rot = self.global_position.direction_to(target_vector).angle()
+		
+		
+#			if wandering:
+#				mob_rot = self.global_position.direction_to(target_vector).angle()
 			#print(mob_rot)
 			#print(mob_rot)
 			#print(mob_rot)
 			#print(PI)
-			if not buck:
-				if -PI/4 < mob_rot:
-					if mob_rot < PI/4:
-						$anim.play("mob_right")
-				if PI/4 < mob_rot:
-					if mob_rot < 3*PI/4:
-						$anim.play("mob_down")
-				if -PI < mob_rot:
-					if mob_rot < -3*PI/4:
-						$anim.play("mob_left")
-				if 3*PI/4 < mob_rot:
-					if mob_rot < PI:
-						$anim.play("mob_left")
-				if -3*PI/4 < mob_rot:
-					if mob_rot < -PI/4:
-						$anim.play("mob_up")
+		if not buck:
+			if $deeraud.stream != walk and alive:
+				$deeraud.stream = walk
+				$deeraud.play()
+			if -PI/4 < mob_rot:
+				if mob_rot < PI/4:
+					$anim.play("mob_right")
+			if PI/4 < mob_rot:
+				if mob_rot < 3*PI/4:
+					$anim.play("mob_down")
+			if -PI < mob_rot:
+				if mob_rot < -3*PI/4:
+					$anim.play("mob_left")
+			if 3*PI/4 < mob_rot:
+				if mob_rot < PI:
+					$anim.play("mob_left")
+			if -3*PI/4 < mob_rot:
+				if mob_rot < -PI/4:
+					$anim.play("mob_up")
 		elif not buck:
 			pass
 			#$anim.stop()
@@ -152,27 +209,50 @@ func _process(delta):
 		#print(globals.mobsight)
 		#print(self.global_position.distance_to(player.get_global_position()))
 		if not trulydead:
-			if not $anim.is_playing():
-				$anim.play()
+#			if not $anim.is_playing():
+#				$anim.play("mob_left")
 			if buck:
+				if not ($anim.current_animation == "mob_attack_left" or $anim.current_animation == "mob_attack_right"):
+					if -PI/2 < mob_rot:
+						if mob_rot < PI/2:
+							$anim.play("mob_attack_right")
+						if -PI/2 > mob_rot:
+							$anim.play("mob_attack_left")
+						if PI/2 < mob_rot: 
+							$anim.play("mob_attack_left")
+				if not $anim.is_playing():
+					$anim.play("mob_attack_right")
 				return
 			#self.global_position += player_dir
 			#self.move_and_slide(player_dir * 500)
 			#print("Cur dist", navigation_agent.distance_to_target())
 			#if (self.global_position.distance_to(player.get_global_position()) < 500) and not buck and not attacking:
 			if (navigation_agent.distance_to_target() <= 600) and not buck and not attacking:
+				$deeraud.stop()
 				idle = false
 				wandering = false
 				buck = true
-				print("attacking!!!!!")
+				if alive:
+					$deeraud.stream = paw
+					$deeraud.play()
+				#print("attacking!!!!!")
 				$atkTimer.start()
 				if -PI/2 < mob_rot:
 					if mob_rot < PI/2:
 						$anim.play("mob_attack_right")
+						#print("mobatkright")
 				if -PI/2 > mob_rot:
 					$anim.play("mob_attack_left")
+					#print("mobatkleft")
 				if PI/2 < mob_rot: 
 					$anim.play("mob_attack_left")
+					#print("mobatkleft1")
+				if not $anim.is_playing():
+					$anim.play("mob_attack_right")
+					#print("mobatkright1")
+					
+				#print("CURRENT PLAYING ANIM")
+				#print($anim.current_animation)
 			
 			if not buck:
 				self.velocity = player_dir * speed
@@ -189,9 +269,10 @@ func _process(delta):
 			if not wandering:
 				self.move_and_slide()	
 			
-			if not $anim.is_playing():
-				$anim.play()
+#			if not $anim.is_playing():
+#				$anim.play("mob_left")
 		else:
+			#print("STOPPING ANIM")
 			$anim.stop()
 			
 		
@@ -245,6 +326,9 @@ func _on_atk_timer_timeout():
 	buck = false
 	speed = 500
 	$chargeTimer.start()
+	if alive:
+		$deeraud.stream = walkf
+		$deeraud.play()
 	var self_pos_down_50 = self.global_position - Vector2(0,150)
 	if (self_pos_down_50.distance_to(player.get_global_position()) < 200) or (self.global_position.distance_to(player.get_global_position()) < 200):
 		player.knockback(3, attack_player_dir)
@@ -258,17 +342,17 @@ func _on_charge_timer_timeout():
 
 
 func _on_mobsight_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not wandering:
 		player_rad = true
 		$mobsight/vis.scale *= 2
 		#print($mobsight/vis.scale)
-
+ 
 func _on_mobsight_body_exited(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not wandering:
 		player_rad = false
 		$mobsight/vis.scale /= 2
 		#print($mobsight/vis.scale)
 		attacking = false
 		buck = false
 		speed = 250
-		$anim.stop()
+		#$anim.stop()

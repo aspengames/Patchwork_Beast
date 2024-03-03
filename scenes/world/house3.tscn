@@ -4,16 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://bc03681n0g3i7" path="res://art/environment/house_big_roof.png" id="2_1nf4w"]
 
 [node name="House3" type="Sprite2D"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, 150)
 scale = Vector2(1.3, 1.3)
 texture = ExtResource("1_3egsu")
+offset = Vector2(0, -150)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 z_index = 2
 texture = ExtResource("2_1nf4w")
+offset = Vector2(0, -150)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
+position = Vector2(0, -150)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 visible = false

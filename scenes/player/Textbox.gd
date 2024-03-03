@@ -23,6 +23,7 @@ var text_queue = []
 var all_finished = false
 var textbox_name = ""
 var cur_text_done = false
+var healthvis = true
 
 var tween1
 @onready var player = $"../.."
@@ -125,7 +126,8 @@ func hide_textbox():
 			$Detail/Player.hide()
 		$Overlay.hide()
 		speed = 160
-		player.get_node("ui/health").visible = true
+		if healthvis:
+			player.get_node("ui/health").visible = true
 		$Detail.get_node(prev_sprite).hide()
 	
 func show_textbox():

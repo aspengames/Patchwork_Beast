@@ -21,11 +21,13 @@ func _on_PLAY_pressed():
 	get_tree().paused = false
 	#get_tree().change_scene("res://scenes/world/Level.tscn")
 	options.get_node("click").play()
-	self.visible = false
+	for child in self.get_children():
+		child.hide()
 	player.get_node("transition").visible = true
 	player.get_node("transition/anim").play("fade")
 	
-
+func _on_main_menu_visibility_changed():
+	pass
 
 func _on_QUIT_pressed():
 	options.get_node("click").play()

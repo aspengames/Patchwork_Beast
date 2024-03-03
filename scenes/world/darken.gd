@@ -7,6 +7,9 @@ extends Area2D
 @export var upright = true
 @export var percent_to_dark = 0.1
 
+#For Discord RPC
+@onready var boss = $"../../NAV/Map/Map/patchworkbeast"
+
 #H,S,V
 var base_color = [0.61202210187912,0.59803873300552,0.80000001192093]
 var cur_color_s
@@ -115,6 +118,127 @@ func reset():
 func _on_darken_body_entered(body):
 	if body.is_in_group("player"):
 		darkening = true
+		
+		#DISCORD RICH PRESENCE
+		if globals.discord_enabled:
+			print("SELF NAME IS:", self.name)
+#			if self.name == "darken":
+#				if globals.discord_enabled:
+#					print("UPDATED DISCORD RP")
+#					discord_sdk.details = "Exploring the Forest"
+#					discord_sdk.state = ""
+#					discord_sdk.large_image = "forest"
+#					discord_sdk.large_image_text = "Forest"
+#					discord_sdk.small_image = ""
+#					discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#					discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken2":
+#				if globals.discord_enabled:
+#					print("UPDATED DISCORD RP")
+#					discord_sdk.details = "Battling spirit deer"
+#					discord_sdk.state = ""
+#					discord_sdk.large_image = "forest"
+#					discord_sdk.large_image_text = "Forest"
+#					discord_sdk.small_image = ""
+#					discord_sdk.small_image_text = ""
+#					#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#					#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#					discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken3":
+#				if globals.discord_enabled:
+#					print("UPDATED DISCORD RP")
+#					discord_sdk.details = "Exploring depths of the Forest"
+#					discord_sdk.state = ""
+#					discord_sdk.large_image = "forest"
+#					discord_sdk.large_image_text = "Forest"
+#					discord_sdk.small_image = ""
+#					discord_sdk.small_image_text = ""
+#					#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#					#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#					discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken5":
+#				if globals.discord_enabled:
+#					print("UPDATED DISCORD RP")
+#					discord_sdk.details = "Adventuring deep in the Forest"
+#					discord_sdk.state = ""
+#					discord_sdk.large_image = "forest2"
+#					discord_sdk.large_image_text = "Forest"
+#					discord_sdk.small_image = ""
+#					discord_sdk.small_image_text = ""
+#					#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#					#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#					discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken6":
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Battling spirit bears"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "forest2"
+#				discord_sdk.large_image_text = "Forest"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken8" and not boss.activated:
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Braving the innermost Forest"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "forest3"
+#				discord_sdk.large_image_text = "Forest"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken8" and boss.activated:
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Wandering through Healed Forest"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "heal1"
+#				discord_sdk.large_image_text = "Forest"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken5" and boss.activated:
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Wandering through Healed Forest"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "heal2"
+#				discord_sdk.large_image_text = "Forest"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken2" and boss.activated:
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Returning to Mossglen"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "heal3"
+#				discord_sdk.large_image_text = "Forest"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+#			if self.name == "darken" and boss.activated:
+#				print("UPDATED DISCORD RP")
+#				discord_sdk.details = "Finalizing the heroic journey"
+#				discord_sdk.state = ""
+#				discord_sdk.large_image = "mossglen"
+#				discord_sdk.large_image_text = "Mossglen Village"
+#				discord_sdk.small_image = ""
+#				discord_sdk.small_image_text = ""
+#				#discord_sdk.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
+#				#discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"
+#				discord_sdk.refresh() # Always refresh after changing the values!
+			pass
+		
+		
 
 func _on_darken_body_exited(body):
 	if body.is_in_group("player"):

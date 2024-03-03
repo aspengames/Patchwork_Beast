@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://beefddeas1dv2" path="res://art/player/glow.png" id="4_vd46h"]
 [ext_resource type="Texture2D" uid="uid://b65q7i7c1etgw" path="res://projectiles/particle3.png" id="5_giwyv"]
 [ext_resource type="Texture2D" uid="uid://coogi3ncr2xwi" path="res://icon.png" id="6_e47w4"]
+[ext_resource type="AudioStream" uid="uid://cl2fwvqi3yrfx" path="res://music/gearSFX1.wav" id="7_4wvu4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l70x6"]
 radius = 45.0
@@ -38,7 +39,31 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 180)]
+"values": [Vector2(0, 30)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("eyeleft:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-22.6667, -167.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("eyeright:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, -167.333)]
 }
 
 [sub_resource type="Animation" id="Animation_tyj1j"]
@@ -67,7 +92,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 180)]
+"values": [Vector2(0, 30)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -145,7 +170,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 180)]
+"values": [Vector2(0, 30)]
 }
 
 [sub_resource type="Animation" id="Animation_hgnij"]
@@ -211,6 +236,44 @@ tracks/4/keys = {
 "update": 1,
 "values": [18]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("eyeleft:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-22.6667, -167.333)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("eyeright:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, -167.333)]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"eyes_sfx"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_o08sr"]
 resource_name = "bossmob_attack1"
@@ -248,7 +311,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-22, -6.66666), Vector2(-21.3333, -59.3333), Vector2(-22, -68), Vector2(-22.6667, 4.66666), Vector2(-23.3333, -7.33333)]
+"values": [Vector2(-22, -156.667), Vector2(-21.333, -209.333), Vector2(-22, -218), Vector2(-22.667, -145.333), Vector2(-23.333, -157.333)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -260,7 +323,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(20, -6.66666), Vector2(17.3333, -58.6667), Vector2(20.6667, -68), Vector2(20, 6.66666), Vector2(19.3333, -7.33333)]
+"values": [Vector2(20, -156.667), Vector2(17.333, -208.667), Vector2(20.667, -218), Vector2(20, -143.333), Vector2(19.333, -157.333)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -299,6 +362,44 @@ tracks/6/keys = {
 "args": [],
 "method": &"player_shake"
 }]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"knock_player"
+}]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite/shadow:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.29, 0.29)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sprite/shadow:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 30)]
 }
 
 [sub_resource type="Animation" id="Animation_1tgm7"]
@@ -339,7 +440,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-146, -49.3333), Vector2(-152.667, -40), Vector2(-120, -72.6667), Vector2(-118.667, -74.6667), Vector2(-207.333, -25.3333), Vector2(-196.667, -25.3333)]
+"values": [Vector2(-146, -199.333), Vector2(-152.667, -190), Vector2(-120, -222.667), Vector2(-118.667, -224.667), Vector2(-207.333, -175.333), Vector2(-196.667, -175.333)]
 }
 
 [sub_resource type="Animation" id="Animation_lpcaj"]
@@ -380,7 +481,98 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(146.667, -49.3333), Vector2(151.333, -40.6667), Vector2(122.667, -72.6667), Vector2(119.333, -74.6667), Vector2(207.333, -22.6667), Vector2(197.333, -24.6667)]
+"values": [Vector2(146.667, -199.333), Vector2(151.333, -190.667), Vector2(122.667, -222.667), Vector2(119.333, -224.667), Vector2(207.333, -172.667), Vector2(197.333, -174.667)]
+}
+
+[sub_resource type="Animation" id="Animation_efokt"]
+resource_name = "bossmob_death"
+length = 1.5
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.6, 0.75, 0.9, 1.05, 1.2, 1.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54, 55]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"_on_deadanim_animation_finished"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("eyeright:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("eyeleft:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite/shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.29, 0.29), Vector2(0.507, 0.29)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("col_death_static/col_death:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("eyeleft:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-146, -199.333), Vector2(-146, -173)]
 }
 
 [sub_resource type="Animation" id="Animation_iwfef"]
@@ -522,7 +714,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 180)]
+"values": [Vector2(0, 30)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -570,7 +762,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(20, -16.6667)]
+"values": [Vector2(20, -166.667)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -582,7 +774,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-22.6667, -18)]
+"values": [Vector2(-22.667, -168)]
 }
 
 [sub_resource type="Animation" id="5"]
@@ -611,7 +803,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(45, 180)]
+"values": [Vector2(45, 30)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -671,7 +863,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-140, -40.6667)]
+"values": [Vector2(-140, -190.667)]
 }
 
 [sub_resource type="Animation" id="6"]
@@ -712,7 +904,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-45, 180)]
+"values": [Vector2(-45, 30)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -760,7 +952,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(141.333, -39.3333)]
+"values": [Vector2(141.333, -189.333)]
 }
 
 [sub_resource type="Animation" id="7"]
@@ -801,7 +993,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 180)]
+"values": [Vector2(0, 30)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -838,109 +1030,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_efokt"]
-resource_name = "bossmob_death"
-length = 1.5
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.6, 0.75, 0.9, 1.05, 1.2, 1.35),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [48, 49, 50, 51, 52, 53, 54, 55]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"_on_deadanim_animation_finished"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("eyeright:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.6),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("eyeleft:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.6),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite/shadow:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.29, 0.29), Vector2(0.507, 0.29)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("col_death_static/col_death:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("col_death_static/col_death2:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("col_death_static/col_death3:disabled")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bb3kj"]
@@ -988,17 +1077,11 @@ hue_variation_curve = SubResource("CurveTexture_obpnc")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pdju8"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hu6h"]
-radius = 53.3333
-height = 288.0
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xom3f"]
+points = PackedVector2Array(-250, 13, -180, 200, -150, 220, -150, -240)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxfp6"]
-radius = 42.6667
-height = 128.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6r7jq"]
-radius = 16.0
-height = 128.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fq402"]
+size = Vector2(459.333, 100.667)
 
 [node name="patchworkbeast" type="CharacterBody2D" groups=["boss"]]
 scale = Vector2(1.5, 1.5)
@@ -1008,19 +1091,20 @@ script = ExtResource("1_l2w8y")
 
 [node name="col" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(-1, 60)
+position = Vector2(-1, -90)
 shape = SubResource("CapsuleShape2D_l70x6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_c5bdk")
+offset = Vector2(0, -150)
 hframes = 8
 vframes = 7
-frame = 16
+frame = 18
 
 [node name="shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_qqs16")
-position = Vector2(0, 180)
+position = Vector2(0, 30)
 scale = Vector2(0.29, 0.29)
 texture = ExtResource("2_iuoog")
 
@@ -1038,21 +1122,19 @@ scale = Vector2(300, 300)
 shape = SubResource("CircleShape2D_2ixae")
 
 [node name="eyeright" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(20, -6.66666)
+position = Vector2(20, -167.333)
 scale = Vector2(0.05, 0.05)
 energy = 0.0
 texture = ExtResource("4_vd46h")
 
 [node name="eyeleft" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(-22, -6.66666)
+position = Vector2(-22.6667, -167.333)
 scale = Vector2(0.05, 0.05)
 energy = 0.0
 texture = ExtResource("4_vd46h")
 
 [node name="groundshake2" type="GPUParticles2D" parent="."]
-position = Vector2(0.666667, 186)
+position = Vector2(0.667, 36)
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_8pf02")
@@ -1088,20 +1170,19 @@ texture = ExtResource("6_e47w4")
 [node name="col_death" type="CollisionShape2D" parent="col_death_static"]
 position = Vector2(-3.83693e-13, 144)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_8hu6h")
+shape = SubResource("ConvexPolygonShape2D_xom3f")
 disabled = true
 
-[node name="col_death2" type="CollisionShape2D" parent="col_death_static"]
-position = Vector2(-138.667, 160)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_gxfp6")
-disabled = true
+[node name="playerin" type="Area2D" parent="col_death_static"]
 
-[node name="col_death3" type="CollisionShape2D" parent="col_death_static"]
-position = Vector2(170.667, 186.667)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_6r7jq")
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="col_death_static/playerin"]
+position = Vector2(10.3333, -55.6667)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_fq402")
+
+[node name="bossaud" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_4wvu4")
+bus = &"Effects"
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="body_entered" from="mobsight" to="." method="_on_mobsight_body_entered"]

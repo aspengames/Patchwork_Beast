@@ -21,6 +21,10 @@ var knockback_str = 1
 var knock = false
 var kb_onetime = false
 
+var wandering = false
+@onready var stateTimer = $StateTimer
+var randv_set = false
+
 signal bears_healed
 
 @export var health = 9999
@@ -30,6 +34,11 @@ signal bears_healed
 var movement_speed: float = 200.0
 var movement_target_position: Vector2 = Vector2.ZERO
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+var start_vector = Vector2.ZERO
+var target_vector = Vector2.ZERO
+var idle = true
+
+var smashaud = preload("res://music/smash1.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,10 +47,66 @@ func _ready():
 		$anim/animV2.play("sleep")
 	pass # Replace with function body.
 	
+func _physics_process(delta):
+	if wandering:# and (navigation_agent.distance_to_target() > 600):
+		#print("In here")
+		if stateTimer.is_stopped():
+			randomize()
+			var rand_num = randi_range(0,2)
+			if rand_num:
+				randv_set = false
+				#wandering = false
+			else:
+				randv_set = true
+			stateTimer.start(randi_range(0, 2))
+		if not randv_set:
+			var rand_target_vector = Vector2(randf_range(-320, 320), randf_range(-320, 320))
+			target_vector = self.global_transform.origin + rand_target_vector
+			set_movement_target(target_vector)
+			print("TARGET VECTOR IS ", target_vector)
+			await get_tree().create_timer(0.3).timeout
+			randv_set = true
+		var current_agent_position: Vector2 = self.global_transform.origin
+		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+		var new_velocity: Vector2 = next_path_position - current_agent_position
+		new_velocity = new_velocity.normalized()
+		new_velocity = new_velocity * movement_speed
+		#print("new velocity is", new_velocity)
+		velocity = new_velocity
+		if velocity > Vector2.ZERO:
+			idle = false
+			move_and_slide()
+		else:
+			idle = true
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if sleeping:
 		return
+		
+	if velocity > Vector2.ZERO and not idle:
+		if wandering:
+			var mob_rot = self.global_position.direction_to(target_vector).angle()
+			$Sprite/corrode.material.set("shader_parameter/cutoff_two", -1)
+			if not charge_bar:
+				if -PI/4 < mob_rot:
+					if mob_rot < PI/4:
+						$anim.play("mob_right")
+				if PI/4 < mob_rot:
+					if mob_rot < 3*PI/4:
+						$anim.play("mob_down")
+				if -PI < mob_rot:
+					if mob_rot < -3*PI/4:
+						$anim.play("mob_left")
+				if 3*PI/4 < mob_rot:
+					if mob_rot < PI:
+						$anim.play("mob_left")
+				if -3*PI/4 < mob_rot:
+					if mob_rot < -PI/4:
+						$anim.play("mob_up")
+		
 	if player_rad:
 		if (self.global_position.distance_to(player.get_global_position()) < 1000):
 			autocorrode()
@@ -85,6 +150,10 @@ func _process(_delta):
 			if (self.global_position.distance_to(player.get_global_position()) < 400) and not charge_bar and not attacking:
 				charge_bar = true
 				$anim.play("bearmob_attack")
+				
+				$bearaud.stream = smashaud
+				$bearaud.play()
+				
 				#$Sprite/pars_dirt.emitting = true
 				# play attack, emit dirt particles
 				$atkRadius/earth_shatter_hitbox.scale = Vector2(100,100)
@@ -129,6 +198,7 @@ func _process(_delta):
 			$deadanim.play("dead")
 			$col.disabled = true
 			globals.bears -= 1
+			$bearaud.stop()
 			if globals.bears <= 0:
 				emit_signal("bears_healed")
 				print("Emitted signal bears healed")
@@ -231,6 +301,7 @@ func _on_atk_cooldown_timeout():
 	$atkCooldown.stop()
 	if atk_counter > 0:
 		$anim.play('bearmob_attack')
+		
 	else:
 		$anim.play('bearmob_idle')
 		#Reset
@@ -250,13 +321,13 @@ func _on_atk_cooldown_timeout():
 
 
 func _on_mobsight_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not wandering:
 		player_rad = true
 		$mobsight/vis.scale *= 1.5
 		#print($mobsight/vis.scale)
 
 func _on_mobsight_body_exited(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not wandering:
 		player_rad = false
 		$mobsight/vis.scale /= 1.5
 		#print($mobsight/vis.scale)

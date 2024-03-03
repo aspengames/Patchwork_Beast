@@ -12,6 +12,7 @@ var global_dead = false
 var dash_enabled = false #false by default
 var smash_enabled = false
 var allowed_to_shoot = true
+var discord_enabled = false
 
 var conv_amnt_comp = 0
 
@@ -27,6 +28,12 @@ var music_bus := AudioServer.get_bus_index("Background")
 var sfx_bus := AudioServer.get_bus_index("Effects")
 var music_vol = 10 # max 10. THIS IS A LINEAR (not DB value)
 var sfx_vol = 10 # max 10. THIS IS A LINEAR (not DB value)
+
+var uncorrode = 2
+
+var boss_defeated = false
+var has_died = false
+var death_counter = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
